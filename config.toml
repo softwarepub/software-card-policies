@@ -1,0 +1,12 @@
+# SPDX-FileCopyrightText: 2024 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+# SPDX-License-Identifier: CC0-1.0
+# SPDX-FileContributor: David Pape
+
+[software-card]
+
+# These will probably not be called "policies" at this stage. First, we need a way to
+# load all kinds of resources, some of which are policies.
+policies = [
+    { name = "authors", source = "http://127.0.0.1:8000/policies/authors.ttl" },
+    { name = "description", source = "src/shacl_integration_test/policies/description.ttl" },
+]

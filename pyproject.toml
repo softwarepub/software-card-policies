@@ -1,0 +1,29 @@
+# SPDX-FileCopyrightText: 2024 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+# SPDX-License-Identifier: CC0-1.0
+# SPDX-FileContributor: David Pape
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shacl-integration-test"
+version = "0.0.0"
+dependencies = [
+  "pyshacl[js]>=0.28.0",
+  "rdflib>=7.1.1",
+]
+requires-python = ">=3.11"
+authors = [
+  {name = "David Pape", email = "d.pape@hzdr.de"},
+]
+description = "Test integrating shacl in a configurable tool written in Python."
+readme = "README.md"
+license = {text = "Apache-2.0"}
+keywords = ["shacl", "metadata", "software", "publication"]
+classifiers = [
+  "Programming Language :: Python"
+]
+
+[project.scripts]
+shacl-integration-test = "shacl_integration_test.__main__:main"
