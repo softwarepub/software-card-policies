@@ -12,6 +12,8 @@ version = "0.0.0"
 dependencies = [
   "pyshacl[js]>=0.28.0",
   "rdflib>=7.1.1",
+  "pydantic>=2.9.2",
+  "pydantic-settings>=2.6.1",
 ]
 requires-python = ">=3.11"
 authors = [

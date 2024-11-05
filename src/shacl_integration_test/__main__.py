@@ -5,26 +5,14 @@
 import operator
 import pathlib
 import sys
-import tomllib
 from functools import reduce
 from typing import List
 
+from pydantic import ValidationError
 from pyshacl import validate
 from rdflib import Graph
 
-
-def read_config_file(file_path: pathlib.Path) -> dict:
-    match file_path.suffix:
-        case ".toml":
-            with open(file_path, "rb") as f:
-                config = tomllib.load(f)
-            if "software-card" in config:
-                return config["software-card"]
-            return config
-        case other:
-            raise NotImplementedError(
-                f"Cannot read config file with extension '{other}'."
-            )
+from shacl_integration_test.config import Settings, Policy
 
 
 def read_rdf_file(file_path: pathlib.Path):
@@ -33,17 +21,11 @@ def read_rdf_file(file_path: pathlib.Path):
     return graph
 
 
-def parse_policies(policy_config: List[dict]):
+def parse_policies(policy_config: List[Policy]):
     policy_graphs = []
     for policy in policy_config:
-        name = policy.get("name")
-        if name is None:
-            raise ValueError("Could not parse rule due to missing name.")
-        source = policy.get("source")
-        if source is None:
-            raise ValueError("Could not parse rule due to missing source.")
-        graph = Graph(identifier=name)
-        graph.parse(source)
+        graph = Graph(identifier=policy.name)
+        graph.parse(policy.source)
         policy_graphs.append(graph)
     return policy_graphs
 
@@ -57,11 +39,16 @@ def main():
     data_file = pathlib.Path(sys.argv[2])
 
     print(f"Config file: {config_file}")
-    config = read_config_file(config_file)
+    try:
+        settings = Settings()
+    except ValidationError as e:
+        print("Failed to parse configuration file", str(e), sep="\n\n", file=sys.stderr)
+        sys.exit(2)
+
     print(f"Data file: {data_file}")
     data_graph = read_rdf_file(data_file)
 
-    policy_config = config["policies"]
+    policy_config = settings.policies
     policy_graphs = parse_policies(policy_config)
 
     print("Validating ... ", end="")
