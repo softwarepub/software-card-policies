@@ -12,7 +12,7 @@ from pydantic import ValidationError
 from pyshacl import validate
 from rdflib import Graph
 
-from shacl_integration_test.config import Settings, Policy
+from shacl_integration_test.config import Policy, Settings
 
 
 def read_rdf_file(file_path: pathlib.Path):
@@ -24,6 +24,7 @@ def read_rdf_file(file_path: pathlib.Path):
 def parse_policies(policy_config: List[Policy]):
     policy_graphs = []
     for policy in policy_config:
+        # TODO: Identifier should be a URI
         graph = Graph(identifier=policy.name)
         graph.parse(policy.source)
         policy_graphs.append(graph)
@@ -48,8 +49,7 @@ def main():
     print(f"Data file: {data_file}")
     data_graph = read_rdf_file(data_file)
 
-    policy_config = settings.policies
-    policy_graphs = parse_policies(policy_config)
+    policy_graphs = parse_policies(settings.policies)
 
     print("Validating ... ", end="")
     conforms, results_graph, results_text = validate(
