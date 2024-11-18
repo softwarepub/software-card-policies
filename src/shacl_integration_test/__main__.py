@@ -5,8 +5,6 @@
 import pathlib
 import sys
 
-from pydantic import ValidationError
-
 from shacl_integration_test.config import Settings
 from shacl_integration_test.rdf import (
     parametrize_graph,
@@ -27,7 +25,7 @@ def main():
     print(f"Config file: {config_file}")
     try:
         settings = Settings()
-    except ValidationError as e:
+    except ValueError as e:
         print("Failed to parse configuration file", str(e), sep="\n\n", file=sys.stderr)
         sys.exit(2)
 

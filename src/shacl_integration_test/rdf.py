@@ -56,17 +56,14 @@ def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
         parameter_name = None
         for _, _, o in graph.triples((parameter, SC.parameterName, None)):
             parameter_name = str(o)
-            print(f"{parameter_name=}")
 
         # get default value for the parameter
         default_value = None
         for _, _, o in graph.triples((parameter, SC.parameterDefaultValue, None)):
             default_value = o
-            print(f"{default_value=}")
 
         # load parameter from config by its name, using the default value as a fallback
         parameter_value = Literal(config_parameters.get(parameter_name, default_value))
-        print(f"{parameter_value=}")
 
         # add replacements for all occurences of the parameter as an object
         for s, p, _o in graph.triples((None, None, parameter)):
