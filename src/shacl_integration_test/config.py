@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileContributor: David Pape
 
-from typing import List, Tuple, Type
+from typing import Any, Dict, List, Tuple, Type
 
 from pydantic import BaseModel
 from pydantic_settings import (
@@ -22,6 +22,7 @@ class Policy(BaseModel):
 
 class Settings(BaseSettings):
     policies: List[Policy]
+    parameters: Dict[str, Any]
 
     model_config = SettingsConfigDict(toml_file=CONFIG_FILE_NAME)
 

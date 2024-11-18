@@ -26,16 +26,3 @@ scex:authorRequirements a sh:NodeShape ;
     ] ;
 
     .
-
-scex:authorsRequirements a sh:NodeShape ;
-    sh:targetClass schema:SoftwareSourceCode ;
-
-    sh:property [
-        sh:name "Only one author" ;
-        sh:description "Only one person may be named as an author. Others must be contributors." ;
-
-        sh:path schema:author ;
-        sh:maxCount 1 ;
-    ] ;
-
-    .

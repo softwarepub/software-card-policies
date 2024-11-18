@@ -6,6 +6,7 @@ import pathlib
 import sys
 
 from pydantic import ValidationError
+from rdflib.term import Literal
 
 from shacl_integration_test.config import Settings
 from shacl_integration_test.rdf import (
@@ -34,36 +35,44 @@ def main():
 
     print(f"Data file: {data_file}")
     data_graph = read_rdf_file(data_file)
-    shacl_graph = parse_policies(settings.policies)
+    shapes_graph = parse_policies(settings.policies)
 
     # ----------------------------------------------------------------------------------
 
-    # Get default value for scex:longDescriptionMinLength.
+    # Get config name for the parameter `scex:longDescriptionMinLength`.
+    parameter_name = None
+    for _, _, o in shapes_graph.triples(
+        (SCEX.longDescriptionMinLength, SC.parameterName, None)
+    ):
+        parameter_name = str(o)
+
+    # Get default value for the parameter `scex:longDescriptionMinLength`.
     default_value = None
-    for _, _, o in shacl_graph.triples(
-        (SCEX.longDescriptionMinLength, SC.defaultValue, None)
+    for _, _, o in shapes_graph.triples(
+        (SCEX.longDescriptionMinLength, SC.parameterDefaultValue, None)
     ):
         default_value = o
 
-    # Get all triples where scex:longDescriptionMinLength is the object. Add the same
+    # Load parameter from config file, using the default value as a fallback.
+    parameter_value = Literal(settings.parameters.get(parameter_name, default_value))
+
+    # Get all triples where `scex:longDescriptionMinLength` is the object. Add the same
     # triple but with the default value as the object.
-    for s, p, _o in shacl_graph.triples((None, None, SCEX.longDescriptionMinLength)):
-        shacl_graph.add((s, p, default_value))
+    for s, p, _o in shapes_graph.triples((None, None, SCEX.longDescriptionMinLength)):
+        shapes_graph.add((s, p, parameter_value))
 
     # Remove all references to the parameter from the graph.
-    shacl_graph.remove((SCEX.longDescriptionMinLength, None, None))
-    shacl_graph.remove((None, None, SCEX.longDescriptionMinLength))
-
-    # Serialize to file for manual debugging.
-    shacl_graph.serialize("debug-shapes-processed.ttl", "turtle")
+    shapes_graph.remove((SCEX.longDescriptionMinLength, None, None))
+    shapes_graph.remove((None, None, SCEX.longDescriptionMinLength))
 
     # ----------------------------------------------------------------------------------
 
     print("Validating ...", end=" ")
-    conforms, validation_graph = validate_graph(data_graph, shacl_graph)
+    conforms, validation_graph = validate_graph(data_graph, shapes_graph)
     print("✓" if conforms else "✗")
 
     # Serialize to file for manual debugging.
+    shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")
     validation_graph.serialize("debug-validation.ttl", "turtle")
 
     if not conforms:

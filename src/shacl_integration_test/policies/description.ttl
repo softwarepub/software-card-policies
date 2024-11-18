@@ -13,8 +13,13 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-scex:longDescriptionMinLength a xsd:integer ;
-    sc:defaultValue 50 .
+scex:longDescriptionMinLength a sc:Parameter ;
+    # The type of this parameter. Could be used for further validation.
+    sc:parameterType xsd:integer ;
+    # The parameter name. Used for lookup in the config file. Could be a "path" in the future
+    sc:parameterName "long_description_min_length" ;
+    # The default value for this parameter. Must be of the type given by `sc:parameterType` of this `sc:Parameter`.
+    sc:parameterDefaultValue 50 .
 
 scex:longDescriptionRequired a sh:NodeShape ;
     sh:targetClass schema:SoftwareSourceCode ;
