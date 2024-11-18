@@ -53,7 +53,7 @@ def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     for parameter in graph.subjects(RDF.type, SC.Parameter):
         # get config name for the parameter
         parameter_name = None
-        for o in graph.objects(parameter, SC.parameterName):
+        for o in graph.objects(parameter, SC.parameterConfigPath):
             parameter_name = str(o)
 
         # get default value for the parameter

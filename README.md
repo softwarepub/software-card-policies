@@ -16,8 +16,8 @@ All of the given policies are loaded and merged into one RDF graph (union of all
 
 Policies can be implemented in a configurable fashion by defining an `sc:Parameter` and using it in place of a literal.
 See [`description.ttl`](src/shacl_integration_test/policies/description.ttl) as an example.
-The parameter name specified with `sc:parameterName` is used to look up the desired value for the parameter in the
-config file.
+The string specified as `sc:parameterConfigPath` is used to look up the desired value for the parameter in the config
+file.
 
 ## Installation
 
