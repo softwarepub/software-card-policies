@@ -9,7 +9,7 @@ from shacl_integration_test.config import Settings
 from shacl_integration_test.rdf import (
     parametrize_graph,
     parse_policies,
-    read_rdf_file,
+    read_rdf_resource,
     validate_graph,
 )
 
@@ -30,7 +30,7 @@ def main():
         sys.exit(2)
 
     print(f"Data file: {data_file}")
-    data_graph = read_rdf_file(data_file)
+    data_graph = read_rdf_resource(data_file)
     shapes_graph = parse_policies(settings.policies)
     shapes_graph = parametrize_graph(shapes_graph, settings.parameters)
 

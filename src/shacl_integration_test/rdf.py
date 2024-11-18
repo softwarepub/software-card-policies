@@ -5,7 +5,7 @@
 import operator
 import pathlib
 from functools import reduce
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from pyshacl import validate
 from rdflib import Graph, Literal
@@ -30,21 +30,20 @@ BINDINGS = {
 SC = Namespace("https://software-metadata.pub/software-card#")
 
 
-def read_rdf_file(file_path: pathlib.Path):
-    graph = Graph()
-    graph.parse(file_path)
+# TODO: Identifier should actually be a URI (or `None` → BNode)
+def read_rdf_resource(source: pathlib.Path | str, identifier: Optional[str] = None):
+    graph = Graph(identifier=identifier)
+    graph.parse(source)
     for prefix, iri in BINDINGS.items():
         graph.bind(prefix, iri)
     return graph
 
 
 def parse_policies(policy_config: List[Policy]) -> Graph:
-    policy_graphs = []
-    for policy in policy_config:
-        # TODO: Identifier should be a URI (or left out → BNode)
-        graph = Graph(identifier=policy.name)
-        graph.parse(policy.source)
-        policy_graphs.append(graph)
+    policy_graphs = [
+        read_rdf_resource(policy.source, identifier=policy.name)
+        for policy in policy_config
+    ]
     return reduce(operator.add, policy_graphs)  # Union of all graphs
 
 
@@ -70,7 +69,7 @@ def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
             graph.add((s, p, parameter_value))
 
         # remove all references to the parameter from the graph
-        # TODO: Keep all `(parameter, None, None)` for debugging reasons?
+        # TODO: Keep all `(parameter, None, None)` for debugging purposes?
         graph.remove((parameter, None, None))
         graph.remove((None, None, parameter))
 
