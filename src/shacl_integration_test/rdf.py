@@ -66,7 +66,7 @@ def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
         parameter_value = Literal(config_parameters.get(parameter_name, default_value))
 
         # add replacements for all occurences of the parameter as an object
-        for s, p, _o in graph.triples((None, None, parameter)):
+        for s, p, _ in graph.triples((None, None, parameter)):
             graph.add((s, p, parameter_value))
 
         # remove all references to the parameter from the graph
