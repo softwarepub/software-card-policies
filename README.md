@@ -8,7 +8,7 @@ SPDX-FileContributor: David Pape
 
 Test integrating shacl in a configurable tool written in Python.
 
-The selection of policies to use can configured via [`config.toml`](config.toml).
+The selection of policies to use can be configured via [`config.toml`](config.toml).
 Policies can be loaded using any of the protocols supported by
 [RDFlib's `Graph.parse` method](https://rdflib.readthedocs.io/en/stable/apidocs/rdflib.html#rdflib.graph.Graph.parse)
 (e.g. local files, http, ...).

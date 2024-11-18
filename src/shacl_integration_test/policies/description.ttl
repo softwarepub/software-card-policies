@@ -26,6 +26,7 @@ scex:longDescriptionRequired a sh:NodeShape ;
 
     sh:property [
         sh:name "Long description" ;
+        # TODO: Interpolate the default and configured values into this description string?
         sh:description "The software description must have a certain length (50 characters by default)" ;
 
         sh:path schema:description ;
