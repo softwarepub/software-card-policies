@@ -54,12 +54,18 @@ def main():
     shacl_graph.remove((SCEX.longDescriptionMinLength, None, None))
     shacl_graph.remove((None, None, SCEX.longDescriptionMinLength))
 
+    # Serialize to file for manual debugging.
+    shacl_graph.serialize("debug-shapes-processed.ttl", "turtle")
+
     # ----------------------------------------------------------------------------------
 
     print("Validating ...", end=" ")
-    conforms = validate_graph(data_graph, shacl_graph)
-
+    conforms, validation_graph = validate_graph(data_graph, shacl_graph)
     print("✓" if conforms else "✗")
+
+    # Serialize to file for manual debugging.
+    validation_graph.serialize("debug-validation.ttl", "turtle")
+
     if not conforms:
         sys.exit(1)
 

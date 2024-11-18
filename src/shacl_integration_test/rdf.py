@@ -5,7 +5,7 @@
 import operator
 import pathlib
 from functools import reduce
-from typing import List
+from typing import List, Tuple
 
 from pyshacl import validate
 from rdflib import Graph
@@ -51,8 +51,8 @@ def parse_policies(policy_config: List[Policy]) -> Graph:
 
 # TODO: Create a report. Inspiration:
 # https://github.com/RDFLib/pySHACL/blob/0d0d5d3adec13ce1dd405289223ba8fcefe8c148/pyshacl/cli.py#L328
-def validate_graph(data_graph: Graph, shacl_graph: Graph) -> bool:
-    conforms, _validation_graph, _validation_text = validate(
+def validate_graph(data_graph: Graph, shacl_graph: Graph) -> Tuple[bool, Graph]:
+    conforms, validation_graph, _validation_text = validate(
         data_graph,
         shacl_graph=shacl_graph,
         ont_graph=None,
@@ -65,4 +65,4 @@ def validate_graph(data_graph: Graph, shacl_graph: Graph) -> bool:
         js=False,
         debug=False,
     )
-    return conforms
+    return conforms, validation_graph
