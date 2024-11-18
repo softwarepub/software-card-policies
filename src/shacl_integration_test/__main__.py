@@ -6,12 +6,10 @@ import pathlib
 import sys
 
 from pydantic import ValidationError
-from rdflib.term import Literal
 
 from shacl_integration_test.config import Settings
 from shacl_integration_test.rdf import (
-    SC,
-    SCEX,
+    parametrize_graph,
     parse_policies,
     read_rdf_file,
     validate_graph,
@@ -36,36 +34,7 @@ def main():
     print(f"Data file: {data_file}")
     data_graph = read_rdf_file(data_file)
     shapes_graph = parse_policies(settings.policies)
-
-    # ----------------------------------------------------------------------------------
-
-    # Get config name for the parameter `scex:longDescriptionMinLength`.
-    parameter_name = None
-    for _, _, o in shapes_graph.triples(
-        (SCEX.longDescriptionMinLength, SC.parameterName, None)
-    ):
-        parameter_name = str(o)
-
-    # Get default value for the parameter `scex:longDescriptionMinLength`.
-    default_value = None
-    for _, _, o in shapes_graph.triples(
-        (SCEX.longDescriptionMinLength, SC.parameterDefaultValue, None)
-    ):
-        default_value = o
-
-    # Load parameter from config file, using the default value as a fallback.
-    parameter_value = Literal(settings.parameters.get(parameter_name, default_value))
-
-    # Get all triples where `scex:longDescriptionMinLength` is the object. Add the same
-    # triple but with the default value as the object.
-    for s, p, _o in shapes_graph.triples((None, None, SCEX.longDescriptionMinLength)):
-        shapes_graph.add((s, p, parameter_value))
-
-    # Remove all references to the parameter from the graph.
-    shapes_graph.remove((SCEX.longDescriptionMinLength, None, None))
-    shapes_graph.remove((None, None, SCEX.longDescriptionMinLength))
-
-    # ----------------------------------------------------------------------------------
+    shapes_graph = parametrize_graph(shapes_graph, settings.parameters)
 
     print("Validating ...", end=" ")
     conforms, validation_graph = validate_graph(data_graph, shapes_graph)

@@ -5,10 +5,10 @@
 import operator
 import pathlib
 from functools import reduce
-from typing import List, Tuple
+from typing import Any, Dict, List, Tuple
 
 from pyshacl import validate
-from rdflib import Graph
+from rdflib import Graph, Literal
 from rdflib.namespace import Namespace
 
 from shacl_integration_test.config import Policy
@@ -47,6 +47,36 @@ def parse_policies(policy_config: List[Policy]) -> Graph:
         graph.parse(policy.source)
         policy_graphs.append(graph)
     return reduce(operator.add, policy_graphs)  # Union of all graphs
+
+
+def parametrize_graph(graph: Graph, parameters: Dict[str, Any]) -> Graph:
+    # Get config name for the parameter `scex:longDescriptionMinLength`.
+    parameter_name = None
+    for _, _, o in graph.triples(
+        (SCEX.longDescriptionMinLength, SC.parameterName, None)
+    ):
+        parameter_name = str(o)
+
+    # Get default value for the parameter `scex:longDescriptionMinLength`.
+    default_value = None
+    for _, _, o in graph.triples(
+        (SCEX.longDescriptionMinLength, SC.parameterDefaultValue, None)
+    ):
+        default_value = o
+
+    # Load parameter from config file, using the default value as a fallback.
+    parameter_value = Literal(parameters.get(parameter_name, default_value))
+
+    # Get all triples where `scex:longDescriptionMinLength` is the object. Add the same
+    # triple but with the default value as the object.
+    for s, p, _o in graph.triples((None, None, SCEX.longDescriptionMinLength)):
+        graph.add((s, p, parameter_value))
+
+    # Remove all references to the parameter from the graph.
+    graph.remove((SCEX.longDescriptionMinLength, None, None))
+    graph.remove((None, None, SCEX.longDescriptionMinLength))
+
+    return graph
 
 
 # TODO: Create a report. Inspiration:
