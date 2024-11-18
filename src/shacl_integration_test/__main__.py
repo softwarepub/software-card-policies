@@ -2,33 +2,19 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileContributor: David Pape
 
-import operator
 import pathlib
 import sys
-from functools import reduce
-from typing import List
 
 from pydantic import ValidationError
-from pyshacl import validate
-from rdflib import Graph
 
-from shacl_integration_test.config import Policy, Settings
-
-
-def read_rdf_file(file_path: pathlib.Path):
-    graph = Graph()
-    graph.parse(file_path)
-    return graph
-
-
-def parse_policies(policy_config: List[Policy]):
-    policy_graphs = []
-    for policy in policy_config:
-        # TODO: Identifier should be a URI
-        graph = Graph(identifier=policy.name)
-        graph.parse(policy.source)
-        policy_graphs.append(graph)
-    return policy_graphs
+from shacl_integration_test.config import Settings
+from shacl_integration_test.rdf import (
+    SC,
+    SCEX,
+    parse_policies,
+    read_rdf_file,
+    validate_graph,
+)
 
 
 def main():
@@ -48,23 +34,30 @@ def main():
 
     print(f"Data file: {data_file}")
     data_graph = read_rdf_file(data_file)
+    shacl_graph = parse_policies(settings.policies)
 
-    policy_graphs = parse_policies(settings.policies)
+    # ----------------------------------------------------------------------------------
 
-    print("Validating ... ", end="")
-    conforms, results_graph, results_text = validate(
-        data_graph,
-        shacl_graph=reduce(operator.add, policy_graphs),  # Union of all graphs
-        ont_graph=Graph(),
-        inference="rdfs",
-        abort_on_first=False,
-        allow_infos=False,
-        allow_warnings=False,
-        meta_shacl=False,
-        advanced=False,
-        js=False,
-        debug=False,
-    )
+    # Get default value for scex:longDescriptionMinLength.
+    default_value = None
+    for _, _, o in shacl_graph.triples(
+        (SCEX.longDescriptionMinLength, SC.defaultValue, None)
+    ):
+        default_value = o
+
+    # Get all triples where scex:longDescriptionMinLength is the object. Add the same
+    # triple but with the default value as the object.
+    for s, p, _o in shacl_graph.triples((None, None, SCEX.longDescriptionMinLength)):
+        shacl_graph.add((s, p, default_value))
+
+    # Remove all references to the parameter from the graph.
+    shacl_graph.remove((SCEX.longDescriptionMinLength, None, None))
+    shacl_graph.remove((None, None, SCEX.longDescriptionMinLength))
+
+    # ----------------------------------------------------------------------------------
+
+    print("Validating ...", end=" ")
+    conforms = validate_graph(data_graph, shacl_graph)
 
     print("✓" if conforms else "✗")
     if not conforms:

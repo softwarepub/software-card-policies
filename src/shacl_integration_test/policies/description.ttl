@@ -13,14 +13,17 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
+scex:longDescriptionMinLength a xsd:integer ;
+    sc:defaultValue 50 .
+
 scex:longDescriptionRequired a sh:NodeShape ;
     sh:targetClass schema:SoftwareSourceCode ;
 
     sh:property [
         sh:name "Long description" ;
-        sh:description "The software description must be at least 50 characters" ;
+        sh:description "The software description must have a certain length (50 characters by default)" ;
 
         sh:path schema:description ;
         sh:datatype xsd:string ;
-        sh:minLength 50 ;
+        sh:minLength scex:longDescriptionMinLength ;
     ] .
