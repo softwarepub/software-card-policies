@@ -30,5 +30,6 @@ scex:longDescriptionRequired a sh:NodeShape ;
 
         sh:path schema:description ;
         sh:datatype xsd:string ;
+        # TODO: Is it a good idea to replace a literal with something else? Are there other approaches?
         sh:minLength scex:longDescriptionMinLength ;
     ] .
