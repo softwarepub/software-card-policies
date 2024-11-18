@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Tuple
 
 from pyshacl import validate
 from rdflib import Graph, Literal
-from rdflib.namespace import Namespace
+from rdflib.namespace import RDF, Namespace
 
 from shacl_integration_test.config import Policy
 
@@ -28,7 +28,6 @@ BINDINGS = {
 }
 
 SC = Namespace("https://software-metadata.pub/software-card#")
-SCEX = Namespace("https://software-metadata.pub/software-card-examples#")
 
 
 def read_rdf_file(file_path: pathlib.Path):
@@ -49,32 +48,34 @@ def parse_policies(policy_config: List[Policy]) -> Graph:
     return reduce(operator.add, policy_graphs)  # Union of all graphs
 
 
-def parametrize_graph(graph: Graph, parameters: Dict[str, Any]) -> Graph:
-    # Get config name for the parameter `scex:longDescriptionMinLength`.
-    parameter_name = None
-    for _, _, o in graph.triples(
-        (SCEX.longDescriptionMinLength, SC.parameterName, None)
-    ):
-        parameter_name = str(o)
+# TODO: Is it safe to modify the graph while iterating over it?
+def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
+    # iterate over all declared parameters of type `sc:Parameter`
+    for parameter, _, _ in graph.triples((None, RDF.type, SC.Parameter)):
+        # get config name for the parameter
+        parameter_name = None
+        for _, _, o in graph.triples((parameter, SC.parameterName, None)):
+            parameter_name = str(o)
+            print(f"{parameter_name=}")
 
-    # Get default value for the parameter `scex:longDescriptionMinLength`.
-    default_value = None
-    for _, _, o in graph.triples(
-        (SCEX.longDescriptionMinLength, SC.parameterDefaultValue, None)
-    ):
-        default_value = o
+        # get default value for the parameter
+        default_value = None
+        for _, _, o in graph.triples((parameter, SC.parameterDefaultValue, None)):
+            default_value = o
+            print(f"{default_value=}")
 
-    # Load parameter from config file, using the default value as a fallback.
-    parameter_value = Literal(parameters.get(parameter_name, default_value))
+        # load parameter from config by its name, using the default value as a fallback
+        parameter_value = Literal(config_parameters.get(parameter_name, default_value))
+        print(f"{parameter_value=}")
 
-    # Get all triples where `scex:longDescriptionMinLength` is the object. Add the same
-    # triple but with the default value as the object.
-    for s, p, _o in graph.triples((None, None, SCEX.longDescriptionMinLength)):
-        graph.add((s, p, parameter_value))
+        # add replacements for all occurences of the parameter as an object
+        for s, p, _o in graph.triples((None, None, parameter)):
+            graph.add((s, p, parameter_value))
 
-    # Remove all references to the parameter from the graph.
-    graph.remove((SCEX.longDescriptionMinLength, None, None))
-    graph.remove((None, None, SCEX.longDescriptionMinLength))
+        # remove all references to the parameter from the graph
+        # TODO: Keep all `(parameter, None, None)` for debugging reasons?
+        graph.remove((parameter, None, None))
+        graph.remove((None, None, parameter))
 
     return graph
 
