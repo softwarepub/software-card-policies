@@ -50,22 +50,22 @@ def parse_policies(policy_config: List[Policy]) -> Graph:
 # TODO: Is it safe to modify the graph while iterating over it?
 def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     # iterate over all declared parameters of type `sc:Parameter`
-    for parameter, _, _ in graph.triples((None, RDF.type, SC.Parameter)):
+    for parameter in graph.subjects(RDF.type, SC.Parameter):
         # get config name for the parameter
         parameter_name = None
-        for _, _, o in graph.triples((parameter, SC.parameterName, None)):
+        for o in graph.objects(parameter, SC.parameterName):
             parameter_name = str(o)
 
         # get default value for the parameter
         default_value = None
-        for _, _, o in graph.triples((parameter, SC.parameterDefaultValue, None)):
+        for o in graph.objects(parameter, SC.parameterDefaultValue):
             default_value = o
 
         # load parameter from config by its name, using the default value as a fallback
         parameter_value = Literal(config_parameters.get(parameter_name, default_value))
 
         # add replacements for all occurences of the parameter as an object
-        for s, p, _ in graph.triples((None, None, parameter)):
+        for s, p in graph.subject_predicates(parameter):
             graph.add((s, p, parameter_value))
 
         # remove all references to the parameter from the graph
