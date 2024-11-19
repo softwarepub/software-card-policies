@@ -19,13 +19,15 @@ def main():
         print(f"Usage: {sys.argv[0]} DATA_FILE", file=sys.stderr)
         sys.exit(2)
 
-    data_file = pathlib.Path(sys.argv[1])
-
     try:
         settings = Settings()
     except ValueError as e:
         print("Failed to parse configuration file", str(e), sep="\n\n", file=sys.stderr)
         sys.exit(2)
+
+    data_file = pathlib.Path(sys.argv[1])
+    if not data_file.exists():
+        print("Data file does not exist:", data_file, file=sys.stderr)
 
     data_graph = read_rdf_resource(data_file)
     shapes_graph = parse_policies(settings.policies)
