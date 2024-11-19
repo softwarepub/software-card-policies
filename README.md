@@ -38,7 +38,7 @@ python -m http.server -b 127.0.0.1 -d src/shacl_integration_test/
 Then, run the program:
 
 ```bash
-shacl-integration-test config.toml data.ttl
+shacl-integration-test data.ttl
 ```
 
 This will validate [`data.ttl`](data.ttl) using the policies defined in [`config.toml`](config.toml) and print the

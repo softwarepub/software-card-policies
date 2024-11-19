@@ -10,7 +10,6 @@
             "request": "launch",
             "module": "shacl_integration_test",
             "args": [
-                "config.toml",
                 "data.ttl"
             ]
         }

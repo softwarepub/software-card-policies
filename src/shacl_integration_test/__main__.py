@@ -15,21 +15,18 @@ from shacl_integration_test.rdf import (
 
 
 def main():
-    if len(sys.argv) != 3:
-        print(f"Usage: {sys.argv[0]} CONFIG_FILE DATA_FILE", file=sys.stderr)
+    if len(sys.argv) != 2:
+        print(f"Usage: {sys.argv[0]} DATA_FILE", file=sys.stderr)
         sys.exit(2)
 
-    config_file = pathlib.Path(sys.argv[1])
-    data_file = pathlib.Path(sys.argv[2])
+    data_file = pathlib.Path(sys.argv[1])
 
-    print(f"Config file: {config_file}")
     try:
         settings = Settings()
     except ValueError as e:
         print("Failed to parse configuration file", str(e), sep="\n\n", file=sys.stderr)
         sys.exit(2)
 
-    print(f"Data file: {data_file}")
     data_graph = read_rdf_resource(data_file)
     shapes_graph = parse_policies(settings.policies)
     shapes_graph = parametrize_graph(shapes_graph, settings.parameters)
