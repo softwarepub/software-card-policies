@@ -47,19 +47,16 @@ def parse_policies(policy_config: List[Policy]) -> Graph:
     return reduce(operator.add, policy_graphs)  # Union of all graphs
 
 
+# TODO: Need special case to handle parameters of type `rdf:List`
 # TODO: Is it safe to modify the graph while iterating over it?
 def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     # iterate over all declared parameters of type `sc:Parameter`
     for parameter in graph.subjects(RDF.type, SC.Parameter):
         # get config name for the parameter
-        parameter_name = None
-        for o in graph.objects(parameter, SC.parameterConfigPath):
-            parameter_name = str(o)
+        parameter_name = str(graph.value(parameter, SC.parameterConfigPath, None))
 
         # get default value for the parameter
-        default_value = None
-        for o in graph.objects(parameter, SC.parameterDefaultValue):
-            default_value = o
+        default_value = graph.value(parameter, SC.parameterDefaultValue, None)
 
         # load parameter from config by its name, using the default value as a fallback
         parameter_value = Literal(config_parameters.get(parameter_name, default_value))
