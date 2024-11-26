@@ -33,12 +33,14 @@ def main():
     shapes_graph = parse_policies(settings.policies)
     shapes_graph = parametrize_graph(shapes_graph, settings.parameters)
 
+    # Serialize to file for manual debugging.
+    shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")
+
     print("Validating ...", end=" ")
     conforms, validation_graph = validate_graph(data_graph, shapes_graph)
     print("✓" if conforms else "✗")
 
     # Serialize to file for manual debugging.
-    shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")
     validation_graph.serialize("debug-validation.ttl", "turtle")
 
     if not conforms:
