@@ -9,7 +9,9 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from pyshacl import validate
 from rdflib import Graph, Literal
+from rdflib.collection import Collection
 from rdflib.namespace import RDF, Namespace
+from rdflib.term import Node
 
 from shacl_integration_test.config import Policy
 
@@ -47,6 +49,12 @@ def parse_policies(policy_config: List[Policy]) -> Graph:
     return reduce(operator.add, policy_graphs)  # Union of all graphs
 
 
+def to_collection_or_literal(graph: Graph, node: Node) -> Collection | Node:
+    if (node, RDF.first, None) in graph:
+        return Collection(graph, node)
+    return Literal(node)
+
+
 # TODO: Need special case to handle parameters of type `rdf:List`
 # TODO: Is it safe to modify the graph while iterating over it?
 def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
@@ -59,11 +67,13 @@ def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
         default_value = graph.value(parameter, SC.parameterDefaultValue, None)
 
         # load parameter from config by its name, using the default value as a fallback
-        parameter_value = Literal(config_parameters.get(parameter_name, default_value))
+        parameter_value = config_parameters.get(parameter_name, default_value)
+        parameter_value = to_collection_or_literal(graph, parameter_value)
 
-        # add replacements for all occurences of the parameter as an object
+        # Add replacements for all occurences of the parameter as an object.
+        # If it's a `Collection`, we need to use the `uri` attribute.
         for s, p in graph.subject_predicates(parameter):
-            graph.add((s, p, parameter_value))
+            graph.add((s, p, getattr(parameter_value, "uri", parameter_value)))
 
         # remove all references to the parameter from the graph
         # TODO: Keep all `(parameter, None, None)` for debugging purposes?

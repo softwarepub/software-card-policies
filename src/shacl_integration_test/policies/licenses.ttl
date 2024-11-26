@@ -15,7 +15,7 @@
 
 scex:suggestedLicenseList a sc:Parameter ;
     sc:parameterType rdf:List ;
-    sc:parameterConfigPath "suggested_license_list" ;
+    sc:parameterConfigPath "suggested_licenses" ;
     sc:parameterDefaultValue ( "https://spdx.org/licenses/Apache-2.0" "https://spdx.org/licenses/MIT" ) .
 
 scex:licenseRequirements a sh:NodeShape ;
