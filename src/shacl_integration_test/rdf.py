@@ -8,10 +8,9 @@ from functools import reduce
 from typing import Any, Dict, List, Optional, Tuple
 
 from pyshacl import validate
-from rdflib import Graph, Literal
+from rdflib import BNode, Graph, Literal
 from rdflib.collection import Collection
 from rdflib.namespace import RDF, Namespace
-from rdflib.term import Node
 
 from shacl_integration_test.config import Policy
 
@@ -49,31 +48,46 @@ def parse_policies(policy_config: List[Policy]) -> Graph:
     return reduce(operator.add, policy_graphs)  # Union of all graphs
 
 
-def to_collection_or_literal(graph: Graph, node: Node) -> Collection | Node:
-    if (node, RDF.first, None) in graph:
-        return Collection(graph, node)
-    return Literal(node)
-
-
-# TODO: Need special case to handle parameters of type `rdf:List`
 # TODO: Is it safe to modify the graph while iterating over it?
 def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     # iterate over all declared parameters of type `sc:Parameter`
     for parameter in graph.subjects(RDF.type, SC.Parameter):
         # get config name for the parameter
         parameter_name = str(graph.value(parameter, SC.parameterConfigPath, None))
+        is_list = graph.value(parameter, SC.parameterType) == RDF.List
 
         # get default value for the parameter
         default_value = graph.value(parameter, SC.parameterDefaultValue, None)
 
-        # load parameter from config by its name, using the default value as a fallback
-        parameter_value = config_parameters.get(parameter_name, default_value)
-        parameter_value = to_collection_or_literal(graph, parameter_value)
+        if is_list:
+            assert (default_value, RDF.first, None) in graph
+            assert (default_value, RDF.rest, None) in graph
+            default_value = Collection(graph, default_value)
 
-        # Add replacements for all occurences of the parameter as an object.
-        # If it's a `Collection`, we need to use the `uri` attribute.
+            # load parameter from config by its name
+            parameter_value = config_parameters.get(parameter_name, [])
+            assert isinstance(parameter_value, list)
+
+            o = default_value.uri
+            if parameter_value:
+                parameter_value = Collection(
+                    graph, BNode(), seq=[Literal(value) for value in parameter_value]
+                )
+                o = parameter_value.uri
+
+                # empty the list of the unused default value while the variable is still
+                # in scope
+                default_value.clear()
+
+        else:
+            # load parameter from config by its name
+            parameter_value = config_parameters.get(parameter_name)
+            assert isinstance(parameter_value, (str, int, float, type(None)))
+            o = Literal(parameter_value) if parameter_value else default_value
+
+        # add replacements for all occurences of the parameter
         for s, p in graph.subject_predicates(parameter):
-            graph.add((s, p, getattr(parameter_value, "uri", parameter_value)))
+            graph.add((s, p, o))
 
         # remove all references to the parameter from the graph
         # TODO: Keep all `(parameter, None, None)` for debugging purposes?

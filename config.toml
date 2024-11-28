@@ -13,3 +13,7 @@ policies = [
 # TODO: Naming scheme?
 [parameters]
 long_description_min_length = 10
+suggested_licenses = [
+    "https://spdx.org/licenses/Apache-2.0",
+    "https://spdx.org/licenses/GPL-3.0-or-later"
+]
