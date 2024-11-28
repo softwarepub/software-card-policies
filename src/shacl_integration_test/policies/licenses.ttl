@@ -13,7 +13,7 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-scex:suggestedLicenseList a sc:Parameter ;
+scex:suggestedLicenses a sc:Parameter ;
     sc:parameterType rdf:List ;
     sc:parameterConfigPath "suggested_licenses" ;
     sc:parameterDefaultValue ( "https://spdx.org/licenses/Apache-2.0" "https://spdx.org/licenses/MIT" ) .
@@ -29,7 +29,7 @@ scex:licenseRequirements a sh:NodeShape ;
 
         sh:path schema:license ;
         sh:datatype xsd:string ;
-        sh:in scex:suggestedLicenseList ;
+        sh:in scex:suggestedLicenses ;
     ] ;
 
     .
