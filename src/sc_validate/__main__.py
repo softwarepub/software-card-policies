@@ -5,8 +5,8 @@
 import pathlib
 import sys
 
-from shacl_integration_test.config import Settings
-from shacl_integration_test.rdf import (
+from sc_validate.config import Settings
+from sc_validate.rdf import (
     parametrize_graph,
     parse_policies,
     read_rdf_resource,
@@ -36,7 +36,7 @@ def main():
     # Serialize to file for manual debugging.
     shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")
 
-    print("Validating ...", end=" ")
+    print("Validating ...", end=" ", flush=True)
     conforms, validation_graph = validate_graph(data_graph, shapes_graph)
     print("✓" if conforms else "✗")
 

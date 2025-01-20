@@ -12,7 +12,7 @@ from rdflib import BNode, Graph, Literal
 from rdflib.collection import Collection
 from rdflib.namespace import RDF, Namespace
 
-from shacl_integration_test.config import Policy
+from sc_validate.config import Policy
 
 # Just for better readability of serialized linked data.
 BINDINGS = {

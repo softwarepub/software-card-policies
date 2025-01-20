@@ -7,7 +7,7 @@ requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "shacl-integration-test"
+name = "sc-validate"
 version = "0.0.0"
 dependencies = [
   "pyshacl[js]>=0.29.0",
@@ -19,7 +19,7 @@ requires-python = ">=3.10"
 authors = [
   {name = "David Pape", email = "d.pape@hzdr.de"},
 ]
-description = "Test integrating shacl in a configurable tool written in Python."
+description = "Program that validates a given metadata file using a set of configurable policies."
 readme = "README.md"
 license = {text = "Apache-2.0"}
 keywords = ["shacl", "metadata", "software", "publication"]
@@ -28,10 +28,10 @@ classifiers = [
 ]
 
 [project.scripts]
-shacl-integration-test = "shacl_integration_test.__main__:main"
+sc-validate = "sc_validate.__main__:main"
 
 [tool.ruff]
-target-version = "py312"
+target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]

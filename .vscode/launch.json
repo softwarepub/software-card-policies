@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "shacl integration test",
+            "name": "sc-validate",
             "type": "debugpy",
             "request": "launch",
-            "module": "shacl_integration_test",
+            "module": "sc_validate",
             "args": [
                 "data.ttl"
             ]
