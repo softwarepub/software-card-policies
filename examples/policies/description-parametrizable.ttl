@@ -19,7 +19,8 @@ scex:longDescriptionMinLength a sc:Parameter ;
     # The string used for lookup in the config file. Could be a "path" in the future.
     sc:parameterConfigPath "long_description_min_length" ;
     # The default value for this parameter. Must be of the type given by `sc:parameterType` of this `sc:Parameter`.
-    sc:parameterDefaultValue 50 .
+    sc:parameterDefaultValue 50 ;
+    .
 
 scex:longDescriptionRequired a sh:NodeShape ;
     sh:targetClass schema:SoftwareSourceCode ;
@@ -33,4 +34,6 @@ scex:longDescriptionRequired a sh:NodeShape ;
         sh:datatype xsd:string ;
         # TODO: Is it a good idea to replace a literal with something else? Are there other approaches?
         sh:minLength scex:longDescriptionMinLength ;
-    ] .
+    ] ;
+
+    .

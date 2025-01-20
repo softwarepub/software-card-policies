@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-FileContributor: David Pape
+
+@prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <https://software-metadata.pub/software-card#> .
+@prefix scex: <https://software-metadata.pub/software-card-examples#> .
+@prefix scimpl: <https://software-metadata.pub/software-card-implementation#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scex:licenseRequirements a sh:NodeShape ;
+    sh:targetClass schema:SoftwareSourceCode ;
+
+    sh:property [
+        sh:name "Apache-2.0 license" ;
+        sh:description "Apache-2.0 license must be used" ;
+
+        sh:path schema:license ;
+        sh:datatype xsd:string ;
+        sh:hasValue "https://spdx.org/licenses/Apache-2.0" ;
+    ] ;
+
+    .

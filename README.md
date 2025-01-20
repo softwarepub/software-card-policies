@@ -6,6 +6,39 @@ SPDX-FileContributor: David Pape
 
 # Software CaRD Policies
 
+
+## Conventions
+
+All examples in this repository use the following namespace prefix bindings:
+
+```ttl
+@prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <https://software-metadata.pub/software-card#> .
+@prefix scex: <https://software-metadata.pub/software-card-examples#> .
+@prefix scimpl: <https://software-metadata.pub/software-card-implementation#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+```
+
+For Software CaRD, the prefixes
+[`sc:`](https://software-metadata.pub/software-card#),
+[`scex:`](https://software-metadata.pub/software-card-examples#), and
+[`scimpl:`](https://software-metadata.pub/software-card-implementation#)
+were established and are used for the following purposes:
+
+- `sc:` contains terms exposed to users
+- `scex:` contains example uses of `sc:` and `sh:` terms
+- `scimpl:` contains internal implementation details
+
+The associated IRIs currently don't exist.
+A [search on prefix.cc](https://prefix.cc/sc) reveals prior usage of the prefix `sc:` by projects which seem to be
+defunct.
+
+
 ## `sc-validate`
 
 Program that validates a given metadata file using a set of configurable policies.
@@ -19,7 +52,7 @@ All of the given policies are loaded and merged into one RDF graph (union of all
 Policies can be implemented in a configurable fashion by defining an `sc:Parameter` and using it in place of a literal
 or list.
 See [`description-parametrizable.ttl`](examples/policies/description-parametrizable.ttl) and
-[`licenses-parametrizable`](examples/policies/licenses-parametrizable.ttl) as examples.
+[`licenses-parametrizable.ttl`](examples/policies/licenses-parametrizable.ttl) as examples.
 The string specified as `sc:parameterConfigPath` is used to look up the desired value for the parameter in the config
 file.
 

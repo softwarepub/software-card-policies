@@ -1,0 +1,88 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-FileContributor: David Pape
+
+@prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <https://software-metadata.pub/software-card#> .
+@prefix scex: <https://software-metadata.pub/software-card-examples#> .
+@prefix scimpl: <https://software-metadata.pub/software-card-implementation#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# TODO: Why are messages printed multiple times? Do I have to reset something? Should the template message thing be used
+# instead?
+
+# TODO: Constraint components seemingly can only have one validator each. However, multiple constraint components can be
+# defined that use the same parameter. Is this the correct way to handle this?
+
+# TODO: Are these constraints checked in order? What happens if e.g., the checksum is checked before we realize that the
+# URL pattern doesn't fit?
+
+################################## components ##################################
+
+sc:OrcidIsIriConstraintComponent a sh:ConstraintComponent ;
+    sh:parameter [
+        sh:path sc:orcid ;
+    ] ;
+    sh:nodeValidator scimpl:isIri .
+
+sc:OrcidUrlConstraintComponent a sh:ConstraintComponent ;
+    sh:parameter [
+        sh:path sc:orcid ;
+    ] ;
+    sh:nodeValidator scimpl:isOrcidUrl .
+
+sc:OrcidChecksumConstraintComponent a sh:ConstraintComponent ;
+    sh:parameter [
+        sh:path sc:orcid ;
+    ] ;
+    sh:nodeValidator scimpl:orcidChecksumMatches .
+
+##################################### impl #####################################
+
+scimpl:isIri a sh:SPARQLSelectValidator ;
+    rdfs:comment """
+    This SPARQL-based node validator checks whether a given node is an IRI.
+
+    TODO: Can this be implemented in plain SHACL rather than SPARQL?
+    """ ;
+
+    sh:message "Node is not an IRI." ;
+    sh:select """
+        SELECT $this
+        WHERE { FILTER(!isIRI($this)) . }
+    """ .
+
+scimpl:isOrcidUrl a sh:SPARQLSelectValidator ;
+    rdfs:comment """
+    This SPARQL-based node validator checks whether a node given as an IRI is a
+    plausible ORCID URL. I.e., it checks wheter it matches the REGEX pattern
+    `^https://orcid.org/([0-9]{4}-){3}[0-9]{3}[0-9X]$`. Validation of the number range
+    or checksum, or a remote check for existence at ORCID is not performed.
+    """ ;
+
+    sh:message "Node does not follow the pattern 'https://orcid.org/0000-0002-1825-0097'." ;
+    sh:select """
+        SELECT $this
+        WHERE {
+            FILTER(!regex(str($this), "^https://orcid.org/([0-9]{4}-){3}[0-9]{3}[0-9X]$")) .
+        }
+    """ .
+
+scimpl:orcidChecksumMatches a sh:JSValidator ;
+    rdfs:comment """
+    This JavaScript-based validator checks whether a node given as an IRI is a plausible
+    ORCID URL. If the given node is not an IRI or not a URL following the REGEX pattern
+    `^https://orcid.org/([0-9]{4}-){3}[0-9]{3}[0-9X]$`, validation fails. If the last
+    digit does not match the checksum calculated from the other digits, validation fails
+    as well. Validation of the ISNI number range assigned to ORCID or a remote check for
+    existence of the identifier at ORCID is not performed.
+    """ ;
+
+    sh:message "ORCID checksum does not match." ;
+    sh:jsLibrary [ sh:jsLibraryURL "file://examples/components/orcid.js"^^xsd:anyURI ] ;
+    sh:jsFunctionName "orcidChecksumMatches" .

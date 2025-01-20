@@ -1,0 +1,31 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-FileContributor: David Pape
+
+@prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <https://software-metadata.pub/software-card#> .
+@prefix scex: <https://software-metadata.pub/software-card-examples#> .
+@prefix scimpl: <https://software-metadata.pub/software-card-implementation#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scex:semanticVersioningRequired a sh:NodeShape ;
+    sh:targetClass schema:SoftwareSourceCode ;
+
+    sh:property [
+        sh:name "Semantic versioning" ;
+        sh:description "The version specifier is a valid semantic versioning version" ;
+
+        sh:path schema:version ;
+        sh:datatype xsd:string ;
+        # This is the escaped version of the first regex given at https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+        # The string was escaped as suggested in "string escape sequences" given at https://www.w3.org/TR/turtle/#sec-escapes
+        # In practice, only backslashes needed to be escaped; the other characters were not present.
+        sh:pattern "^(?P<major>0|[1-9]\\d*)\\.(?P<minor>0|[1-9]\\d*)\\.(?P<patch>0|[1-9]\\d*)(?:-(?P<prerelease>(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$" ;
+    ] ;
+
+    .

@@ -22,7 +22,7 @@ authors = [
 description = "Program that validates a given metadata file using a set of configurable policies."
 readme = "README.md"
 license = {text = "Apache-2.0"}
-keywords = ["shacl", "metadata", "software", "publication"]
+keywords = ["software-publication", "policies", "shacl", "rdf", "metadata"]
 classifiers = [
   "Programming Language :: Python"
 ]
