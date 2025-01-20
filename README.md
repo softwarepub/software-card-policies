@@ -6,6 +6,7 @@ SPDX-FileContributor: David Pape
 
 # Software CaRD Policies
 
+This repository contains example policies developed as part of the Software CaRD project, as well as a validator tool.
 
 ## Conventions
 
@@ -38,10 +39,9 @@ The associated IRIs currently don't exist.
 A [search on prefix.cc](https://prefix.cc/sc) reveals prior usage of the prefix `sc:` by projects which seem to be
 defunct.
 
-
 ## `sc-validate`
 
-Program that validates a given metadata file using a set of configurable policies.
+A program that validates a given metadata file using a set of configurable policies.
 
 The selection of policies to use can be configured via [`config.toml`](config.toml).
 Policies can be loaded using any of the protocols supported by

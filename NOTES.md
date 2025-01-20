@@ -6,6 +6,7 @@ SPDX-FileContributor: David Pape
 
 # Notes
 
+Notes from the research and development process.
 
 ## Resources
 
@@ -27,7 +28,6 @@ Other:
 - [rdf-validate-shacl playground](https://shacl-playground.zazuko.com/)
 - [SHACL Play!](https://shacl-play.sparna.fr/play/)
 - [Book: Validating RDF Data](https://book.validatingrdf.com)
-
 
 ## pySHACL Usage
 
