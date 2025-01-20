@@ -10,7 +10,7 @@
             "request": "launch",
             "module": "sc_validate",
             "args": [
-                "data.ttl"
+                "examples/data/hermes.ttl"
             ]
         }
     ]

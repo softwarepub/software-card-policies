@@ -6,8 +6,8 @@
 # load all kinds of resources, some of which are policies.
 policies = [
     { name = "authors", source = "http://127.0.0.1:8000/policies/authors.ttl" },
-    { name = "description", source = "src/sc_validate/policies/description.ttl" },
-    { name = "licenses", source = "http://127.0.0.1:8000/policies/licenses.ttl" },
+    { name = "description", source = "examples/policies/description-parametrizable.ttl" },
+    { name = "licenses", source = "http://127.0.0.1:8000/policies/licenses-parametrizable.ttl" },
 ]
 
 # TODO: Naming scheme?
