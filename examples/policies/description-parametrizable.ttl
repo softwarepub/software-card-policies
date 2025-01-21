@@ -27,12 +27,10 @@ scex:longDescriptionRequired a sh:NodeShape ;
 
     sh:property [
         sh:name "Long description" ;
-        # TODO: Interpolate the default and configured values into this description string?
         sh:description "The software description must have a certain length." ;
 
         sh:path schema:description ;
         sh:datatype xsd:string ;
-        # TODO: Is it a good idea to replace a literal with something else? Are there other approaches?
         sh:minLength scex:longDescriptionMinLength ;
     ] ;
 

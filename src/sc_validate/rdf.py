@@ -54,7 +54,7 @@ def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     for parameter in graph.subjects(RDF.type, SC.Parameter):
         # get config name for the parameter
         parameter_name = str(graph.value(parameter, SC.parameterConfigPath, None))
-        is_list = graph.value(parameter, SC.parameterType) == RDF.List
+        is_list = graph.value(parameter, SC.parameterType, None) == RDF.List
 
         # get default value for the parameter
         default_value = graph.value(parameter, SC.parameterDefaultValue, None)
@@ -97,8 +97,6 @@ def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     return graph
 
 
-# TODO: Create a report. Inspiration:
-# https://github.com/RDFLib/pySHACL/blob/0d0d5d3adec13ce1dd405289223ba8fcefe8c148/pyshacl/cli.py#L328
 def validate_graph(data_graph: Graph, shacl_graph: Graph) -> Tuple[bool, Graph]:
     conforms, validation_graph, _validation_text = validate(
         data_graph,
