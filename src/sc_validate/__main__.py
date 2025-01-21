@@ -36,14 +36,13 @@ def main():
     # Serialize to file for manual debugging.
     shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")
 
-    print("Validating ...", end=" ", flush=True)
     conforms, validation_graph = validate_graph(data_graph, shapes_graph)
-    print("✓" if conforms else "✗")
 
     # Serialize to file for manual debugging.
     validation_graph.serialize("debug-validation.ttl", "turtle")
 
     if not conforms:
+        print("validation failed", file=sys.stderr)
         sys.exit(1)
 
 
