@@ -31,9 +31,8 @@ BINDINGS = {
 SC = Namespace("https://software-metadata.pub/software-card#")
 
 
-# TODO: Identifier should actually be a URI (or `None` → BNode)
-def read_rdf_resource(source: pathlib.Path | str, identifier: Optional[str] = None):
-    graph = Graph(identifier=identifier)
+def read_rdf_resource(source: pathlib.Path | str) -> Graph:
+    graph = Graph()
     graph.parse(source)
     for prefix, iri in BINDINGS.items():
         graph.bind(prefix, iri)
@@ -42,7 +41,7 @@ def read_rdf_resource(source: pathlib.Path | str, identifier: Optional[str] = No
 
 def parse_policies(policy_config: List[Policy]) -> Graph:
     policy_graphs = [
-        read_rdf_resource(policy.source, identifier=policy.name)
+        read_rdf_resource(policy.source)
         for policy in policy_config
     ]
     return reduce(operator.add, policy_graphs)  # Union of all graphs
