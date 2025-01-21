@@ -4,6 +4,7 @@
 
 import pathlib
 import sys
+from argparse import ArgumentParser
 
 from sc_validate.config import Settings
 from sc_validate.rdf import (
@@ -15,9 +16,17 @@ from sc_validate.rdf import (
 
 
 def main():
-    if len(sys.argv) != 2:
-        print(f"Usage: {sys.argv[0]} DATA_FILE", file=sys.stderr)
-        sys.exit(2)
+    parser = ArgumentParser(
+        prog="sc-validate",
+        description="Validate publication metadata using Software CaRD policies.",
+    )
+    parser.add_argument(
+        "metadata_file",
+        help="file containing Codemeta-based software publication metadata",
+        metavar="METADATA_FILE",
+    )
+    parser.add_argument("-d", "--debug", help="run in debug mode", action="store_true")
+    arguments = parser.parse_args()
 
     try:
         settings = Settings()
@@ -25,7 +34,7 @@ def main():
         print("Failed to parse configuration file", str(e), sep="\n\n", file=sys.stderr)
         sys.exit(2)
 
-    data_file = pathlib.Path(sys.argv[1])
+    data_file = pathlib.Path(arguments.metadata_file)
     if not data_file.exists():
         print("Data file does not exist:", data_file, file=sys.stderr)
 
@@ -33,13 +42,13 @@ def main():
     shapes_graph = parse_policies(settings.policies)
     shapes_graph = parametrize_graph(shapes_graph, settings.parameters)
 
-    # Serialize to file for manual debugging.
-    shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")
+    if arguments.debug:
+        shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")
 
     conforms, validation_graph = validate_graph(data_graph, shapes_graph)
 
-    # Serialize to file for manual debugging.
-    validation_graph.serialize("debug-validation.ttl", "turtle")
+    if arguments.debug:
+        validation_graph.serialize("debug-validation.ttl", "turtle")
 
     if not conforms:
         print("validation failed", file=sys.stderr)

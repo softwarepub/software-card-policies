@@ -5,7 +5,7 @@
 import operator
 import pathlib
 from functools import reduce
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 
 from pyshacl import validate
 from rdflib import BNode, Graph, Literal
@@ -40,10 +40,7 @@ def read_rdf_resource(source: pathlib.Path | str) -> Graph:
 
 
 def parse_policies(policy_config: List[Policy]) -> Graph:
-    policy_graphs = [
-        read_rdf_resource(policy.source)
-        for policy in policy_config
-    ]
+    policy_graphs = [read_rdf_resource(policy.source) for policy in policy_config]
     return reduce(operator.add, policy_graphs)  # Union of all graphs
 
 
