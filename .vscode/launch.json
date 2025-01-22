@@ -12,7 +12,8 @@
             "args": [
                 "--debug",
                 "examples/data/hermes.ttl"
-            ]
+            ],
+            "justMyCode": false
         }
     ]
 }

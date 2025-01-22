@@ -4,7 +4,8 @@
 
 import pathlib
 import sys
-from argparse import ArgumentParser
+from argparse import ArgumentParser, ArgumentTypeError
+from urllib.parse import urlparse
 
 from sc_validate.config import Settings
 from sc_validate.rdf import (
@@ -15,6 +16,15 @@ from sc_validate.rdf import (
 )
 
 
+def path_or_url(path: str) -> pathlib.Path | str:
+    if (path_obj := pathlib.Path(path)).exists():
+        return path_obj
+    result = urlparse(path)
+    if result.scheme and result.netloc:
+        return path
+    raise ArgumentTypeError(f"Argument '{path}' is neither an existing file nor a URL")
+
+
 def main():
     parser = ArgumentParser(
         prog="sc-validate",
@@ -22,7 +32,11 @@ def main():
     )
     parser.add_argument(
         "metadata_file",
-        help="file containing Codemeta-based software publication metadata",
+        help=(
+            "file containing Codemeta-based software publication metadata "
+            "(as a file path or URL)"
+        ),
+        type=path_or_url,
         metavar="METADATA_FILE",
     )
     parser.add_argument("-d", "--debug", help="run in debug mode", action="store_true")
@@ -34,11 +48,7 @@ def main():
         print("Failed to parse configuration file", str(e), sep="\n\n", file=sys.stderr)
         sys.exit(2)
 
-    data_file = pathlib.Path(arguments.metadata_file)
-    if not data_file.exists():
-        print("Data file does not exist:", data_file, file=sys.stderr)
-
-    data_graph = read_rdf_resource(data_file)
+    data_graph = read_rdf_resource(arguments.metadata_file)
     shapes_graph = parse_policies(settings.policies)
     shapes_graph = parametrize_graph(shapes_graph, settings.parameters)
 
