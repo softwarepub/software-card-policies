@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 
 from sc_validate.config import Settings
 from sc_validate.rdf import (
-    parametrize_graph,
+    parameterize_graph,
     parse_policies,
     read_rdf_resource,
     validate_graph,
@@ -50,7 +50,7 @@ def main():
 
     data_graph = read_rdf_resource(arguments.metadata_file)
     shapes_graph = parse_policies(settings.policies)
-    shapes_graph = parametrize_graph(shapes_graph, settings.parameters)
+    shapes_graph = parameterize_graph(shapes_graph, settings.parameters)
 
     if arguments.debug:
         shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")

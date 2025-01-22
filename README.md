@@ -51,8 +51,8 @@ All of the given policies are loaded and merged into one RDF graph (union of all
 
 Policies can be implemented in a configurable fashion by defining an `sc:Parameter` and using it in place of a literal
 or list.
-See [`description-parametrizable.ttl`](examples/policies/description-parametrizable.ttl) and
-[`licenses-parametrizable.ttl`](examples/policies/licenses-parametrizable.ttl) as examples.
+See [`description-parameterizable.ttl`](examples/policies/description-parameterizable.ttl) and
+[`licenses-parameterizable.ttl`](examples/policies/licenses-parameterizable.ttl) as examples.
 The string specified as `sc:parameterConfigPath` is used to look up the desired value for the parameter in the config
 file.
 
@@ -80,5 +80,5 @@ sc-validate examples/data/hermes.ttl
 
 This will validate [`hermes.ttl`](examples/data/hermes.ttl) using the policies defined in [`config.toml`](config.toml)
 and print the result to the screen.
-If run in debug mode (with `--debug`), a more detailed validation result and the combined and parametrized policies that
-were used will be written to the files `debug-validation.ttl` and `debug-shapes-processed.ttl`, respectively.
+If run in debug mode (with `--debug`), a more detailed validation result and the combined and parameterized policies
+that were used will be written to the files `debug-validation.ttl` and `debug-shapes-processed.ttl`, respectively.

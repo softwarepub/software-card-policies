@@ -45,7 +45,7 @@ def parse_policies(policy_config: List[Policy]) -> Graph:
 
 
 # TODO: Is it safe to modify the graph while iterating over it?
-def parametrize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
+def parameterize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     # iterate over all declared parameters of type `sc:Parameter`
     for parameter in graph.subjects(RDF.type, SC.Parameter):
         # get config name for the parameter

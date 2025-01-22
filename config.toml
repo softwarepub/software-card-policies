@@ -4,8 +4,8 @@
 
 policies = [
     { name = "authors", source = "http://127.0.0.1:8000/policies/authors-affiliation.ttl" },
-    { name = "description", source = "examples/policies/description-parametrizable.ttl" },
-    { name = "licenses", source = "http://127.0.0.1:8000/policies/licenses-parametrizable.ttl" },
+    { name = "description", source = "examples/policies/description-parameterizable.ttl" },
+    { name = "licenses", source = "http://127.0.0.1:8000/policies/licenses-parameterizable.ttl" },
 ]
 
 [parameters]
