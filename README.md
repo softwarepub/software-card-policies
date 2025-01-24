@@ -82,3 +82,8 @@ This will validate [`hermes.ttl`](examples/data/hermes.ttl) using the policies d
 and print the result to the screen.
 If run in debug mode (with `--debug`), a more detailed validation result and the combined and parameterized policies
 that were used will be written to the files `debug-validation.ttl` and `debug-shapes-processed.ttl`, respectively.
+
+## Acknowledgements
+
+[Software CaRD](https://helmholtz-metadaten.de/en/inf-projects/softwarecard) (`ZT-I-PF-3-080`) is funded by the
+Initiative and Networking Fund of the Helmholtz Association in the framework of the Helmholtz Metadata Collaboration.
