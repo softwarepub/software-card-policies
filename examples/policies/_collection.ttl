@@ -15,9 +15,11 @@
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<> owl:imports "examples/components/orcid.ttl"^^rdf:resource .
+<> a owl:Ontology .
 
-<> owl:imports "examples/policies/authors.ttl"^^rdf:resource .
-<> owl:imports "examples/policies/license.ttl"^^rdf:resource .
-<> owl:imports "examples/policies/semantic-versioning.ttl"^^rdf:resource .
-<> owl:imports "examples/policies/helmholtz-codebase.ttl"^^rdf:resource .
+<> owl:imports <../components/orcid.ttl> .
+
+<> owl:imports <../policies/authors.ttl> .
+<> owl:imports <../policies/license.ttl> .
+<> owl:imports <../policies/semantic-versioning.ttl> .
+<> owl:imports <../policies/helmholtz-codebase.ttl> .

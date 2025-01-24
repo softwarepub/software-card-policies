@@ -97,14 +97,10 @@ def validate_graph(data_graph: Graph, shacl_graph: Graph) -> Tuple[bool, Graph]:
     conforms, validation_graph, _validation_text = validate(
         data_graph,
         shacl_graph=shacl_graph,
-        ont_graph=None,
+        advanced=True,
         inference="rdfs",
-        abort_on_first=False,
-        allow_infos=False,
-        allow_warnings=False,
-        meta_shacl=False,
-        advanced=False,
-        js=False,
-        debug=False,
+        meta_shacl=True,
+        do_owl_imports=True,
+        js=True,
     )
     return conforms, validation_graph

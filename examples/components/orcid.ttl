@@ -84,5 +84,5 @@ scimpl:orcidChecksumMatches a sh:JSValidator ;
     """ ;
 
     sh:message "ORCID checksum does not match." ;
-    sh:jsLibrary [ sh:jsLibraryURL "file://examples/components/orcid.js"^^xsd:anyURI ] ;
+    sh:jsLibrary [ sh:jsLibraryURL "http://127.0.0.1:8000/components/orcid.js"^^xsd:anyURI ] ;
     sh:jsFunctionName "orcidChecksumMatches" .
