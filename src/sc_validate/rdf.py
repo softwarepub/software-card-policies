@@ -2,17 +2,13 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileContributor: David Pape
 
-import operator
 import pathlib
-from functools import reduce
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, Tuple
 
 from pyshacl import validate
 from rdflib import BNode, Graph, Literal
 from rdflib.collection import Collection
 from rdflib.namespace import RDF, Namespace
-
-from sc_validate.config import Policy
 
 # Just for better readability of serialized linked data.
 BINDINGS = {
@@ -37,11 +33,6 @@ def read_rdf_resource(source: pathlib.Path | str) -> Graph:
     for prefix, iri in BINDINGS.items():
         graph.bind(prefix, iri)
     return graph
-
-
-def parse_policies(policy_config: List[Policy]) -> Graph:
-    policy_graphs = [read_rdf_resource(policy.source) for policy in policy_config]
-    return reduce(operator.add, policy_graphs)  # Union of all graphs
 
 
 # TODO: Is it safe to modify the graph while iterating over it?

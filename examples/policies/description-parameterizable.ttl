@@ -17,7 +17,7 @@ scex:longDescriptionMinLength a sc:Parameter ;
     # The type of this parameter. Could be used for further validation.
     sc:parameterType xsd:integer ;
     # The string used for lookup in the config file. Could be a "path" in the future.
-    sc:parameterConfigPath "long_description_min_length" ;
+    sc:parameterConfigPath "description_min_length" ;
     # The default value for this parameter. Must be of the type given by `sc:parameterType` of this `sc:Parameter`.
     sc:parameterDefaultValue 50 ;
     .

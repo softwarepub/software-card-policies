@@ -2,14 +2,17 @@
 # SPDX-License-Identifier: CC0-1.0
 # SPDX-FileContributor: David Pape
 
-policies = [
-    { name = "authors", source = "http://127.0.0.1:8000/policies/authors-affiliation.ttl" },
-    { name = "description", source = "examples/policies/description-parameterizable.ttl" },
-    { name = "licenses", source = "http://127.0.0.1:8000/policies/licenses-parameterizable.ttl" },
-]
+[policies.authors]
+source = "http://127.0.0.1:8000/policies/authors-affiliation.ttl"
 
-[parameters]
-long_description_min_length = 10
+[policies.description]
+source = "examples/policies/description-parameterizable.ttl"
+parameters = {description_min_length = 10}
+
+[policies.licenses]
+source = "http://127.0.0.1:8000/policies/licenses-parameterizable.ttl"
+
+[policies.licenses.parameters]
 suggested_licenses = [
     "https://spdx.org/licenses/Apache-2.0",
     "https://spdx.org/licenses/GPL-3.0-or-later"

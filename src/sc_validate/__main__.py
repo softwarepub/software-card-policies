@@ -2,15 +2,17 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileContributor: David Pape
 
+import operator
 import pathlib
 import sys
 from argparse import ArgumentParser, ArgumentTypeError
+from functools import reduce
+from typing import Dict
 from urllib.parse import urlparse
 
-from sc_validate.config import Settings
+from sc_validate.config import Policy, Settings
 from sc_validate.rdf import (
     parameterize_graph,
-    parse_policies,
     read_rdf_resource,
     validate_graph,
 )
@@ -23,6 +25,16 @@ def path_or_url(path: str) -> pathlib.Path | str:
     if result.scheme and result.netloc:
         return path
     raise ArgumentTypeError(f"Argument '{path}' is neither an existing file nor a URL")
+
+
+def policies_to_shacl(policies: Dict[str, Policy]):
+    shacl_graphs = []
+    # TODO: We're only using the values. What to do with the keys?
+    for policy in policies.values():
+        policy_graph = read_rdf_resource(policy.source)
+        shacl_graph = parameterize_graph(policy_graph, policy.parameters)
+        shacl_graphs.append(shacl_graph)
+    return reduce(operator.add, shacl_graphs)
 
 
 def main():
@@ -49,16 +61,16 @@ def main():
         sys.exit(2)
 
     data_graph = read_rdf_resource(arguments.metadata_file)
-    shapes_graph = parse_policies(settings.policies)
-    shapes_graph = parameterize_graph(shapes_graph, settings.parameters)
+    shapes_graph = policies_to_shacl(settings.policies)
 
     if arguments.debug:
+        data_graph.serialize("debug-input-data.ttl", "turtle")
         shapes_graph.serialize("debug-shapes-processed.ttl", "turtle")
 
     conforms, validation_graph = validate_graph(data_graph, shapes_graph)
 
     if arguments.debug:
-        validation_graph.serialize("debug-validation.ttl", "turtle")
+        validation_graph.serialize("debug-validation-report.ttl", "turtle")
 
     if not conforms:
         print("validation failed", file=sys.stderr)

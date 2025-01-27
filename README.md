@@ -80,8 +80,11 @@ sc-validate examples/data/hermes.ttl
 
 This will validate [`hermes.ttl`](examples/data/hermes.ttl) using the policies defined in [`config.toml`](config.toml)
 and print the result to the screen.
-If run in debug mode (with `--debug`), a more detailed validation result and the combined and parameterized policies
-that were used will be written to the files `debug-validation.ttl` and `debug-shapes-processed.ttl`, respectively.
+If run in debug mode (with `--debug`), the following files are written to the current working directory:
+
+- `debug-input-data.ttl`: the input data
+- `debug-shapes-processed.ttl`: the parameterized and combined policies
+- `debug-validation-report.ttl`: the detailed SHACL validation report (`sh:ValidationReport`)
 
 ## Acknowledgements
 
