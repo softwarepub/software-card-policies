@@ -12,7 +12,7 @@ This repository contains example policies developed as part of the Software CaRD
 
 All examples in this repository use the following namespace prefix bindings:
 
-```ttl
+```turtle
 @prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
