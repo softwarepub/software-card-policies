@@ -17,18 +17,18 @@ All examples in this repository use the following namespace prefix bindings:
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix sc: <https://software-metadata.pub/software-card#> .
-@prefix scex: <https://software-metadata.pub/software-card-examples#> .
-@prefix scimpl: <https://software-metadata.pub/software-card-implementation#> .
+@prefix sc: <https://schema.software-metadata.pub/software-card/2025-01-01/#> .
+@prefix scex: <https://schema.software-metadata.pub/software-card/2025-01-01/examples/#> .
+@prefix scimpl: <https://schema.software-metadata.pub/software-card/2025-01-01/implementation/#> .
 @prefix schema: <https://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 ```
 
 For Software CaRD, the prefixes
-[`sc:`](https://software-metadata.pub/software-card#),
-[`scex:`](https://software-metadata.pub/software-card-examples#), and
-[`scimpl:`](https://software-metadata.pub/software-card-implementation#)
+[`sc:`](https://schema.software-metadata.pub/software-card/2025-01-01/#),
+[`scex:`](https://schema.software-metadata.pub/software-card/2025-01-01/examples/#), and
+[`scimpl:`](https://schema.software-metadata.pub/software-card/2025-01-01/implementation/#)
 were established and are used for the following purposes:
 
 - `sc:` contains terms exposed to users

@@ -16,15 +16,15 @@ BINDINGS = {
     "owl": "http://www.w3.org/2002/07/owl#",
     "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
     "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "sc": "https://software-metadata.pub/software-card#",
-    "scex": "https://software-metadata.pub/software-card-examples#",
-    "scimpl": "https://software-metadata.pub/software-card-implementation#",
+    "sc": "https://schema.software-metadata.pub/software-card/2025-01-01/#",
+    "scex": "https://schema.software-metadata.pub/software-card/2025-01-01/examples/#",
+    "scimpl": "https://schema.software-metadata.pub/software-card/2025-01-01/implementation/#",
     "schema": "https://schema.org/",
     "sh": "http://www.w3.org/ns/shacl#",
     "xsd": "http://www.w3.org/2001/XMLSchema#",
 }
 
-SC = Namespace("https://software-metadata.pub/software-card#")
+SC = Namespace("https://schema.software-metadata.pub/software-card/2025-01-01/#")
 
 
 def read_rdf_resource(source: pathlib.Path | str) -> Graph:
