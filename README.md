@@ -86,7 +86,7 @@ If run in debug mode (with `--debug`), the following files are written to the cu
 - `debug-shapes-processed.ttl`: the parameterized and combined policies
 - `debug-validation-report.ttl`: the detailed SHACL validation report (`sh:ValidationReport`)
 
-## Acknowledgements
+## Acknowledgments
 
 [Software CaRD](https://helmholtz-metadaten.de/en/inf-projects/softwarecard) (`ZT-I-PF-3-080`) is funded by the
 Initiative and Networking Fund of the Helmholtz Association in the framework of the Helmholtz Metadata Collaboration.
