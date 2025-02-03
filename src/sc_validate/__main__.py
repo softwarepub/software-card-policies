@@ -10,6 +10,7 @@ from functools import reduce
 from typing import Dict
 from urllib.parse import urlparse
 
+from sc_validate import __version__ as version
 from sc_validate.config import Policy, Settings
 from sc_validate.rdf import (
     parameterize_graph,
@@ -51,7 +52,8 @@ def main():
         type=path_or_url,
         metavar="METADATA_FILE",
     )
-    parser.add_argument("-d", "--debug", help="run in debug mode", action="store_true")
+    parser.add_argument("--debug", help="run in debug mode", action="store_true")
+    parser.add_argument("--version", action="version", version=f"%(prog)s {version}")
     arguments = parser.parse_args()
 
     try:

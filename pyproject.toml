@@ -3,12 +3,12 @@
 # SPDX-FileContributor: David Pape
 
 [build-system]
-requires = ["setuptools >= 61.0"]
+requires = ["setuptools >= 64", "setuptools-scm>8"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "sc-validate"
-version = "0.0.0"
+dynamic = ["version"]
 dependencies = [
   "pyshacl[js]>=0.30.0",
   "rdflib>=7.1.1",
@@ -35,3 +35,6 @@ target-version = "py310"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]
+
+[tool.setuptools_scm]
+version_file = "src/sc_validate/_version.py"
