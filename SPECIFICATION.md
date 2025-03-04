@@ -115,10 +115,10 @@ TODO: Add examples for simple policies, parameterizable policies, and config fil
 ### Example / Reference Implementation
 
 An example implementation of a validator for Software CaRD policies can be found at <https://github.com/softwarepub/software-card-policies>.
-It can be installed as a command line tool `sc-validate` using:
+Its latest version can be installed as a command line tool `sc-validate` using:
 
 ```bash
-pipx install https://github.com/softwarepub/software-card-policies.git
+pipx install git+https://github.com/softwarepub/software-card-policies.git
 ```
 
 ## Considerations
