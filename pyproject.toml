@@ -36,5 +36,8 @@ target-version = "py310"
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]
 
+[tool.ruff.lint.per-file-ignores]
+"src/sc_validate/namespaces.py" = ["N815"]  # mixed case class parameters
+
 [tool.setuptools_scm]
 version_file = "src/sc_validate/_version.py"

@@ -8,30 +8,15 @@ from typing import Any, Dict, Tuple
 from pyshacl import validate
 from rdflib import BNode, Graph, Literal
 from rdflib.collection import Collection
-from rdflib.namespace import RDF, Namespace
+from rdflib.namespace import RDF, SH
 
-# Just for better readability of serialized linked data.
-BINDINGS = {
-    "codemeta": "https://doi.org/10.5063/schema/codemeta-2.0#",
-    "owl": "http://www.w3.org/2002/07/owl#",
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "sc": "https://schema.software-metadata.pub/software-card/2025-01-01/#",
-    "scex": "https://schema.software-metadata.pub/software-card/2025-01-01/examples/#",
-    "scimpl": "https://schema.software-metadata.pub/software-card/2025-01-01/implementation/#",
-    "schema": "https://schema.org/",
-    "sh": "http://www.w3.org/ns/shacl#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-}
-
-SC = Namespace("https://schema.software-metadata.pub/software-card/2025-01-01/#")
-SH = Namespace("http://www.w3.org/ns/shacl#")
+from sc_validate.namespaces import PREFIXES, SC
 
 
 def read_rdf_resource(source: pathlib.Path | str) -> Graph:
     graph = Graph()
     graph.parse(source)
-    for prefix, iri in BINDINGS.items():
+    for prefix, iri in PREFIXES.items():
         graph.bind(prefix, iri)
     return graph
 
