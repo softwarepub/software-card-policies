@@ -13,6 +13,7 @@ from urllib.parse import urlparse
 from sc_validate import __version__ as version
 from sc_validate.config import Policy, Settings
 from sc_validate.rdf import (
+    create_report,
     parameterize_graph,
     read_rdf_resource,
     validate_graph,
@@ -74,8 +75,10 @@ def main():
     if arguments.debug:
         validation_graph.serialize("debug-validation-report.ttl", "turtle")
 
+    report = create_report(validation_graph)
+    print(report, file=sys.stderr)
+
     if not conforms:
-        print("validation failed", file=sys.stderr)
         sys.exit(1)
 
 

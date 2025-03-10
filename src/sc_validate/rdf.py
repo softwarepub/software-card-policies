@@ -25,6 +25,7 @@ BINDINGS = {
 }
 
 SC = Namespace("https://schema.software-metadata.pub/software-card/2025-01-01/#")
+SH = Namespace("http://www.w3.org/ns/shacl#")
 
 
 def read_rdf_resource(source: pathlib.Path | str) -> Graph:
@@ -95,3 +96,16 @@ def validate_graph(data_graph: Graph, shacl_graph: Graph) -> Tuple[bool, Graph]:
         js=True,
     )
     return conforms, validation_graph
+
+
+def create_report(validation_graph: Graph) -> str:
+    shacl_report, *_ = validation_graph.subjects(RDF.type, SH.ValidationReport)
+
+    # validation graph must tell us wether data conforms
+    assert list(validation_graph.objects(shacl_report, SH.conforms))
+
+    return (
+        "validation succeeded"
+        if (shacl_report, SH.conforms, Literal(True)) in validation_graph
+        else "validation failed"
+    )
