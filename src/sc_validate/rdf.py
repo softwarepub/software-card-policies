@@ -8,7 +8,7 @@ from typing import Any, Dict, Tuple
 from pyshacl import validate
 from rdflib import BNode, Graph, Literal
 from rdflib.collection import Collection
-from rdflib.namespace import RDF, SH
+from rdflib.namespace import RDF
 
 from sc_validate.namespaces import PREFIXES, SC
 
@@ -81,16 +81,3 @@ def validate_graph(data_graph: Graph, shacl_graph: Graph) -> Tuple[bool, Graph]:
         js=True,
     )
     return conforms, validation_graph
-
-
-def create_report(validation_graph: Graph) -> str:
-    shacl_report, *_ = validation_graph.subjects(RDF.type, SH.ValidationReport)
-
-    # validation graph must tell us wether data conforms
-    assert list(validation_graph.objects(shacl_report, SH.conforms))
-
-    return (
-        "validation succeeded"
-        if (shacl_report, SH.conforms, Literal(True)) in validation_graph
-        else "validation failed"
-    )

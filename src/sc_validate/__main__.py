@@ -13,11 +13,11 @@ from urllib.parse import urlparse
 from sc_validate import __version__ as version
 from sc_validate.config import Policy, Settings
 from sc_validate.rdf import (
-    create_report,
     parameterize_graph,
     read_rdf_resource,
     validate_graph,
 )
+from sc_validate.report import create_report
 
 
 def path_or_url(path: str) -> pathlib.Path | str:
@@ -76,7 +76,7 @@ def main():
         validation_graph.serialize("debug-validation-report.ttl", "turtle")
 
     report = create_report(validation_graph)
-    print(report, file=sys.stderr)
+    print(report)
 
     if not conforms:
         sys.exit(1)
