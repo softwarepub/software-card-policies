@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import List
 
-import jinja2
+from jinja2 import Environment, PackageLoader, select_autoescape
 from rdflib import Graph, Literal
 from rdflib.namespace import RDF, SH
 from rdflib.term import URIRef
@@ -55,22 +55,12 @@ class ValidationReport:
         )
 
 
-_REPORT_TEMPLATE = """{% if validation_report.conforms %}
-validation succeeded
-{% else %}
-validation failed
-{% endif %}
-
-{% for validation_result in validation_report.results %}
-{{ validation_result.severity }}:
-{{ validation_result.message }}
-{% endfor %}
-"""
-
-
 def create_report(validation_graph: Graph) -> str:
     shacl_report, *_ = validation_graph.subjects(RDF.type, SH.ValidationReport)
     validation_report = ValidationReport.from_graph(shacl_report, validation_graph)
 
-    template = jinja2.Environment().from_string(_REPORT_TEMPLATE)
+    env = Environment(
+        loader=PackageLoader("sc_validate"), autoescape=select_autoescape()
+    )
+    template = env.get_template("report.j2")
     return template.render(validation_report=validation_report)
