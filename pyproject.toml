@@ -28,6 +28,9 @@ classifiers = [
   "Programming Language :: Python"
 ]
 
+[project.optional-dependencies]
+docs = ["sphinx>=8.0.0", "taskipy>=1.14.1"]
+
 [project.scripts]
 sc-validate = "sc_validate.__main__:main"
 
@@ -39,3 +42,7 @@ select = ["E", "F", "I", "N", "W"]
 
 [tool.setuptools_scm]
 version_file = "src/sc_validate/_version.py"
+
+[tool.taskipy.tasks]
+docs-build = "sphinx-build -M html docs docs/_build"
+docs-clean = "sphinx-build -M clean docs docs/_build"
