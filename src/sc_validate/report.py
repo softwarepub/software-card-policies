@@ -12,6 +12,19 @@ from rdflib.namespace import RDF, SH
 from rdflib.term import URIRef
 
 
+# TODO: This only works for constraints of type NodeShape. Is this enough?
+@dataclass
+class Policy:
+    name: str
+    description: str
+
+    @classmethod
+    def from_graph(cls, reference: URIRef, graph: Graph):
+        name = graph.value(reference, SH.name, None)
+        description = graph.value(reference, SH.description, None)
+        return cls(name=name, description=description)
+
+
 class Severity(Enum):
     INFO = 1
     WARNING = 2
@@ -36,12 +49,18 @@ class Severity(Enum):
 class ValidationResult:
     severity: Severity
     message: str
+    source_policy: Policy
 
     @classmethod
     def from_graph(cls, reference: URIRef, graph: Graph):
         severity = graph.value(reference, SH.resultSeverity, None)
         message = graph.value(reference, SH.resultMessage, None)
-        return cls(severity=Severity.from_graph(severity, graph), message=message)
+        source_policy = graph.value(reference, SH.sourceShape, None)
+        return cls(
+            severity=Severity.from_graph(severity, graph),
+            message=message,
+            source_policy=Policy.from_graph(source_policy, graph),
+        )
 
 
 @dataclass
