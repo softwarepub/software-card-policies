@@ -90,6 +90,29 @@ The associated IRIs currently don't exist.
 A [search on prefix.cc](https://prefix.cc/sc) reveals prior usage of the prefix `sc:` by projects which seem to be
 defunct.
 
+## Documentation
+
+To build the documentation, install the package including the `docs` extra:
+
+```bash
+python -m pip install -e .[docs]
+```
+
+Then run Sphinx via the predefined task:
+
+```bash
+task docs-build  # build the docs
+task docs-clean  # delete the built docs
+```
+
+To view the docs in the browser, run
+
+```bash
+python -m http.server -b 127.0.0.1 -d docs/_build/html
+```
+
+Then follow the link <http://127.0.0.1:8000/>.
+
 ## Acknowledgments
 
 [Software CaRD](https://helmholtz-metadaten.de/en/inf-projects/softwarecard) (`ZT-I-PF-3-080`) is funded by the
