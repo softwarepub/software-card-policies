@@ -59,7 +59,7 @@ class ValidationReport:
         )
 
 
-def create_report(validation_graph: Graph) -> str:
+def create_report(validation_graph: Graph, debug=False) -> str:
     shacl_report, *_ = validation_graph.subjects(RDF.type, SH.ValidationReport)
     validation_report = ValidationReport.from_graph(shacl_report, validation_graph)
 
@@ -67,4 +67,4 @@ def create_report(validation_graph: Graph) -> str:
         loader=PackageLoader("sc_validate"), autoescape=select_autoescape()
     )
     template = env.get_template("report.j2")
-    return template.render(validation_report=validation_report)
+    return template.render(validation_report=validation_report, debug=debug)

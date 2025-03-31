@@ -4,12 +4,13 @@ SPDX-License-Identifier: Apache-2.0
 SPDX-FileContributor: David Pape
 #}
 {%- if validation_report.conforms -%}
-validation succeeded
+Validation succeeded!
 {%- else -%}
-validation failed
+Validation failed!
 
 {% for validation_result in validation_report.results -%}
 {{ validation_result.severity }}:
-{{ validation_result.message }}
+?
+{% if debug %}Debug: {{ validation_result.message }}{% endif %}
 {%- endfor -%}
 {%- endif -%}

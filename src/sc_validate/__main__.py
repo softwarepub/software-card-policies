@@ -75,7 +75,7 @@ def main():
     if arguments.debug:
         validation_graph.serialize("debug-validation-report.ttl", "turtle")
 
-    report = create_report(validation_graph)
+    report = create_report(validation_graph, debug=arguments.debug)
     print(report)
 
     if not conforms:
