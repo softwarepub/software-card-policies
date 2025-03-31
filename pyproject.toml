@@ -14,8 +14,9 @@ dependencies = [
   "rdflib>=7.1.1",
   "pydantic>=2.9.2",
   "pydantic-settings[toml]>=2.6.1",
+  "jinja2>=3.1.6",
 ]
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.13"  # problems compiling pyduktape2 when using Python 3.13
 authors = [
   {name = "David Pape", email = "d.pape@hzdr.de"},
 ]
@@ -30,11 +31,11 @@ classifiers = [
 [project.scripts]
 sc-validate = "sc_validate.__main__:main"
 
-[tool.ruff]
-target-version = "py310"
-
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+"src/sc_validate/namespaces.py" = ["N815"]  # mixed case class parameters
 
 [tool.setuptools_scm]
 version_file = "src/sc_validate/_version.py"

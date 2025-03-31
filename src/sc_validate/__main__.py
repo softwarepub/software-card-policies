@@ -17,6 +17,7 @@ from sc_validate.rdf import (
     read_rdf_resource,
     validate_graph,
 )
+from sc_validate.report import create_report
 
 
 def path_or_url(path: str) -> pathlib.Path | str:
@@ -74,8 +75,10 @@ def main():
     if arguments.debug:
         validation_graph.serialize("debug-validation-report.ttl", "turtle")
 
+    report = create_report(validation_graph, debug=arguments.debug)
+    print(report)
+
     if not conforms:
-        print("validation failed", file=sys.stderr)
         sys.exit(1)
 
 

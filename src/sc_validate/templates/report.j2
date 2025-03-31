@@ -1,0 +1,17 @@
+{#
+SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+SPDX-License-Identifier: Apache-2.0
+SPDX-FileContributor: David Pape
+#}
+{%- if validation_report.conforms -%}
+Validation succeeded!
+{%- else -%}
+Validation failed!
+
+{% for validation_result in validation_report.results %}
+{{ validation_result.severity }}:
+Breached policy: {{ validation_result.source_policy.name }}
+{{ validation_result.source_policy.description }}
+{% if debug %}Debug: {{ validation_result.message }}{% endif %}
+{% endfor %}
+{%- endif -%}
