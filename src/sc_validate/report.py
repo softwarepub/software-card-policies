@@ -18,6 +18,9 @@ class Severity(Enum):
     VIOLATION = 3
     OTHER = 4
 
+    def __str__(self):
+        return self.name.title()
+
     @classmethod
     def from_graph(cls, reference: URIRef, graph: Graph):
         if reference == SH.Info:
@@ -36,8 +39,9 @@ class ValidationResult:
 
     @classmethod
     def from_graph(cls, reference: URIRef, graph: Graph):
+        severity = graph.value(reference, SH.resultSeverity, None)
         message = graph.value(reference, SH.resultMessage, None)
-        return cls(severity=Severity.VIOLATION, message=message)
+        return cls(severity=Severity.from_graph(severity, graph), message=message)
 
 
 @dataclass
