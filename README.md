@@ -38,13 +38,7 @@ python -m pip install -e .
 
 ### Run
 
-Start a webserver hosting the example policy files (run it in the background or use a separate terminal window):
-
-```bash
-python -m http.server -b 127.0.0.1 -d examples/
-```
-
-Then, run the program:
+Run the program:
 
 ```bash
 sc-validate examples/data/hermes.ttl
