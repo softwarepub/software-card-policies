@@ -8,3 +8,5 @@ Example Policies
 .. note::
 
    This is a placeholder for an overview of example policies following the Software CaRD policy specification.
+
+.. copy-files:: ../../examples/
