@@ -22,7 +22,7 @@ def log_message(text: str, detail: str = None) -> None:
     logger.info(message)
 
 
-class CopyExampleFilesDirective(SphinxDirective):
+class CopyFilesDirective(SphinxDirective):
     required_arguments = 1
 
     def run(self) -> list[nodes.Node]:
@@ -52,7 +52,7 @@ class CopyExampleFilesDirective(SphinxDirective):
 
 
 def setup(app: Sphinx) -> ExtensionMetadata:
-    app.add_directive("copy-files", CopyExampleFilesDirective)
+    app.add_directive("copy-files", CopyFilesDirective)
 
     return {
         "version": "0.1",
