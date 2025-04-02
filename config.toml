@@ -3,14 +3,14 @@
 # SPDX-FileContributor: David Pape
 
 [policies.authors]
-source = "http://127.0.0.1:8000/policies/authors-affiliation.ttl"
+source = "https://software-metadata.pub/software-card-policies/example-policies/policies/authors-affiliation.ttl"
 
 [policies.description]
-source = "examples/policies/description-parameterizable.ttl"
+source = "https://software-metadata.pub/software-card-policies/example-policies/policies/description-parameterizable.ttl"
 parameters = {description_min_length = 10}
 
 [policies.licenses]
-source = "http://127.0.0.1:8000/policies/licenses-parameterizable.ttl"
+source = "https://software-metadata.pub/software-card-policies/example-policies/policies/licenses-parameterizable.ttl"
 
 [policies.licenses.parameters]
 suggested_licenses = [
