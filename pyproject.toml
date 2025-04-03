@@ -16,7 +16,7 @@ dependencies = [
   "pydantic-settings[toml]>=2.6.1",
   "jinja2>=3.1.6",
 ]
-requires-python = ">=3.10,<3.13"  # problems compiling pyduktape2 when using Python 3.13
+requires-python = ">=3.10"
 authors = [
   {name = "David Pape", email = "d.pape@hzdr.de"},
 ]
