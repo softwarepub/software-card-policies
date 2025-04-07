@@ -20,9 +20,9 @@ SPDX-FileContributor: David Pape
 
 ## Introduction
 
-TODO: What is this document?
+**TODO:** What is this document?
 
-TODO: What is Software CaRD?
+**TODO:** What is Software CaRD?
 
 [Software CaRD](https://helmholtz-metadaten.de/en/inf-projects/softwarecard) (`ZT-I-PF-3-080`) is funded by the Initiative and Networking Fund of the Helmholtz Association in the framework of the Helmholtz Metadata Collaboration.
 
@@ -52,7 +52,7 @@ All code examples are written in the following formats/languages:
 
 RDF examples use the following namespace prefixes which are omitted for brevity:
 
-TODO: Remove the namespaces we don't need.
+**TODO:** Remove the namespaces we don't need.
 
 ```turtle
 @prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
@@ -78,7 +78,8 @@ Static page infrastructures such as "pages" provided by code forges may be used 
 Content negotiation may be offered but is not required.
 If provision on the web is not possible or desired, files may be used instead.
 
-TODO: Mention here which features we expect the used SHACL impwlementation to have?
+**SHACL Features:**
+**TODO:** Mention here which features we expect the used SHACL implementation to have? (`owl:imports`, SPARQL, JavaScript, Custom Constraint Components, ...)
 
 ### Policy Description
 
@@ -87,32 +88,88 @@ The software publication metadata to be validated using Software CaRD policies m
 Any of the established serialization formats for RDF (XML, JSON-LD, Turtle, ...) may be used.
 The metadata should mainly be based on Codemeta.
 
-TODO: SHACL shapes for CodeMeta software metadata
+**Namespaces:**
+The `sc:` namespace is used to provide essential Software CaRD features.
+Examples (e.g. policies, data) may be provided in `scex:`.
+`scimpl:` is reserved for implementation details and may only be used in the internal data model of the validator.
 
-TODO: Parameterization mechanism
+**Policies:**
+Policies may consist of one or more SHACL shapes.
+Any object (i.e. the third value in a triple) in their description may be replaced by a `sc:Parameter`.
 
-TODO: Software CaRD namespaces and what to put in them.
+**Parameterization Placeholders:**
+Instances of `sc:Parameter` describe placeholders for configurable values.
+A `sc:Parameter` describes the value it represents by its inner and outer type as shown in the example below.
+The outer type (akin to cardinality/container) may be `sc:Scalar` if the placeholder represent a single value, or one of `rdf:List`, `rdf:Seq`, `rdf:Bag`, `rdf:Alt`, if it represents a container.
+The inner type may be `rdfs:Resource`, or any [primitive data type from `xsd:`](https://www.w3.org/TR/xmlschema-2/#built-in-primitive-datatypes) (such as `xsd:integer`, `xsd:boolean`, `xsd:string`, ...).
+If it is `rdfs:Resource`, any associated values are assumed to be references.
+If it is a primitive data type, the values are assumed to be literals of that type.
+`sc:parameterConfigPath` is a string that specifies where in the config file the configured value for this placeholder can be found.
+`sc:parameterDefaultValue` specifies a default value to be used when no value is configured.
+The default value has to match the inner and outer type of the parameter.
 
-TODO: Explain explicitly which aspects of the SHACL and SHACL Advanced specs may be used (e.g. `owl:imports`, SPARQL, JavaScript, ...)
+**TODO:** **All** primitive datatypes is probably a bit much. Which ones do we want to allow?
+`xsd:string`, `xsd:boolean`, `xsd:decimal`, `xsd:float`, `xsd:double`, `xsd:dateTime`, `xsd:time`, `xsd:date`, `xsd:anyURI`,
+but not `xsd:duration`, `xsd:gYearMonth`, `xsd:gYear`, `xsd:gMonthDay`, `xsd:gDay`, `xsd:gMonth`, `xsd:hexBinary`, `xsd:base64Binary`, `xsd:NOTATION`?
+What about `xsd:QName`?
 
-TODO: Output format? What kinds of violations (severities? messages?) are part of the validation report?
+```turtle
+scex:licenses a sc:Parameter ;
+    sc:parameterOuterType rdf:List ;
+    sc:parameterInnerType xsd:string ;
+    sc:parameterConfigPath "suggested_licenses" ;
+    sc:parameterDefaultValue ( "https://spdx.org/licenses/Apache-2.0" "https://spdx.org/licenses/MIT" ) .
+```
+
+### Validation Process
+
+**TODO:** Parameterization placeholder replacements mechanism
+
+**TODO:** Explain explicitly which aspects of the SHACL and SHACL Advanced specs may be used (e.g. `owl:imports`, SPARQL, JavaScript, Custom Constraint Components, ...)
+
+### Report Generation
+
+**Report Output Format:**
+Reports must be valid SHACL validation reports (`sh:ValidationReport`).
+**TODO:** If a default value of a policy is overridden, this must be added to the report as `sc:DefaultValueOverridden???`
+
+**Report Presentation:**
+The validation report may be presented to the user in a friendlier way, e.g. (formatted or plain) text, markup (HTML, Markdown), graphical visualization, etc.
 
 ### Configuration
 
-The configuration follows the structure defined in the JSON Schema below.
+The configuration follows the structure of the example below.
 Configuration files may be written in any file format that can reproduce this schema (e.g. JSON, YAML, TOML, ...).
 
-NOTE: A validator for a variety of formats can be found at <https://www.npmjs.com/package/pajv>
+```toml
+[policies.authors]
+source = "https://software-metadata.pub/software-card-policies/example-policies/policies/authors-affiliation.ttl"
 
-TODO: Add schema
+[policies.description]
+source = "https://software-metadata.pub/software-card-policies/example-policies/policies/description-parameterizable.ttl"
+parameters = {description_min_length = 10}
 
-TODO: Add an example policy configuration that uses some parameters. If possible, show how to configure a policy that was already given above.
+[policies.licenses]
+source = "https://software-metadata.pub/software-card-policies/example-policies/policies/licenses-parameterizable.ttl"
 
-### Example Policies and Configurations
+[policies.licenses.parameters]
+suggested_licenses = [
+    "https://spdx.org/licenses/Apache-2.0",
+    "https://spdx.org/licenses/GPL-3.0-or-later"
+]
+```
 
-TODO: Add examples for simple policies, parameterizable policies, and config files
+The key of each entry in the `policies` table/dictionary/map may be used to indicate problems to the user.
 
-### Example / Reference Implementation
+**TODO:** Provide a JSON Schema? A validator for a variety of formats can be found at <https://www.npmjs.com/package/pajv>
+
+## Example Policies and Configurations
+
+**TODO:** Add examples for simple policies, parameterizable policies, and config files
+
+## Example Implementation
+
+**TODO:** Call this "Example" or "Reference"?
 
 An example implementation of a validator for Software CaRD policies can be found at <https://github.com/softwarepub/software-card-policies>.
 Its latest version can be installed as a command line tool `sc-validate` using:
