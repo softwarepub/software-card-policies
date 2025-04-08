@@ -28,19 +28,19 @@ SPDX-FileContributor: David Pape
 
 ### Problem description / Motivation
 
-TODO
+**TODO**
 
 ### Summary / Abstract
 
-TODO
+**TODO**
 
 ### Goals
 
-TODO
+**TODO**
 
 ### Glossary
 
-TODO
+**TODO**
 
 ### Conventions
 
@@ -48,7 +48,7 @@ All code examples are written in the following formats/languages:
 
 - Policies and data: Turtle,
 - Configuration: TOML,
-- Program code: Python.
+- Source code: Python.
 
 RDF examples use the following namespace prefixes which are omitted for brevity:
 
