@@ -14,7 +14,8 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 scex:suggestedLicenses a sc:Parameter ;
-    sc:parameterType rdf:List ;
+    sc:parameterOuterType rdf:List ;
+    sc:parameterInnerType xsd:anyURI ;
     sc:parameterConfigPath "suggested_licenses" ;
     sc:parameterDefaultValue ( "https://spdx.org/licenses/Apache-2.0" "https://spdx.org/licenses/MIT" ) .
 
