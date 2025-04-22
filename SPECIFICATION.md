@@ -101,17 +101,18 @@ Any object (i.e. the third value in a triple) in their description may be replac
 Instances of `sc:Parameter` describe placeholders for configurable values.
 A `sc:Parameter` describes the value it represents by its inner and outer type as shown in the example below.
 The outer type (akin to cardinality/container) may be `sc:Scalar` if the placeholder represent a single value, or one of `rdf:List`, `rdf:Seq`, `rdf:Bag`, `rdf:Alt`, if it represents a container.
-The inner type may be `rdfs:Resource`, or any [primitive data type from `xsd:`](https://www.w3.org/TR/xmlschema-2/#built-in-primitive-datatypes) (such as `xsd:decimal`, `xsd:boolean`, `xsd:string`, ...).
+The inner type may be `rdfs:Resource`, or any [primitive](https://www.w3.org/TR/xmlschema-2/#built-in-primitive-datatypes) or [derived](https://www.w3.org/TR/xmlschema-2/#built-in-derived) data type from `xsd:` (such as `xsd:integer`, `xsd:boolean`, `xsd:string`, ...).
 If it is `rdfs:Resource`, any associated values are assumed to be references.
 If it is a primitive data type, the values are assumed to be literals of that type.
 `sc:parameterConfigPath` is a string that specifies where in the config file the configured value for this placeholder can be found.
 `sc:parameterDefaultValue` specifies a default value to be used when no value is configured.
 The default value has to match the inner and outer type of the parameter.
 
-**TODO:** **All** primitive datatypes is probably a bit much. Which ones do we want to allow?
+**TODO:** **All** primitive and derived datatypes is probably a bit much. Which ones do we want to allow?
 `xsd:string`, `xsd:boolean`, `xsd:decimal`, `xsd:float`, `xsd:double`, `xsd:dateTime`, `xsd:time`, `xsd:date`, `xsd:anyURI`,
 but not `xsd:duration`, `xsd:gYearMonth`, `xsd:gYear`, `xsd:gMonthDay`, `xsd:gDay`, `xsd:gMonth`, `xsd:hexBinary`, `xsd:base64Binary`, `xsd:NOTATION`?
 What about `xsd:QName`?
+What about the derived ones? `xsd:integer` and `xsd:int` seem helpful for countable things.
 
 ```turtle
 scex:licenses a sc:Parameter ;
