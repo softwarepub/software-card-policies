@@ -3,18 +3,17 @@
 # SPDX-FileContributor: David Pape
 
 import pathlib
-from dataclasses import dataclass
 from typing import Any, Dict, Tuple
 
 from pyshacl import validate
-from rdflib import BNode, Graph, Literal, Node, URIRef
+from rdflib import BNode, Graph, Literal, Node
 from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, XSD
 
+from sc_validate.data_model import Parameter
 from sc_validate.namespaces import PREFIXES, SC
 
 # TODO: Add debug messages to all asserts.
-# TODO: Register sc:Parameter as custom class in rdflib?
 
 
 _ALLOWED_INNER_TYPES = (
@@ -37,31 +36,9 @@ def read_rdf_resource(source: pathlib.Path | str) -> Graph:
     return graph
 
 
-@dataclass
-class Parameter:
-    uri: URIRef
-    outer_type: URIRef
-    inner_type: URIRef
-    default_value: URIRef
-    config_path: str
-
-    @classmethod
-    def from_graph(cls, uri: URIRef, graph: Graph):
-        outer_type = graph.value(uri, SC.parameterOuterType, None)
-        inner_type = graph.value(uri, SC.parameterInnerType, None)
-        default_value = graph.value(uri, SC.parameterDefaultValue, None)
-        config_path = str(graph.value(uri, SC.parameterConfigPath, None))
-
-        return cls(
-            uri=uri,
-            outer_type=outer_type,
-            inner_type=inner_type,
-            default_value=default_value,
-            config_path=config_path,
-        )
-
-
-def _handle_rdf_list(parameter: Parameter, graph: Graph, config_parameter: Any) -> Node:
+def _create_rdf_list_parameter(
+    parameter: Parameter, graph: Graph, config_parameter: Any
+) -> Node:
     assert parameter.outer_type == RDF.List
     # assert (parameter.default_value, RDF.type, RDF.List) in graph
     assert (parameter.default_value, RDF.first, None) in graph
@@ -77,7 +54,7 @@ def _handle_rdf_list(parameter: Parameter, graph: Graph, config_parameter: Any) 
     ).uri
 
 
-def _handle_sc_scalar(
+def _create_sc_scalar_parameter(
     parameter: Parameter, graph: Graph, config_parameter: Any
 ) -> Node:
     assert parameter.outer_type == SC.Scalar
@@ -107,7 +84,7 @@ def parameterize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph
             )
 
         if parameter.outer_type == RDF.List:
-            o = _handle_rdf_list(parameter, graph, config_parameter)
+            o = _create_rdf_list_parameter(parameter, graph, config_parameter)
 
         elif parameter.outer_type in (RDF.Seq, RDF.Bag, RDF.Alt):
             raise NotImplementedError(
@@ -117,7 +94,7 @@ def parameterize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph
             )
 
         elif parameter.outer_type == SC.Scalar:
-            o = _handle_sc_scalar(parameter, graph, config_parameter)
+            o = _create_sc_scalar_parameter(parameter, graph, config_parameter)
 
         else:
             raise ValueError(
