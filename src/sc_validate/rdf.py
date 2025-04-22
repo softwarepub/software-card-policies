@@ -6,11 +6,26 @@ import pathlib
 from typing import Any, Dict, Tuple
 
 from pyshacl import validate
-from rdflib import BNode, Graph, Literal
+from rdflib import BNode, Graph, Literal, Node
 from rdflib.collection import Collection
-from rdflib.namespace import RDF
+from rdflib.namespace import RDF, RDFS, XSD
 
+from sc_validate.data_model import Parameter
 from sc_validate.namespaces import PREFIXES, SC
+
+# TODO: Add debug messages to all asserts.
+
+
+_ALLOWED_INNER_TYPES = (
+    XSD.string,
+    XSD.boolean,
+    XSD.integer,
+    XSD.int,
+    XSD.decimal,
+    XSD.float,
+    XSD.double,
+    XSD.anyURI,
+)
 
 
 def read_rdf_resource(source: pathlib.Path | str) -> Graph:
@@ -21,51 +36,80 @@ def read_rdf_resource(source: pathlib.Path | str) -> Graph:
     return graph
 
 
+def _create_rdf_list_parameter(
+    parameter: Parameter, graph: Graph, config_parameter: Any
+) -> Node:
+    assert parameter.outer_type == RDF.List
+    # assert (parameter.default_value, RDF.type, RDF.List) in graph
+    assert (parameter.default_value, RDF.first, None) in graph
+    assert (parameter.default_value, RDF.rest, None) in graph
+
+    if config_parameter is None:
+        return Collection(graph, parameter.default_value).uri
+
+    # TODO: What happens if `parameter_value` is empty list?
+    assert isinstance(config_parameter, list)
+    return Collection(
+        graph, BNode(), seq=[Literal(value) for value in config_parameter]
+    ).uri
+
+
+def _create_sc_scalar_parameter(
+    parameter: Parameter, graph: Graph, config_parameter: Any
+) -> Node:
+    assert parameter.outer_type == SC.Scalar
+
+    assert isinstance(config_parameter, (str, int, float, type(None)))
+
+    if config_parameter:
+        return Literal(config_parameter)
+
+    return graph.value(parameter.uri, SC.parameterDefaultValue, None)
+
+
 # TODO: Is it safe to modify the graph while iterating over it?
 def parameterize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     # iterate over all declared parameters of type `sc:Parameter`
-    for parameter in graph.subjects(RDF.type, SC.Parameter):
-        # get config name for the parameter
-        parameter_name = str(graph.value(parameter, SC.parameterConfigPath, None))
-        is_list = graph.value(parameter, SC.parameterType, None) == RDF.List
+    for parameter_ref in graph.subjects(RDF.type, SC.Parameter):
+        parameter = Parameter.from_graph(parameter_ref, graph)
 
-        # get default value for the parameter
-        default_value = graph.value(parameter, SC.parameterDefaultValue, None)
+        inner_type_is_primitive = parameter.inner_type in _ALLOWED_INNER_TYPES
 
-        if is_list:
-            assert (default_value, RDF.first, None) in graph
-            assert (default_value, RDF.rest, None) in graph
-            default_value = Collection(graph, default_value)
+        config_parameter = config_parameters.get(parameter.config_path)
 
-            # load parameter from config by its name
-            parameter_value = config_parameters.get(parameter_name, [])
-            assert isinstance(parameter_value, list)
+        if not inner_type_is_primitive and parameter.inner_type != RDFS.Resource:
+            raise ValueError(
+                f"Parameter '{parameter.uri}' has unknown inner type "
+                f"'{parameter.inner_type}'"
+            )
 
-            o = default_value.uri
-            if parameter_value:
-                parameter_value = Collection(
-                    graph, BNode(), seq=[Literal(value) for value in parameter_value]
-                )
-                o = parameter_value.uri
+        if parameter.outer_type == RDF.List:
+            o = _create_rdf_list_parameter(parameter, graph, config_parameter)
 
-                # empty the list of the unused default value while the variable is still
-                # in scope
-                default_value.clear()
+        elif parameter.outer_type in (RDF.Seq, RDF.Bag, RDF.Alt):
+            raise NotImplementedError(
+                f"Parameter '{parameter.uri}' has outer type "
+                f"'{parameter.outer_type}', the handling of which "
+                "is currently not implemented"
+            )
+
+        elif parameter.outer_type == SC.Scalar:
+            o = _create_sc_scalar_parameter(parameter, graph, config_parameter)
 
         else:
-            # load parameter from config by its name
-            parameter_value = config_parameters.get(parameter_name)
-            assert isinstance(parameter_value, (str, int, float, type(None)))
-            o = Literal(parameter_value) if parameter_value else default_value
+            raise ValueError(
+                f"'Parameter {parameter.uri}' has unknown outer type "
+                f"'{parameter.outer_type}'"
+            )
 
         # add replacements for all occurences of the parameter
-        for s, p in graph.subject_predicates(parameter):
+        for s, p in graph.subject_predicates(parameter.uri):
             graph.add((s, p, o))
 
         # remove all references to the parameter from the graph
-        # TODO: Keep all `(parameter, None, None)` for debugging purposes?
-        graph.remove((parameter, None, None))
-        graph.remove((None, None, parameter))
+        # TODO: Keep all `(parameter.uri, None, None)` for debugging purposes?
+        graph.remove((parameter.uri, None, None))
+        graph.remove((None, None, parameter.uri))
 
     return graph
 
