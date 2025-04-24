@@ -26,18 +26,13 @@ class Parameter:
     config_path: str
 
     @classmethod
-    def from_graph(cls, uri: URIRef, graph: Graph):
-        outer_type = graph.value(uri, SC.parameterOuterType, None)
-        inner_type = graph.value(uri, SC.parameterInnerType, None)
-        default_value = graph.value(uri, SC.parameterDefaultValue, None)
-        config_path = str(graph.value(uri, SC.parameterConfigPath, None))
-
+    def from_graph(cls, reference: URIRef, graph: Graph):
         return cls(
-            uri=uri,
-            outer_type=outer_type,
-            inner_type=inner_type,
-            default_value=default_value,
-            config_path=config_path,
+            uri=reference,
+            outer_type=graph.value(reference, SC.parameterOuterType, None),
+            inner_type=graph.value(reference, SC.parameterInnerType, None),
+            default_value=graph.value(reference, SC.parameterDefaultValue, None),
+            config_path=str(graph.value(reference, SC.parameterConfigPath, None)),
         )
 
 
@@ -51,9 +46,10 @@ class Policy:
 
     @classmethod
     def from_graph(cls, reference: URIRef, graph: Graph):
-        name = graph.value(reference, SH.name, None)
-        description = graph.value(reference, SH.description, None)
-        return cls(name=name, description=description)
+        return cls(
+            name=graph.value(reference, SH.name, None),
+            description=graph.value(reference, SH.description, None),
+        )
 
 
 ######################################## SHACL ########################################
