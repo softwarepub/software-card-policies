@@ -6,17 +6,17 @@ SPDX-FileContributor: David Pape
 
 # Software CaRD Policy Specification (Draft)
 
-| &nbsp;         | &nbsp;                                                                                                                       |
-| -------------- | -----------------------------------------------------------------------------------------------------------------------------|
-| **Version**    | 0.0                                                                                                                          |
-| **Date**       | 202X-XX-XX                                                                                                                   |
-| **Authors**    | [David Pape](https://orcid.org/0000-0002-3145-9880), [Helmholtz-Zentrum Dresden - Rossendorf (HZDR)](https://www.hzdr.de)    |
-|                | ...                                                                                                                          |
-|                | ...                                                                                                                          |
-|                | ...                                                                                                                          |
-| **Repository** | <https://github.com/softwarepub/software-card-policies>                                                                      |
-| **Issues**     | <https://github.com/softwarepub/software-card-policies/issues>                                                               |
-| **License**    | [`CC-BY-4.0`](https://creativecommons.org/licenses/by/4.0/)                                                                  |
+| &nbsp;         | &nbsp;                                                                                                                    |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Version**    | 0.0                                                                                                                       |
+| **Date**       | 202X-XX-XX                                                                                                                |
+| **Authors**    | [David Pape](https://orcid.org/0000-0002-3145-9880), [Helmholtz-Zentrum Dresden - Rossendorf (HZDR)](https://www.hzdr.de) |
+|                | ...                                                                                                                       |
+|                | ...                                                                                                                       |
+|                | ...                                                                                                                       |
+| **Repository** | <https://github.com/softwarepub/software-card-policies>                                                                   |
+| **Issues**     | <https://github.com/softwarepub/software-card-policies/issues>                                                            |
+| **License**    | [`CC-BY-4.0`](https://creativecommons.org/licenses/by/4.0/)                                                               |
 
 ## Introduction
 
@@ -28,7 +28,11 @@ SPDX-FileContributor: David Pape
 
 ### Problem description / Motivation
 
-**TODO**
+In recent years, researchers and institutions have made substantial efforts to publish research software with rich metadata.
+Guidelines and policies have been developed to help researchers make their publications more FAIR in accordance with the FAIR and FAIR4RS principles.
+However, curation of software publications is still an arduous manual process.
+Curators lack tooling that helps them automatically check publication metadata for common issues or pitfalls, or violations of organizational policies.
+In order to prevent development of custom solutions, and to promote interoperability of tooling and machine-readable policies, a common framework for policy description and validation is required.
 
 ### Summary / Abstract
 
@@ -36,11 +40,14 @@ SPDX-FileContributor: David Pape
 
 ### Goals
 
+- provide a framework that ...
+- based on existing tools, libraries, schemas, ontologies
+
 **TODO**
 
 ### Glossary
 
-**TODO**
+**TODO:** explain _Policy_, _Parameter_, ...
 
 ### Conventions
 
@@ -50,7 +57,7 @@ All code examples are written in the following formats/languages:
 - Configuration: TOML,
 - Source code: Python.
 
-RDF examples use the following namespace prefixes which are omitted for brevity:
+RDF examples use the following namespace prefixes (this declaration is omitted for brevity):
 
 **TODO:** Remove the namespaces we don't need.
 
@@ -78,9 +85,6 @@ Static page infrastructures such as "pages" provided by code forges may be used 
 Content negotiation may be offered but is not required.
 If provision on the web is not possible or desired, files may be used instead.
 
-**SHACL Features:**
-**TODO:** Mention here which features we expect the used SHACL implementation to have? (`owl:imports`, SPARQL, JavaScript, Custom Constraint Components, ...)
-
 ### Policy Description
 
 **Input Data Format:**
@@ -95,6 +99,7 @@ Examples (e.g. policies, data) may be provided in `scex:`.
 
 **Policies:**
 Policies may consist of one or more SHACL shapes.
+**TODO:** Explain explicitly which aspects of the SHACL and SHACL Advanced specs may be used (e.g. `owl:imports`, SPARQL, JavaScript, Custom Constraint Components, ...)
 Any object (i.e. the third value in a triple) in their description may be replaced by a `sc:Parameter`.
 
 **Parameterization Placeholders:**
@@ -125,8 +130,6 @@ scex:licenses a sc:Parameter ;
 ### Validation Process
 
 **TODO:** Parameterization placeholder replacements mechanism
-
-**TODO:** Explain explicitly which aspects of the SHACL and SHACL Advanced specs may be used (e.g. `owl:imports`, SPARQL, JavaScript, Custom Constraint Components, ...)
 
 ### Report Generation
 
