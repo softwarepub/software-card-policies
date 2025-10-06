@@ -47,7 +47,21 @@ In order to prevent development of custom solutions, and to promote interoperabi
 
 ### Glossary
 
-**TODO:** explain _Policy_, _Parameter_, ...
+**TODO:** explain _Parameter_, ...
+
+**Policy:**
+A _policy_ in this specification refers to a document that contains _policy items_ and associated metadata such as authorship information and descriptions.
+_Policies_ may group _policy items_ thematically (e.g. an "affiliation policy" which checks explicitly given affiliations of software authors and implicitly stated affiliations in email address domains),
+or by location (**TODO:** clearer word) of the metadata (e.g. an "author policy" which checks all attributes an author might have).
+_Policies_ are written in a machine-readable format.
+
+**Policy Item:**
+A _policy item_ is a single machine-readable rule in a _policy_, and can be used to _validate_ a given set of metadata.
+E.g., an "author and contributor policy" might have a _policy item_ that makes sure each person has an ORCID,
+and a second _policy item_ that makes sure that at least one person among the contributors has the role of author.
+
+**Validation:**
+_Validation_ is the process of determining whether the given data adheres to all _policy items_ given in the _policies_.
 
 ### Conventions
 
@@ -107,9 +121,9 @@ Instances of `sc:Parameter` describe placeholders for configurable values.
 A `sc:Parameter` describes the value it represents by its inner and outer type as shown in the example below.
 The outer type (akin to cardinality/container) may be `sc:Scalar` if the placeholder represent a single value, or one of `rdf:List`, `rdf:Seq`, `rdf:Bag`, `rdf:Alt`, if it represents a container.
 The inner type may be `rdfs:Resource`, or any [primitive](https://www.w3.org/TR/xmlschema-2/#built-in-primitive-datatypes) or [derived](https://www.w3.org/TR/xmlschema-2/#built-in-derived) data type from `xsd:` (such as `xsd:integer`, `xsd:boolean`, `xsd:string`, ...).
-If it is `rdfs:Resource`, any associated values are assumed to be references.
-If it is a primitive data type, the values are assumed to be literals of that type.
-`sc:parameterConfigPath` is a string that specifies where in the config file the configured value for this placeholder can be found.
+If it is `rdfs:Resource`, any associated values are assumed to be references and not processed any further.
+If it is a primitive data type, the values are assumed to be literals of that type and handled accordingly.
+`sc:parameterConfigPath` references a string that specifies where in the config file the configured value for this placeholder can be found.
 `sc:parameterDefaultValue` specifies a default value to be used when no value is configured.
 The default value has to match the inner and outer type of the parameter.
 
