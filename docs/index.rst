@@ -13,10 +13,20 @@ Welcome to the *Software CaRD Policies* documentation.
    Some things will be missing or simply not work.
 
 .. toctree::
+   :maxdepth: 1
+   :caption: Specification
+
+   specification/introduction
+
+.. toctree::
    :hidden:
    :maxdepth: 2
+   :caption: Other
 
-   specification/index
    example-policies/index
    validator/index
    library/index
+
+.. todo::
+
+   Rename "Other" section.
