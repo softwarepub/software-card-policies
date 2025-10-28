@@ -6,7 +6,7 @@ SPDX-FileContributor: David Pape
 
 # Software CaRD Policies
 
-This repository contains the `software_card_policies` Python library as well as the associated command line program
+This repository contains the `sc_validate` Python library as well as the associated command line program
 `sc-validate` and example policies.
 The software was written as part of the [Software CaRD](https://helmholtz-metadaten.de/en/inf-projects/softwarecard)
 project.

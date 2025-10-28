@@ -13,10 +13,32 @@ Welcome to the *Software CaRD Policies* documentation.
    Some things will be missing or simply not work.
 
 .. toctree::
-   :hidden:
-   :maxdepth: 2
+   :maxdepth: 1
+   :caption: Specification
 
-   specification/index
+   specification/introduction
+   specification/conventions
+   specification/creation
+   specification/parameterization
+   specification/validation
+   specification/configuration
+   specification/examples
+   specification/considerations
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Appendices
+
+   appendices/quick-reference
+   appendices/shacl-introduction
+   appendices/ontology
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Reference Implementation
+
+   reference-implementation/overview
+   reference-implementation/validator
+   reference-implementation/library
    example-policies/index
-   validator/index
-   library/index
+   NOTES

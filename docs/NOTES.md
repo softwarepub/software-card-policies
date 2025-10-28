@@ -4,7 +4,11 @@ SPDX-License-Identifier: CC-BY-4.0
 SPDX-FileContributor: David Pape
 -->
 
-# Notes
+# NOTES
+
+```{todo}
+Remove this file after moving all info to the appropriate places.
+```
 
 Notes from the research and development process.
 
@@ -12,10 +16,18 @@ Notes from the research and development process.
 
 Specifications:
 
+```{todo}
+Link these in the policies spec
+```
+
 - [SHACL](https://www.w3.org/TR/shacl/)
 - [SHACL JavaScript Extensions](https://www.w3.org/TR/shacl-js/)
 
 Implementations:
+
+```{todo}
+These could be provided as extra information in an appendix.
+```
 
 - [pySHACL](https://github.com/RDFLib/pySHACL)
 - ~~[shacl-js](https://github.com/TopQuadrant/shacl-js)~~ (unmaintained)
@@ -23,6 +35,10 @@ Implementations:
 - [shacl-engine](https://github.com/rdf-ext/shacl-engine) (also JavaScript)
 
 Other:
+
+```{todo}
+Some of these might be good to put into the SHACL guide for policy writers.
+```
 
 - [SHACL playground](https://shacl.org/playground/) (no SPARQL support)
 - [rdf-validate-shacl playground](https://shacl-playground.zazuko.com/)

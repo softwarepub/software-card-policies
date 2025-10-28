@@ -22,14 +22,26 @@ author = "David Pape"
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ["copy_files"]
+extensions = [
+    "sphinx.ext.todo",
+    # custom:
+    "copy_files",
+    # third-party:
+    "myst_parser",
+]
 
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
-
+source_suffix = {
+    ".rst": "restructuredtext",
+    ".md": "markdown",
+}
+todo_include_todos = True
+myst_enable_extensions = ["strikethrough"]
+suppress_warnings = ["myst.strikethrough"]
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = "alabaster"
+html_theme = "sphinx_book_theme"
 html_static_path = ["_static"]

@@ -29,7 +29,12 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-docs = ["sphinx>=8.0.0", "taskipy>=1.14.1"]
+docs = [
+  "sphinx>=8.0.0",
+  "myst-parser>=4.0.0",
+  "sphinx-book-theme>=1.1.4",
+  "taskipy>=1.14.1"
+]
 
 [project.scripts]
 sc-validate = "sc_validate.__main__:main"
