@@ -17,16 +17,28 @@ Welcome to the *Software CaRD Policies* documentation.
    :caption: Specification
 
    specification/introduction
+   specification/conventions
+   specification/creation
+   specification/parameterization
+   specification/validation
+   specification/configuration
+   specification/examples
+   specification/considerations
 
 .. toctree::
-   :hidden:
-   :maxdepth: 2
-   :caption: Other
+   :maxdepth: 1
+   :caption: Appendices
 
+   appendices/quick-reference
+   appendices/shacl-introduction
+   appendices/ontology
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Reference Implementation
+
+   reference-implementation/overview
+   reference-implementation/validator
+   reference-implementation/library
    example-policies/index
-   validator/index
-   library/index
-
-.. todo::
-
-   Rename "Other" section.
+   NOTES

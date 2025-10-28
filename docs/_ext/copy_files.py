@@ -46,7 +46,12 @@ class CopyFilesDirective(SphinxDirective):
         copy_asset(source_file_or_directory, current_output_directory, force=True)
 
         note = nodes.note()
-        text = nodes.paragraph(text="Files were automatically added to this directory.")
+        text = nodes.paragraph(
+            text=(
+                "Files were automatically added to this directory "
+                "to make them accessible to the validator."
+            )
+        )
         note.append(text)
         return [note]
 
