@@ -53,7 +53,7 @@ PREFIXES = {
     "owl": OWL,
     "rdf": RDF,
     "rdfs": RDFS,
-    "sc": SH,
+    "sc": SC,
     "scex": SCEX,
     "scimpl": SCIMPL,
     "schema": SDO,

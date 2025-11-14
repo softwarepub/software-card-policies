@@ -124,4 +124,7 @@ def validate_graph(data_graph: Graph, shacl_graph: Graph) -> Tuple[bool, Graph]:
         do_owl_imports=True,
         js=True,
     )
+    # TODO: Is this required? Or are the bindings transferred from the data graph?
+    for prefix, iri in PREFIXES.items():
+        validation_graph.bind(prefix, iri)
     return conforms, validation_graph
