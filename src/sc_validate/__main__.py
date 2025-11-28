@@ -90,9 +90,8 @@ def main():
 
     try:
         config = make_config(config_file=arguments.config)
-    # TODO: Catch more specific errors
     except Exception as e:
-        print("Failed to parse configuration file:", str(e), file=sys.stderr)
+        print(e, file=sys.stderr)
         sys.exit(2)
 
     data_graph = read_rdf_resource(arguments.metadata_file)
