@@ -2,18 +2,15 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileContributor: David Pape
 
-import operator
 import sys
 from argparse import ArgumentError, ArgumentParser, ArgumentTypeError
-from functools import reduce
 from pathlib import Path
-from typing import Dict
 from urllib.parse import urlparse
 
 from sc_validate import __version__ as version
-from sc_validate.config import Policy, make_config
+from sc_validate.config import make_config
 from sc_validate.data_model import (
-    parameterize_graph,
+    make_shacl_graph,
     read_rdf_resource,
     validate_graph,
 )
@@ -34,17 +31,6 @@ def _path(path: str) -> Path:
     if path_obj.exists():
         return path_obj
     raise ArgumentError(f"Argument '{path}' is not an existing file")
-
-
-# TODO: Move this function somewhere more useful
-def policies_to_shacl(policies: Dict[str, Policy]):
-    shacl_graphs = []
-    # TODO: We're only using the values. What to do with the keys?
-    for policy in policies.values():
-        policy_graph = read_rdf_resource(policy.source)
-        shacl_graph = parameterize_graph(policy_graph, policy.parameters)
-        shacl_graphs.append(shacl_graph)
-    return reduce(operator.add, shacl_graphs)
 
 
 def make_argument_parser() -> ArgumentParser:
@@ -95,7 +81,7 @@ def main():
         sys.exit(2)
 
     data_graph = read_rdf_resource(arguments.metadata_file)
-    shapes_graph = policies_to_shacl(config.policies)
+    shapes_graph = make_shacl_graph(config)
 
     if arguments.debug:
         data_graph.serialize("debug-input-data.ttl", "turtle")
