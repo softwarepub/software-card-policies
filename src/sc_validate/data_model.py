@@ -51,8 +51,8 @@ class Policy:
     @classmethod
     def from_graph(cls, reference: URIRef, graph: Graph):
         return cls(
-            name=graph.value(reference, SH.name, None),
-            description=graph.value(reference, SH.description, None),
+            name=get_language_tagged_literal(graph, reference, SH.name),
+            description=get_language_tagged_literal(graph, reference, SH.description),
         )
 
 

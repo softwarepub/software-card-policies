@@ -3,15 +3,15 @@
 # SPDX-FileContributor: David Pape
 
 import operator
-import pathlib
 import sys
-from argparse import ArgumentParser, ArgumentTypeError
+from argparse import ArgumentError, ArgumentParser, ArgumentTypeError
 from functools import reduce
+from pathlib import Path
 from typing import Dict
 from urllib.parse import urlparse
 
 from sc_validate import __version__ as version
-from sc_validate.config import Policy, Settings
+from sc_validate.config import Policy, make_config
 from sc_validate.data_model import (
     parameterize_graph,
     read_rdf_resource,
@@ -20,8 +20,8 @@ from sc_validate.data_model import (
 from sc_validate.report import create_report
 
 
-def path_or_url(path: str) -> pathlib.Path | str:
-    if (path_obj := pathlib.Path(path)).exists():
+def _path_or_url(path: str) -> Path | str:
+    if (path_obj := Path(path)).exists():
         return path_obj
     result = urlparse(path)
     if result.scheme and result.netloc:
@@ -29,6 +29,14 @@ def path_or_url(path: str) -> pathlib.Path | str:
     raise ArgumentTypeError(f"Argument '{path}' is neither an existing file nor a URL")
 
 
+def _path(path: str) -> Path:
+    path_obj = Path(path)
+    if path_obj.exists():
+        return path_obj
+    raise ArgumentError(f"Argument '{path}' is not an existing file")
+
+
+# TODO: Move this function somewhere more useful
 def policies_to_shacl(policies: Dict[str, Policy]):
     shacl_graphs = []
     # TODO: We're only using the values. What to do with the keys?
@@ -39,7 +47,7 @@ def policies_to_shacl(policies: Dict[str, Policy]):
     return reduce(operator.add, shacl_graphs)
 
 
-def main():
+def make_argument_parser() -> ArgumentParser:
     parser = ArgumentParser(
         prog="sc-validate",
         description="Validate publication metadata using Software CaRD policies.",
@@ -50,21 +58,44 @@ def main():
             "file containing Codemeta-based software publication metadata "
             "(as a file path or URL)"
         ),
-        type=path_or_url,
+        type=_path_or_url,
         metavar="METADATA_FILE",
     )
-    parser.add_argument("--debug", help="run in debug mode", action="store_true")
-    parser.add_argument("--version", action="version", version=f"%(prog)s {version}")
+    parser.add_argument(
+        "-c",
+        "--config",
+        help="configuration file (the default is config.toml)",
+        type=_path,
+        default="config.toml",
+        metavar="CONFIG_FILE",
+    )
+    parser.add_argument(
+        "-d",
+        "--debug",
+        help="run in debug mode",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="version",
+        version=f"%(prog)s {version}",
+    )
+    return parser
+
+
+def main():
+    parser = make_argument_parser()
     arguments = parser.parse_args()
 
     try:
-        settings = Settings()
-    except ValueError as e:
-        print("Failed to parse configuration file", str(e), sep="\n\n", file=sys.stderr)
+        config = make_config(config_file=arguments.config)
+    except Exception as e:
+        print(e, file=sys.stderr)
         sys.exit(2)
 
     data_graph = read_rdf_resource(arguments.metadata_file)
-    shapes_graph = policies_to_shacl(settings.policies)
+    shapes_graph = policies_to_shacl(config.policies)
 
     if arguments.debug:
         data_graph.serialize("debug-input-data.ttl", "turtle")
