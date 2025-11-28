@@ -8,8 +8,6 @@ from typing import Any, Dict
 
 import toml
 
-DEFAULT_CONFIG_FILE_NAME = "config.toml"
-
 
 @dataclass
 class Policy:
@@ -44,12 +42,18 @@ class Config:
         )
 
 
-# TODO: Catch exceptions and convert them to some more useful exceptions
-def make_config(*, config_file: str | Path = None, config_dict: dict = None) -> Config:
-    if config_file is None:
-        config_file = DEFAULT_CONFIG_FILE_NAME
-
+def make_config(*, config_file: Path = None, config_dict: dict = None) -> Config:
+    if config_file is None and config_dict is None:
+        raise ValueError("Neither config_file nor config_dict were given")
+    if config_file is not None and config_dict is not None:
+        raise ValueError("Only one of config_file and config_dict may be given")
     if config_dict is None:
-        config_dict = toml.load(config_file)
-
+        if not config_file.exists():
+            raise FileNotFoundError(f"Config file '{config_file}' does not exist")
+        if not config_file.is_file():
+            raise TypeError(f"Config file '{config_file}' is not a regular file")
+        try:
+            config_dict = toml.load(config_file)
+        except toml.TomlDecodeError:
+            raise ValueError(f"Config file '{config_file}' could not be parsed")
     return Config.from_dict(config_dict)

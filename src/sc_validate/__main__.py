@@ -47,7 +47,7 @@ def policies_to_shacl(policies: Dict[str, Policy]):
     return reduce(operator.add, shacl_graphs)
 
 
-def main():
+def make_argument_parser() -> ArgumentParser:
     parser = ArgumentParser(
         prog="sc-validate",
         description="Validate publication metadata using Software CaRD policies.",
@@ -64,8 +64,9 @@ def main():
     parser.add_argument(
         "-c",
         "--config",
-        help="configuration file",
+        help="configuration file (the default is config.toml)",
         type=_path,
+        default="config.toml",
         metavar="CONFIG_FILE",
     )
     parser.add_argument(
@@ -80,6 +81,11 @@ def main():
         action="version",
         version=f"%(prog)s {version}",
     )
+    return parser
+
+
+def main():
+    parser = make_argument_parser()
     arguments = parser.parse_args()
 
     try:
