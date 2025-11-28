@@ -3,10 +3,10 @@
 # SPDX-FileContributor: David Pape
 
 import operator
-import pathlib
 import sys
-from argparse import ArgumentParser, ArgumentTypeError
+from argparse import ArgumentError, ArgumentParser, ArgumentTypeError
 from functools import reduce
+from pathlib import Path
 from typing import Dict
 from urllib.parse import urlparse
 
@@ -20,13 +20,20 @@ from sc_validate.data_model import (
 from sc_validate.report import create_report
 
 
-def path_or_url(path: str) -> pathlib.Path | str:
-    if (path_obj := pathlib.Path(path)).exists():
+def _path_or_url(path: str) -> Path | str:
+    if (path_obj := Path(path)).exists():
         return path_obj
     result = urlparse(path)
     if result.scheme and result.netloc:
         return path
     raise ArgumentTypeError(f"Argument '{path}' is neither an existing file nor a URL")
+
+
+def _path(path: str) -> Path:
+    path_obj = Path(path)
+    if path_obj.exists():
+        return path_obj
+    raise ArgumentError(f"Argument '{path}' is not an existing file")
 
 
 # TODO: Move this function somewhere more useful
@@ -51,15 +58,32 @@ def main():
             "file containing Codemeta-based software publication metadata "
             "(as a file path or URL)"
         ),
-        type=path_or_url,
+        type=_path_or_url,
         metavar="METADATA_FILE",
     )
-    parser.add_argument("--debug", help="run in debug mode", action="store_true")
-    parser.add_argument("--version", action="version", version=f"%(prog)s {version}")
+    parser.add_argument(
+        "-c",
+        "--config",
+        help="configuration file",
+        type=_path,
+        metavar="CONFIG_FILE",
+    )
+    parser.add_argument(
+        "-d",
+        "--debug",
+        help="run in debug mode",
+        action="store_true",
+    )
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="version",
+        version=f"%(prog)s {version}",
+    )
     arguments = parser.parse_args()
 
     try:
-        config = make_config()
+        config = make_config(config_file=arguments.config)
     # TODO: Catch more specific errors
     except Exception as e:
         print("Failed to parse configuration file:", str(e), file=sys.stderr)
