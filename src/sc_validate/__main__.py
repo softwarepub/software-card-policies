@@ -10,10 +10,8 @@ from functools import reduce
 from typing import Dict
 from urllib.parse import urlparse
 
-import toml
-
 from sc_validate import __version__ as version
-from sc_validate.config import Policy, Settings
+from sc_validate.config import Policy, make_config
 from sc_validate.data_model import (
     parameterize_graph,
     read_rdf_resource,
@@ -31,6 +29,7 @@ def path_or_url(path: str) -> pathlib.Path | str:
     raise ArgumentTypeError(f"Argument '{path}' is neither an existing file nor a URL")
 
 
+# TODO: Move this function somewhere more useful
 def policies_to_shacl(policies: Dict[str, Policy]):
     shacl_graphs = []
     # TODO: We're only using the values. What to do with the keys?
@@ -59,16 +58,15 @@ def main():
     parser.add_argument("--version", action="version", version=f"%(prog)s {version}")
     arguments = parser.parse_args()
 
-    # TODO: Make reading settings a convenience function
     try:
-        settings = Settings.from_dict(toml.load("config.toml"))
+        config = make_config()
     # TODO: Catch more specific errors
     except Exception as e:
         print("Failed to parse configuration file:", str(e), file=sys.stderr)
         sys.exit(2)
 
     data_graph = read_rdf_resource(arguments.metadata_file)
-    shapes_graph = policies_to_shacl(settings.policies)
+    shapes_graph = policies_to_shacl(config.policies)
 
     if arguments.debug:
         data_graph.serialize("debug-input-data.ttl", "turtle")

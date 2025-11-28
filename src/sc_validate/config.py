@@ -3,9 +3,12 @@
 # SPDX-FileContributor: David Pape
 
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any, Dict
 
-CONFIG_FILE_NAME = "config.toml"
+import toml
+
+DEFAULT_CONFIG_FILE_NAME = "config.toml"
 
 
 @dataclass
@@ -24,7 +27,7 @@ class Policy:
 
 
 @dataclass
-class Settings:
+class Config:
     policies: Dict[str, Policy]
 
     @classmethod
@@ -39,3 +42,14 @@ class Settings:
                 for policy_name, policy_settings in policies.items()
             }
         )
+
+
+# TODO: Catch exceptions and convert them to some more useful exceptions
+def make_config(*, config_file: str | Path = None, config_dict: dict = None) -> Config:
+    if config_file is None:
+        config_file = DEFAULT_CONFIG_FILE_NAME
+
+    if config_dict is None:
+        config_dict = toml.load(config_file)
+
+    return Config.from_dict(config_dict)
