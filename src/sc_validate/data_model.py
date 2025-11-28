@@ -2,9 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileContributor: David Pape
 
-import pathlib
+import operator
 from dataclasses import dataclass
 from enum import Enum
+from functools import reduce
+from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
 from pyshacl import validate
@@ -13,6 +15,7 @@ from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, SH, XSD
 from rdflib.term import URIRef
 
+from sc_validate.config import Config
 from sc_validate.namespaces import PREFIXES, SC
 from sc_validate.rdf_helpers import get_language_tagged_literal
 
@@ -155,7 +158,7 @@ _ALLOWED_INNER_TYPES = (
 )
 
 
-def read_rdf_resource(source: pathlib.Path | str) -> Graph:
+def read_rdf_resource(source: Path | str) -> Graph:
     graph = Graph()
     graph.parse(source)
     for prefix, iri in PREFIXES.items():
@@ -255,3 +258,14 @@ def validate_graph(data_graph: Graph, shacl_graph: Graph) -> Tuple[bool, Graph]:
     for prefix, iri in PREFIXES.items():
         validation_graph.bind(prefix, iri)
     return conforms, validation_graph
+
+
+def make_shacl_graph(config: Config) -> Graph:
+    shacl_graphs = []
+    # TODO: We're only using the values. Make use of the keys which contain the config
+    # names of the policies.
+    for policy in config.policies.values():
+        policy_graph = read_rdf_resource(policy.source)
+        shacl_graph = parameterize_graph(policy_graph, policy.parameters)
+        shacl_graphs.append(shacl_graph)
+    return reduce(operator.add, shacl_graphs)
