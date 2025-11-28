@@ -10,6 +10,8 @@ from functools import reduce
 from typing import Dict
 from urllib.parse import urlparse
 
+import toml
+
 from sc_validate import __version__ as version
 from sc_validate.config import Policy, Settings
 from sc_validate.data_model import (
@@ -57,10 +59,12 @@ def main():
     parser.add_argument("--version", action="version", version=f"%(prog)s {version}")
     arguments = parser.parse_args()
 
+    # TODO: Make reading settings a convenience function
     try:
-        settings = Settings()
-    except ValueError as e:
-        print("Failed to parse configuration file", str(e), sep="\n\n", file=sys.stderr)
+        settings = Settings.from_dict(toml.load("config.toml"))
+    # TODO: Catch more specific errors
+    except Exception as e:
+        print("Failed to parse configuration file:", str(e), file=sys.stderr)
         sys.exit(2)
 
     data_graph = read_rdf_resource(arguments.metadata_file)

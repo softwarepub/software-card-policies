@@ -2,36 +2,40 @@
 # SPDX-License-Identifier: Apache-2.0
 # SPDX-FileContributor: David Pape
 
-from typing import Any, Dict, Tuple, Type
-
-from pydantic import BaseModel
-from pydantic_settings import (
-    BaseSettings,
-    PydanticBaseSettingsSource,
-    SettingsConfigDict,
-    TomlConfigSettingsSource,
-)
+from dataclasses import dataclass, field
+from typing import Any, Dict
 
 CONFIG_FILE_NAME = "config.toml"
 
 
-class Policy(BaseModel):
+@dataclass
+class Policy:
     source: str
-    parameters: Dict[str, Any] = {}
-
-
-class Settings(BaseSettings):
-    policies: Dict[str, Policy]
-
-    model_config = SettingsConfigDict(toml_file=CONFIG_FILE_NAME)
+    parameters: Dict[str, Any] = field(default_factory=dict)
 
     @classmethod
-    def settings_customise_sources(
-        cls,
-        settings_cls: Type[BaseSettings],
-        init_settings: PydanticBaseSettingsSource,
-        env_settings: PydanticBaseSettingsSource,
-        dotenv_settings: PydanticBaseSettingsSource,
-        file_secret_settings: PydanticBaseSettingsSource,
-    ) -> Tuple[PydanticBaseSettingsSource, ...]:
-        return (TomlConfigSettingsSource(settings_cls),)
+    def from_dict(cls, policy: dict):
+        assert isinstance(policy, dict)
+        source = policy.get("source")
+        parameters = policy.get("parameters")
+        assert source is not None
+        assert isinstance(parameters, (dict, type(None)))
+        return cls(source=source, parameters=parameters or {})
+
+
+@dataclass
+class Settings:
+    policies: Dict[str, Policy]
+
+    @classmethod
+    def from_dict(cls, settings: dict):
+        assert isinstance(settings, dict)
+        assert "policies" in settings
+        policies: dict = settings["policies"]
+        assert all(isinstance(key, str) for key in policies.keys())
+        return cls(
+            policies={
+                policy_name: Policy.from_dict(policy_settings)
+                for policy_name, policy_settings in policies.items()
+            }
+        )
