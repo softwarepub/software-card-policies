@@ -92,8 +92,6 @@ class Severity:
     comment: str
     level: SeverityLevel
 
-    # TODO: ``rdfs:label`` is ``None`` for SHACL's builtin severities. They exist in the
-    # SHACL source but the validator doesn't put them into the graph. Should we do it?
     def __str__(self):
         return self.label if self.label else str(self.level)
 
@@ -162,7 +160,7 @@ def read_rdf_resource(source: Path | str) -> Graph:
     graph = Graph()
     graph.parse(source)
     for prefix, iri in PREFIXES.items():
-        graph.bind(prefix, iri)
+        graph.bind(prefix, iri, replace=True)
     return graph
 
 
@@ -197,7 +195,8 @@ def _create_sc_scalar_parameter(
     return graph.value(parameter.uri, SC.parameterDefaultValue, None)
 
 
-# TODO: Is it safe to modify the graph while iterating over it?
+# TODO: Don't modify the graph while iterating over it! Collect new triples first, then
+# insert at the end!
 def parameterize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
     # iterate over all declared parameters of type `sc:Parameter`
     for parameter_ref in graph.subjects(RDF.type, SC.Parameter):
@@ -237,7 +236,6 @@ def parameterize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph
             graph.add((s, p, o))
 
         # remove all references to the parameter from the graph
-        # TODO: Keep all `(parameter.uri, None, None)` for debugging purposes?
         graph.remove((parameter.uri, None, None))
         graph.remove((None, None, parameter.uri))
 
@@ -254,9 +252,16 @@ def validate_graph(data_graph: Graph, shacl_graph: Graph) -> Tuple[bool, Graph]:
         do_owl_imports=True,
         js=True,
     )
-    # TODO: Is this required? Or are the bindings transferred from the data graph?
+
+    # Read the whole SHACL vocabulary into the graph so that we can use additional info
+    # such as labels and descriptions.
+    validation_graph.parse(SH._NS)
+
+    # Bind namespace prefixes for better readability. These _should_ already be bound;
+    # we're just making sure.
     for prefix, iri in PREFIXES.items():
-        validation_graph.bind(prefix, iri)
+        validation_graph.bind(prefix, iri, replace=True)
+
     return conforms, validation_graph
 
 
