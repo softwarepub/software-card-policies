@@ -142,7 +142,14 @@ class ValidationReport:
 ################################## Graph Interaction ##################################
 
 # TODO: Add debug messages to all asserts.
-# TODO: Check allowed inner and outer types.
+
+_ALLOWED_OUTER_TYPES = (
+    SC.Scalar,
+    RDF.List,
+    RDF.Seq,
+    RDF.Bag,
+    RDF.Alt,
+)
 
 _ALLOWED_INNER_TYPES = (
     XSD.string,
@@ -153,6 +160,7 @@ _ALLOWED_INNER_TYPES = (
     XSD.float,
     XSD.double,
     XSD.anyURI,
+    RDFS.Resource,
 )
 
 
@@ -195,49 +203,54 @@ def _create_sc_scalar_parameter(
     return graph.value(parameter.uri, SC.parameterDefaultValue, None)
 
 
-# TODO: Don't modify the graph while iterating over it! Collect new triples first, then
-# insert at the end!
 def parameterize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph:
-    # iterate over all declared parameters of type `sc:Parameter`
-    for parameter_ref in graph.subjects(RDF.type, SC.Parameter):
-        parameter = Parameter.from_graph(parameter_ref, graph)
+    """Parameterize the ``graph`` using the ``config_parameters``."""
 
-        inner_type_is_primitive = parameter.inner_type in _ALLOWED_INNER_TYPES
+    # Extract references into a list so we don't have to iterate over the graph we want
+    # to modify!
+    parameter_refs = list(graph.subjects(RDF.type, SC.Parameter))
+
+    for parameter_ref in parameter_refs:
+        parameter = Parameter.from_graph(parameter_ref, graph)
 
         config_parameter = config_parameters.get(parameter.config_path)
 
-        if not inner_type_is_primitive and parameter.inner_type != RDFS.Resource:
+        if parameter.outer_type not in _ALLOWED_OUTER_TYPES:
+            raise ValueError(
+                f"'Parameter {parameter.uri}' has unknown outer type "
+                f"'{parameter.outer_type}'"
+            )
+
+        if parameter.inner_type not in _ALLOWED_INNER_TYPES:
             raise ValueError(
                 f"Parameter '{parameter.uri}' has unknown inner type "
                 f"'{parameter.inner_type}'"
             )
 
-        if parameter.outer_type == RDF.List:
+        if parameter.outer_type == SC.Scalar:
+            o = _create_sc_scalar_parameter(parameter, graph, config_parameter)
+
+        elif parameter.outer_type == RDF.List:
             o = _create_rdf_list_parameter(parameter, graph, config_parameter)
 
-        elif parameter.outer_type in (RDF.Seq, RDF.Bag, RDF.Alt):
+        else:
             raise NotImplementedError(
                 f"Parameter '{parameter.uri}' has outer type "
                 f"'{parameter.outer_type}', the handling of which "
                 "is currently not implemented"
             )
 
-        elif parameter.outer_type == SC.Scalar:
-            o = _create_sc_scalar_parameter(parameter, graph, config_parameter)
-
-        else:
-            raise ValueError(
-                f"'Parameter {parameter.uri}' has unknown outer type "
-                f"'{parameter.outer_type}'"
-            )
-
-        # add replacements for all occurences of the parameter
-        for s, p in graph.subject_predicates(parameter.uri):
+        # Add replacements for all occurences of the parameter. Again, extract
+        # occurences before modifying the graph!
+        occurences = list(graph.subject_predicates(parameter.uri))
+        for s, p in occurences:
             graph.add((s, p, o))
 
         # remove all references to the parameter from the graph
         graph.remove((parameter.uri, None, None))
         graph.remove((None, None, parameter.uri))
+        if parameter.outer_type != SC.Scalar:
+            Collection(graph, parameter.default_value).clear()
 
     return graph
 
