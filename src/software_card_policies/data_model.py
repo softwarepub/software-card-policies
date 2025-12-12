@@ -15,9 +15,9 @@ from rdflib.collection import Collection
 from rdflib.namespace import RDF, RDFS, SH, XSD
 from rdflib.term import URIRef
 
-from sc_validate.config import Config
-from sc_validate.namespaces import PREFIXES, SC
-from sc_validate.rdf_helpers import get_language_tagged_literal
+from software_card_policies.config import Config
+from software_card_policies.namespaces import PREFIXES, SC
+from software_card_policies.rdf_helpers import get_language_tagged_literal
 
 #################################### Software CaRD ####################################
 

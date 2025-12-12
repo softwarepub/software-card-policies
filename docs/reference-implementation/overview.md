@@ -33,7 +33,7 @@ pipx install git+https://github.com/softwarepub/software-card-policies.git
 Basic usage:
 
 ```bash
-sc-validate --config config.toml --data metadata.ttl
+software-card-validate --config config.toml --data metadata.ttl
 ```
 
 

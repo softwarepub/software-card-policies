@@ -7,14 +7,14 @@ from argparse import ArgumentError, ArgumentParser, ArgumentTypeError
 from pathlib import Path
 from urllib.parse import urlparse
 
-from sc_validate import __version__ as version
-from sc_validate.config import make_config
-from sc_validate.data_model import (
+from software_card_policies import __version__ as version
+from software_card_policies.config import make_config
+from software_card_policies.data_model import (
     make_shacl_graph,
     read_rdf_resource,
     validate_graph,
 )
-from sc_validate.report import create_report
+from software_card_policies.report import create_report
 
 
 def _path_or_url(path: str) -> Path | str:
@@ -35,7 +35,7 @@ def _path(path: str) -> Path:
 
 def make_argument_parser() -> ArgumentParser:
     parser = ArgumentParser(
-        prog="sc-validate",
+        prog="software-card-validate",
         description="Validate publication metadata using Software CaRD policies.",
     )
     parser.add_argument(
