@@ -36,7 +36,7 @@ docs = [
 ]
 
 [project.scripts]
-sc-validate = "sc_validate.__main__:main"
+software-card-validate = "sc_validate.__main__:main"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]
