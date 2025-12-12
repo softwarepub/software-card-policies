@@ -7,6 +7,6 @@ Validator
 
 .. note::
 
-   This is a placeholder for the documentation of the ``sc-validate`` command line tool.
+   This is a placeholder for the documentation of the ``software-card-validate`` command line tool.
 
-The validator can be run using the ``sc-validate`` command which is equivalent to ``python -m sc_validate``.
+The validator can be run using the ``software-card-validate`` command which is equivalent to ``python -m software_card_policies``.

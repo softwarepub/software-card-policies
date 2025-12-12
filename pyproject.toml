@@ -7,7 +7,7 @@ requires = ["setuptools >= 64", "setuptools-scm>8"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sc-validate"
+name = "software-card-policies"
 dynamic = ["version"]
 dependencies = [
   "pyshacl[js]>=0.30.0",
@@ -36,16 +36,16 @@ docs = [
 ]
 
 [project.scripts]
-software-card-validate = "sc_validate.__main__:main"
+software-card-validate = "software_card_policies.__main__:main"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "N", "W"]
 
 [tool.ruff.lint.per-file-ignores]
-"src/sc_validate/namespaces.py" = ["N815"]  # mixed case class parameters
+"src/software_card_policies/namespaces.py" = ["N815"]  # mixed case class parameters
 
 [tool.setuptools_scm]
-version_file = "src/sc_validate/_version.py"
+version_file = "src/software_card_policies/_version.py"
 
 [tool.taskipy.tasks]
 docs-build = "sphinx-build -M html docs docs/_build"

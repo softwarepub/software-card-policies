@@ -7,4 +7,4 @@ Library
 
 .. note::
 
-   This is a placeholder for the documentation of the ``sc_validate`` library.
+   This is a placeholder for the documentation of the ``software_card_policies`` library.

@@ -6,12 +6,12 @@ SPDX-FileContributor: David Pape
 
 # Software CaRD Policies
 
-This repository contains the `sc_validate` Python library as well as the associated command line program
-`sc-validate` and example policies.
+This repository contains the `software_card_policies` Python library as well as the associated
+command line program `software-card-validate` and example policies.
 The software was written as part of the [Software CaRD](https://helmholtz-metadaten.de/en/inf-projects/softwarecard)
 project.
 
-## `sc-validate`
+## `software-card-validate`
 
 A command line program that validates a given metadata file using a set of configurable policies.
 
@@ -41,7 +41,7 @@ python -m pip install -e .
 Run the program:
 
 ```bash
-sc-validate examples/data/hermes.ttl
+software-card-validate examples/data/hermes.ttl
 ```
 
 This will validate [`hermes.ttl`](examples/data/hermes.ttl) using the policies defined in [`config.toml`](config.toml)
