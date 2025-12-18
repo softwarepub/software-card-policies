@@ -8,7 +8,7 @@ Validator
 The validator can be run using the ``software-card-validate`` command which is
 equivalent to ``python -m software_card_policies``.
 
-.. code:: bash
+.. code-block:: bash
    :caption: Basic usage.
 
    software-card-validate --config config.toml metadata.ttl
