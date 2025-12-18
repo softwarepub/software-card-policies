@@ -90,8 +90,7 @@ Implementations MUST validate that configured parameter values match the declare
 
 1. **Outer Type Validation:**
    - `sc:Scalar`: parameters MUST receive a single value (not an array/list)
-   - `rdf:List`: parameters MUST receive an (ordered) array/list of values
-   - `rdf:Bag`: parameters MUST receive an (unorderd) array/list of values
+   - `rdf:List`: parameters MUST receive an array/list of values
 
 2. **Inner Type Validation:**
    - Values MUST be compatible with the declared XSD datatype

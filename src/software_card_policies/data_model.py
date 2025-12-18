@@ -7,6 +7,7 @@ from dataclasses import dataclass
 from enum import Enum
 from functools import reduce
 from pathlib import Path
+from types import NoneType
 from typing import Any, Dict, List, Tuple
 
 from pyshacl import validate
@@ -146,9 +147,6 @@ class ValidationReport:
 _ALLOWED_OUTER_TYPES = (
     SC.Scalar,
     RDF.List,
-    RDF.Seq,
-    RDF.Bag,
-    RDF.Alt,
 )
 
 _ALLOWED_INNER_TYPES = (
@@ -172,11 +170,10 @@ def read_rdf_resource(source: Path | str) -> Graph:
     return graph
 
 
-def _create_rdf_list_parameter(
+def _create_list_parameter(
     parameter: Parameter, graph: Graph, config_parameter: Any
 ) -> Node:
     assert parameter.outer_type == RDF.List
-    # assert (parameter.default_value, RDF.type, RDF.List) in graph
     assert (parameter.default_value, RDF.first, None) in graph
     assert (parameter.default_value, RDF.rest, None) in graph
 
@@ -190,12 +187,11 @@ def _create_rdf_list_parameter(
     ).uri
 
 
-def _create_sc_scalar_parameter(
+def _create_scalar_parameter(
     parameter: Parameter, graph: Graph, config_parameter: Any
 ) -> Node:
     assert parameter.outer_type == SC.Scalar
-
-    assert isinstance(config_parameter, (str, int, float, type(None)))
+    assert isinstance(config_parameter, (str, int, float, NoneType))
 
     if config_parameter:
         return Literal(config_parameter)
@@ -228,17 +224,10 @@ def parameterize_graph(graph: Graph, config_parameters: Dict[str, Any]) -> Graph
             )
 
         if parameter.outer_type == SC.Scalar:
-            o = _create_sc_scalar_parameter(parameter, graph, config_parameter)
-
-        elif parameter.outer_type == RDF.List:
-            o = _create_rdf_list_parameter(parameter, graph, config_parameter)
+            o = _create_scalar_parameter(parameter, graph, config_parameter)
 
         else:
-            raise NotImplementedError(
-                f"Parameter '{parameter.uri}' has outer type "
-                f"'{parameter.outer_type}', the handling of which "
-                "is currently not implemented"
-            )
+            o = _create_list_parameter(parameter, graph, config_parameter)
 
         # Add replacements for all occurences of the parameter. Again, extract
         # occurences before modifying the graph!

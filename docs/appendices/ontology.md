@@ -88,7 +88,7 @@ sc:AllowedOuterType a owl:Class ;
     rdfs:label "Allowed Outer Type"@en ;
     rdfs:comment """The set of container types that may be used as outer types for parameters.
                     This includes scalar (single value), ordered lists, and unordered bags."""@en ;
-    owl:oneOf ( sc:Scalar rdf:List rdf:Bag ) ;
+    owl:oneOf ( sc:Scalar rdf:List ) ;
     rdfs:isDefinedBy <https://schema.software-metadata.pub/software-card/2025-01/#> .
 
 # Class Definition with cardinality restrictions
@@ -143,7 +143,7 @@ sc:parameterOuterType a owl:ObjectProperty ;
     rdfs:label "parameter outer type"@en ;
     rdfs:comment """Specifies the container/cardinality type of the parameter value.
                     Determines whether the parameter represents a single value (sc:Scalar),
-                    an ordered collection (rdf:List), or an unordered collection (rdf:Bag)."""@en ;
+                    or a list of values (rdf:List)."""@en ;
     rdfs:domain sc:Parameter ;
     rdfs:range sc:AllowedOuterType ;
     rdfs:isDefinedBy <https://schema.software-metadata.pub/software-card/2025-01/#> .
@@ -171,7 +171,7 @@ sc:parameterDefaultValue a rdf:Property ;
                     parameter becomes required and must be provided in the configuration file.
                     When present, the default value must match the parameter's declared outer
                     and inner types. For scalar parameters, this is a single literal or resource.
-                    For list or bag parameters, this is an rdf:List or rdf:Bag."""@en ;
+                    For list parameters, this is an rdf:List."""@en ;
     rdfs:domain sc:Parameter ;
     rdfs:isDefinedBy <https://schema.software-metadata.pub/software-card/2025-01/#> .
 
@@ -241,8 +241,8 @@ sc:ParameterShape a sh:NodeShape ;
         sh:description "The container/cardinality type of the parameter."@en ;
         sh:minCount 1 ;
         sh:maxCount 1 ;
-        sh:in ( sc:Scalar rdf:List rdf:Bag ) ;
-        sh:message "Parameter must have exactly one outer type: sc:Scalar, rdf:List, or rdf:Bag."@en ;
+        sh:in ( sc:Scalar rdf:List ) ;
+        sh:message "Parameter must have exactly one outer type: sc:Scalar, or rdf:List."@en ;
     ] ;
 
     # Must have exactly one inner type from allowed set

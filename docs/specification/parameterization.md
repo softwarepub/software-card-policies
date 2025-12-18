@@ -97,8 +97,8 @@ We mention dates as an example here but disallow them later.
 This separation allows the framework to correctly handle configurations like:
 
 - A minimum character requirement for descriptions (outer: `sc:Scalar`, inner: `xsd:int`)
-- A list of license URIs (outer: `rdf:List`, inner: `xsd:anyURI`)
-- A set of organization names (outer: `rdf:Bag`, inner: `xsd:string`)
+- A selection of license URIs (outer: `rdf:List`, inner: `xsd:anyURI`)
+- A list of organization names (outer: `rdf:List`, inner: `xsd:string`)
 
 
 ## `sc:parameterInnerType`
@@ -159,13 +159,13 @@ The outer type MUST be present and MUST specify how values are structured.
 
 These types MUST be supported by implementations:
 
-| Outer Type  | Meaning            | Use When                                     | Example                                    |
-| ----------- | ------------------ | -------------------------------------------- | ------------------------------------------ |
-| `sc:Scalar` | Single value       | Only one value is needed                     | Minimum description length, a boolean flag |
-| `rdf:List`  | Ordered sequence   | Order matters and multiple values are needed | Priority-ordered list of licenses          |
-| `rdf:Bag`   | Unordered sequence | Order does not matter for multiple values    | List of software dependencies              |
+| Outer Type  | Meaning                                       | Use When                   | Examples                                                         |
+| ----------- | --------------------------------------------- | -------------------------- | ---------------------------------------------------------------- |
+| `sc:Scalar` | Single value                                  | Only one value is needed   | Minimum text length, a boolean flag, a single email address, ... |
+| `rdf:List`  | Ordered and unordered sequences, enumerations | Multiple values are needed | A selection of allowed licenses, a list of persons, ...          |
 
-Ohter RDF collection types (like `rdf:Seq`, `rdf:Alt`) MAY be supported by a validation implementation.
+RDF container types (`rdf:Alt`, `rdf:Bag`, `rdf:Seq`) MAY be supported by validation implementations.
+However, these types are not supported by SHACL which means conversion has to be applied.
 
 ## `sc:parameterConfigKey`
 
@@ -322,19 +322,4 @@ scex:requiredKeywords a sc:Parameter ;
     sc:parameterInnerType xsd:string ;
     sc:parameterConfigKey "required_keywords" ;
     sc:parameterDefaultValue ( "research-software" "open-source" ) .
-```
-
-Configuration:
-```toml
-[policies.keywords.parameters]
-required_keywords = ["fair-software", "reproducible-research", "scientific-computing"]
-```
-
-**Bag of Strings (Unordered Collection):**
-```turtle
-scex:allowedLanguages a sc:Parameter ;
-    sc:parameterOuterType rdf:Bag ;
-    sc:parameterInnerType xsd:string ;
-    sc:parameterConfigKey "allowed_programming_languages" ;
-    sc:parameterDefaultValue ( "Python" "Java" "C++" ) .
 ```
