@@ -5,8 +5,18 @@
 Validator
 =========
 
-.. note::
+The validator can be run using the ``software-card-validate`` command which is
+equivalent to ``python -m software_card_policies``.
 
-   This is a placeholder for the documentation of the ``software-card-validate`` command line tool.
+Basic usage:
 
-The validator can be run using the ``software-card-validate`` command which is equivalent to ``python -m software_card_policies``.
+```bash
+software-card-validate --config config.toml metadata.ttl
+```
+
+This will:
+
+1. Load policies specified in `config.toml`
+2. Resolve any parameters from the configuration
+3. Validate the metadata in `metadata.ttl` using the given policies
+4. Print a validation report
