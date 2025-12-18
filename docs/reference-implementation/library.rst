@@ -10,7 +10,7 @@ other tools.
 E.g., to "parameterize" a graph which contains ``sc:Parameter`` objects, you can use the
 following snippet:
 
-.. code:: python
+.. code-block:: python
    :caption: Graph parameterization using the library.
 
    from rdflib import Graph
