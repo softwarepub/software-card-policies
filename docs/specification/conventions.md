@@ -17,28 +17,22 @@ RDF examples use the following namespace prefixes (this declaration is omitted f
 
 ```turtle
 @prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sc: <https://schema.software-metadata.pub/software-card/2025-01/#> .
 @prefix scex: <https://schema.software-metadata.pub/software-card/2025-01/examples/#> .
-@prefix scimpl: <https://schema.software-metadata.pub/software-card/2025-01/implementations/#> .
+@prefix scimpl: <https://schema.software-metadata.pub/software-card/2025-01/implementation/#> .
 @prefix schema: <https://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 ```
 
-**Namespace Purposes:**
+For Software CaRD, these prefixes were established:
 
-- `sc:` - Core Software CaRD vocabulary for features like parameterization
-- `scex:` - Example policies and data
-- `scimpl:` - Implementations, e.g. SHACL Constraints
-- `sh:` - SHACL vocabulary for defining validation shapes
-- `schema:` - Schema.org vocabulary for software metadata
-- `codemeta:` - CodeMeta extensions to Schema.org
-- `xsd:` - XML Schema datatypes
-- `rdf:` and `rdfs:` - Core RDF and RDF schema vocabularies
-
-
+- [`sc:`](https://schema.software-metadata.pub/software-card/2025-01/#) - Core Software CaRD vocabulary exposed to the users
+- [`scex:`](https://schema.software-metadata.pub/software-card/2025-01/examples/#) - Example policies and data
+- [`scimpl:`](https://schema.software-metadata.pub/software-card/2025-01/implementation/#) - Implementation details
 
 ## Glossary
 
