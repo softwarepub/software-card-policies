@@ -9,7 +9,7 @@ from rdflib.term import URIRef
 class SC(DefinedNamespace):
     """The Software CaRD schema."""
 
-    _NS = Namespace("https://schema.software-metadata.pub/software-card/2025-01-01/#")
+    _NS = Namespace("https://schema.software-metadata.pub/software-card/2025-01/#")
 
     #: A "placeholder" parameter to be used in a policy
     Parameter: URIRef
@@ -32,7 +32,7 @@ class SCIMPL(DefinedNamespace):
     """Software CaRD implementation details."""
 
     _NS = Namespace(
-        "https://schema.software-metadata.pub/software-card/2025-01-01/implementation/#"
+        "https://schema.software-metadata.pub/software-card/2025-01/implementation/#"
     )
 
 
@@ -40,7 +40,7 @@ class SCEX(DefinedNamespace):
     """Software CaRD example components."""
 
     _NS = Namespace(
-        "https://schema.software-metadata.pub/software-card/2025-01-01/examples/#"
+        "https://schema.software-metadata.pub/software-card/2025-01/examples/#"
     )
 
 
