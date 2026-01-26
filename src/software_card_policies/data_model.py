@@ -162,9 +162,25 @@ _ALLOWED_INNER_TYPES = (
 )
 
 
-def read_rdf_resource(source: Path | str) -> Graph:
+def read_rdf_resource(
+    source: Path | None = None,
+    format: str | None = None,
+    data: str | bytes | None = None,
+) -> Graph:
+    """Read in an RDF resource.
+
+    Either ``source``, or ``format`` and ``data`` must be given.
+    """
+    assert (
+        source is not None
+        and format is None
+        and data is None
+        or source is None
+        and format is not None
+        and data is not None
+    )
     graph = Graph()
-    graph.parse(source)
+    graph.parse(source=source, format=format, data=data)
     for prefix, iri in PREFIXES.items():
         graph.bind(prefix, iri, replace=True)
     return graph
@@ -275,4 +291,4 @@ def make_shacl_graph(config: Config) -> Graph:
         policy_graph = read_rdf_resource(policy.source)
         shacl_graph = parameterize_graph(policy_graph, policy.parameters)
         shacl_graphs.append(shacl_graph)
-    return reduce(operator.add, shacl_graphs)
+    return reduce(operator.add, shacl_graphs, Graph())
