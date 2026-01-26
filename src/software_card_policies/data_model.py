@@ -162,9 +162,25 @@ _ALLOWED_INNER_TYPES = (
 )
 
 
-def read_rdf_resource(source: Path | str) -> Graph:
+def read_rdf_resource(
+    source: Path | None = None,
+    format: str | None = None,
+    data: str | bytes | None = None,
+) -> Graph:
+    """Read in an RDF resource.
+
+    Either ``source``, or ``format`` and ``data`` must be given.
+    """
+    assert (
+        source is not None
+        and format is None
+        and data is None
+        or source is None
+        and format is not None
+        and data is not None
+    )
     graph = Graph()
-    graph.parse(source)
+    graph.parse(source=source, format=format, data=data)
     for prefix, iri in PREFIXES.items():
         graph.bind(prefix, iri, replace=True)
     return graph
