@@ -1,0 +1,669 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Examples &#8212; Software CaRD Policies  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'specification/examples';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Considerations" href="considerations.html" />
+    <link rel="prev" title="Configuration Format" href="configuration.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Software CaRD Policies  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Specification</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creation.html">Policy Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameterization.html">Parameterization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Validation Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration Format</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="considerations.html">Considerations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../appendices/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/shacl-introduction.html">Introduction to SHACL for Policy Writers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/ontology.html">Parameter Ontology &amp; SHACL Shapes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/validator.html">Validator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/library.html">Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example-policies/index.html">Example Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NOTES.html">NOTES</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/specification/examples.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Examples</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-fixed-license-requirement">Example 1: Fixed License Requirement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-suggested-licenses-parameterizable">Example 2: Suggested Licenses (Parameterizable)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-author-affiliation-requirements">Example 3: Author Affiliation Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-description-length-requirements">Example 4: Description Length Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-author-person-type-and-orcid">Example 5: Author Person Type and ORCID</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-exclusion-pattern-negative-constraint">Example 6: Exclusion Pattern (Negative Constraint)</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!--
+SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR), Forschungszentrum Jülich (FZJ)
+SPDX-License-Identifier: CC-BY-4.0
+SPDX-FileContributor: David Pape
+SPDX-FileContributor: Oliver Bertuch
+-->
+<section id="examples">
+<h1>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h1>
+<p>This section provides annotated examples for policy authors and policy makers to understand common patterns.</p>
+<section id="example-1-fixed-license-requirement">
+<h2>Example 1: Fixed License Requirement<a class="headerlink" href="#example-1-fixed-license-requirement" title="Link to this heading">#</a></h2>
+<p><strong>Use Case:</strong> An organization requires all software to be licensed under Apache-2.0.</p>
+<p><strong>Policy (license-fixed.ttl):</strong></p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">licenseRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetClass</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">SoftwareSourceCode</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">name</span> <span class="s">&quot;Apache-2.0 license required&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">description</span> <span class="s">&quot;All software must be licensed under Apache-2.0.&quot;</span> <span class="p">;</span>
+
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">minCount</span> <span class="mi">1</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;https://spdx.org/licenses/Apache-2.0&quot;</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>Configuration:</strong></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.licenses]</span>
+<span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://example.org/policies/license-fixed.ttl&quot;</span>
+</pre></div>
+</div>
+<p><strong>What it validates:</strong></p>
+<ul class="simple">
+<li><p>The software must have at least one <code class="docutils literal notranslate"><span class="pre">schema:license</span></code> property</p></li>
+<li><p>The value must exactly match the Apache-2.0 SPDX identifier</p></li>
+</ul>
+</section>
+<section id="example-2-suggested-licenses-parameterizable">
+<h2>Example 2: Suggested Licenses (Parameterizable)<a class="headerlink" href="#example-2-suggested-licenses-parameterizable" title="Link to this heading">#</a></h2>
+<p><strong>Use Case:</strong> An organization recommends certain licenses but doesn’t strictly require them.</p>
+<p><strong>Policy (licenses-suggested.ttl):</strong></p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">suggestedLicenses</span> <span class="kt">a</span> <span class="nn">sc</span><span class="p">:</span><span class="nt">Parameter</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterOuterType</span> <span class="nn">rdf</span><span class="p">:</span><span class="nt">List</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterInnerType</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">anyURI</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterConfigPath</span> <span class="s">&quot;suggested_licenses&quot;</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterDefaultValue</span> <span class="p">(</span>
+        <span class="s">&quot;https://spdx.org/licenses/Apache-2.0&quot;</span>
+        <span class="s">&quot;https://spdx.org/licenses/MIT&quot;</span>
+    <span class="p">)</span> <span class="p">.</span>
+
+<span class="nn">scex</span><span class="p">:</span><span class="nt">licenseRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetClass</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">SoftwareSourceCode</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">name</span> <span class="s">&quot;Suggested license&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">description</span> <span class="s">&quot;A license from the organization&#39;s recommended list should be chosen.&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">severity</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">Warning</span> <span class="p">;</span>
+
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">in</span> <span class="nn">scex</span><span class="p">:</span><span class="nt">suggestedLicenses</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>Configuration:</strong></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.licenses]</span>
+<span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://example.org/policies/licenses-suggested.ttl&quot;</span>
+
+<span class="k">[policies.licenses.parameters]</span>
+<span class="n">suggested_licenses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;https://spdx.org/licenses/GPL-3.0-or-later&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;https://spdx.org/licenses/LGPL-3.0-or-later&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;https://spdx.org/licenses/MIT&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>What it validates:</strong></p>
+<ul class="simple">
+<li><p>If a license is specified, it should be one from the configured list</p></li>
+<li><p>Uses Warning severity, so non-compliant licenses generate warnings rather than violations</p></li>
+<li><p>Different organizations can use the same policy with their own preferred license lists</p></li>
+</ul>
+</section>
+<section id="example-3-author-affiliation-requirements">
+<h2>Example 3: Author Affiliation Requirements<a class="headerlink" href="#example-3-author-affiliation-requirements" title="Link to this heading">#</a></h2>
+<p><strong>Use Case:</strong> Ensure at least one author is affiliated with a specific organization.</p>
+<p><strong>Policy (authors-affiliation.ttl):</strong></p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">requireHZDR</span> <span class="kt">a</span> <span class="nn">sc</span><span class="p">:</span><span class="nt">Parameter</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterOuterType</span> <span class="nn">sc</span><span class="p">:</span><span class="nt">Scalar</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterInnerType</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">string</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterConfigPath</span> <span class="s">&quot;required_affiliation&quot;</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterDefaultValue</span> <span class="s">&quot;Helmholtz-Zentrum Dresden-Rossendorf (HZDR)&quot;</span> <span class="p">.</span>
+
+<span class="nn">scex</span><span class="p">:</span><span class="nt">authorsRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetClass</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">SoftwareSourceCode</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">name</span> <span class="s">&quot;Required affiliation&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">description</span> <span class="s">&quot;At least one author must be affiliated with the specified organization.&quot;</span> <span class="p">;</span>
+
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">author</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">qualifiedValueShape</span> <span class="p">[</span>
+            <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="p">(</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">affiliation</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">legalName</span> <span class="p">)</span> <span class="p">;</span>
+            <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="nn">scex</span><span class="p">:</span><span class="nt">requireHZDR</span> <span class="p">;</span>
+        <span class="p">]</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">qualifiedMinCount</span> <span class="mi">1</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>Configuration:</strong></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.authors]</span>
+<span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://example.org/policies/authors-affiliation.ttl&quot;</span>
+<span class="n">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">required_affiliation</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;German Aerospace Center (DLR)&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>What it validates:</strong></p>
+<ul class="simple">
+<li><p>The software must have at least one author whose affiliation’s legal name matches the configured value</p></li>
+<li><p>Uses property path navigation to reach the affiliation’s name</p></li>
+<li><p>Different organizations can reuse the policy with their own affiliation name</p></li>
+</ul>
+</section>
+<section id="example-4-description-length-requirements">
+<h2>Example 4: Description Length Requirements<a class="headerlink" href="#example-4-description-length-requirements" title="Link to this heading">#</a></h2>
+<p><strong>Use Case:</strong> Ensure software descriptions are sufficiently detailed.</p>
+<p><strong>Policy (description-length.ttl):</strong></p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">minDescriptionLength</span> <span class="kt">a</span> <span class="nn">sc</span><span class="p">:</span><span class="nt">Parameter</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterOuterType</span> <span class="nn">sc</span><span class="p">:</span><span class="nt">Scalar</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterInnerType</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">integer</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterConfigPath</span> <span class="s">&quot;description_min_length&quot;</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterDefaultValue</span> <span class="mi">50</span> <span class="p">.</span>
+
+<span class="nn">scex</span><span class="p">:</span><span class="nt">descriptionRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetClass</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">SoftwareSourceCode</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">name</span> <span class="s">&quot;Minimum description length&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">description</span> <span class="s">&quot;The description must be sufficiently detailed.&quot;</span> <span class="p">;</span>
+
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">description</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">minCount</span> <span class="mi">1</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">minLength</span> <span class="nn">scex</span><span class="p">:</span><span class="nt">minDescriptionLength</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>Configuration:</strong></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.description]</span>
+<span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://example.org/policies/description-length.ttl&quot;</span>
+<span class="n">parameters</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">description_min_length</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">100</span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>What it validates:</strong></p>
+<ul class="simple">
+<li><p>The software must have a description</p></li>
+<li><p>The description must be at least the configured number of characters long</p></li>
+</ul>
+</section>
+<section id="example-5-author-person-type-and-orcid">
+<h2>Example 5: Author Person Type and ORCID<a class="headerlink" href="#example-5-author-person-type-and-orcid" title="Link to this heading">#</a></h2>
+<p><strong>Use Case:</strong> Ensure all authors are persons (not organizations) and have ORCID identifiers.</p>
+<p><strong>Policy (authors-person-orcid.ttl):</strong></p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">authorRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetObjectsOf</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">author</span> <span class="p">;</span>
+
+    <span class="c"># Authors must be persons, not organizations</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">class</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">Person</span> <span class="p">;</span>
+
+    <span class="c"># Authors must be identified by IRI (ORCID)</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">nodeKind</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">IRI</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">name</span> <span class="s">&quot;Given name required&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">givenName</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">minCount</span> <span class="mi">1</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">name</span> <span class="s">&quot;Family name required&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">familyName</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">minCount</span> <span class="mi">1</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>Configuration:</strong></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.authors]</span>
+<span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://example.org/policies/authors-person-orcid.ttl&quot;</span>
+</pre></div>
+</div>
+<p><strong>What it validates:</strong></p>
+<ul class="simple">
+<li><p>Each entity listed as an author must be of type <code class="docutils literal notranslate"><span class="pre">schema:Person</span></code></p></li>
+<li><p>Each author must be identified by an IRI (typically an ORCID like <code class="docutils literal notranslate"><span class="pre">https://orcid.org/0000-0002-1234-5678</span></code>)</p></li>
+<li><p>Each author must have both a given name and family name</p></li>
+</ul>
+</section>
+<section id="example-6-exclusion-pattern-negative-constraint">
+<h2>Example 6: Exclusion Pattern (Negative Constraint)<a class="headerlink" href="#example-6-exclusion-pattern-negative-constraint" title="Link to this heading">#</a></h2>
+<p><strong>Use Case:</strong> Prevent automated bot accounts from being listed as authors.</p>
+<p><strong>Policy (authors-no-bots.ttl):</strong></p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">authorRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetObjectsOf</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">author</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">not</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">or</span> <span class="p">(</span>
+            <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">givenName</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;HIFIS Bot&quot;</span> <span class="p">]</span> <span class="p">]</span>
+            <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">email</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;gitlab-admin@hzdr.de&quot;</span> <span class="p">]</span> <span class="p">]</span>
+            <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">email</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;gitlab-admin+bot@hzdr.de&quot;</span> <span class="p">]</span> <span class="p">]</span>
+        <span class="p">)</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>Configuration:</strong></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.authors]</span>
+<span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://example.org/policies/authors-no-bots.ttl&quot;</span>
+</pre></div>
+</div>
+<p><strong>What it validates:</strong></p>
+<ul class="simple">
+<li><p>No author may have the given name “HIFIS Bot”</p></li>
+<li><p>No author may have certain bot-associated email addresses</p></li>
+<li><p>Uses logical negation (<code class="docutils literal notranslate"><span class="pre">sh:not</span></code>) and disjunction (<code class="docutils literal notranslate"><span class="pre">sh:or</span></code>) to express the exclusion</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="configuration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Configuration Format</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="considerations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Considerations</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-fixed-license-requirement">Example 1: Fixed License Requirement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-suggested-licenses-parameterizable">Example 2: Suggested Licenses (Parameterizable)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-author-affiliation-requirements">Example 3: Author Affiliation Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-4-description-length-requirements">Example 4: Description Length Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-5-author-person-type-and-orcid">Example 5: Author Person Type and ORCID</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-6-exclusion-pattern-negative-constraint">Example 6: Exclusion Pattern (Negative Constraint)</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By David Pape
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

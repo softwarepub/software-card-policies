@@ -1,0 +1,711 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Parameter Ontology &amp; SHACL Shapes &#8212; Software CaRD Policies  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'appendices/ontology';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Overview" href="../reference-implementation/overview.html" />
+    <link rel="prev" title="Introduction to SHACL for Policy Writers" href="shacl-introduction.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Software CaRD Policies  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Specification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../specification/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/conventions.html">Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/creation.html">Policy Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/parameterization.html">Parameterization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/validation.html">Validation Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/configuration.html">Configuration Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/considerations.html">Considerations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shacl-introduction.html">Introduction to SHACL for Policy Writers</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Parameter Ontology &amp; SHACL Shapes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/validator.html">Validator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/library.html">Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example-policies/index.html">Example Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NOTES.html">NOTES</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/appendices/ontology.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Parameter Ontology & SHACL Shapes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!--
+SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR), Forschungszentrum Jülich (FZJ)
+SPDX-License-Identifier: CC-BY-4.0
+SPDX-FileContributor: David Pape
+SPDX-FileContributor: Oliver Bertuch
+-->
+<section id="parameter-ontology-shacl-shapes">
+<h1>Parameter Ontology &amp; SHACL Shapes<a class="headerlink" href="#parameter-ontology-shacl-shapes" title="Link to this heading">#</a></h1>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>“Parameter Ontology” is quite the narrow scope.
+We should phrase this more vaguely to we don’t need to change everything later, should we decide to add more concepts.</p>
+</div>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Put this as a file somewhere so that it can be embedded here, but downloaded by a client, too.</p>
+</div>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>The formatting used in these code blocks is not supported by the code highlighter, causing warnings when compiling the documentation.
+See: <a class="github reference external" href="https://github.com/pygments/pygments/pull/2980">pygments/pygments#2980</a></p>
+</div>
+<p>Formal OWL definition:</p>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>There are loads of errors in this.</p>
+</div>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="k">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">sc:</span><span class="w"> </span><span class="nv">&lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span>
+
+<span class="c"># ============================================================================</span>
+<span class="c"># Software CaRD Parameter Ontology (OWL)</span>
+<span class="c"># ============================================================================</span>
+<span class="err">#</span>
+<span class="c"># This file defines the semantic model for Software CaRD parameters using OWL.</span>
+<span class="c"># It specifies:</span>
+<span class="c"># - Class definitions and their relationships</span>
+<span class="c"># - Property definitions with domains and ranges</span>
+<span class="c"># - Basic cardinality constraints</span>
+<span class="c"># - Enumerated sets of allowed values</span>
+<span class="err">#</span>
+<span class="c"># NOTE: This OWL ontology is complemented by a SHACL shapes file</span>
+<span class="c"># (sc-parameter-shacl.ttl) that provides additional validation constraints</span>
+<span class="c"># that cannot be expressed in OWL, such as:</span>
+<span class="c"># - Minimum string length requirements</span>
+<span class="c"># - Specific literal datatype enforcement</span>
+<span class="c"># - Additional validation rules</span>
+<span class="err">#</span>
+<span class="c"># Both files work together to provide complete semantic definition and</span>
+<span class="c"># validation for Software CaRD parameters.</span>
+<span class="c"># ============================================================================</span>
+
+<span class="nv">&lt;https://schema.software-metadata.pub/software-card/2025-01/Parameter&gt;</span>
+    <span class="kt">a</span> <span class="nn">owl</span><span class="p">:</span><span class="nt">Ontology</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">label</span> <span class="s">&quot;Software CaRD Parameter Ontology&quot;</span><span class="o">@</span><span class="ge">en</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">comment</span> <span class="s">&quot;&quot;&quot;OWL ontology defining the semantic model for configurable parameters</span>
+<span class="s">                    in Software CaRD policies.&quot;&quot;&quot;@en ;</span>
+<span class="s">    owl:versionInfo &quot;0.1&quot; ;</span>
+<span class="s">    rdfs:seeAlso &lt;https://schema.software-metadata.pub/software-card/2025-01/Parameter&gt; .</span>
+
+<span class="s"># Define allowed inner types as an enumerated class</span>
+<span class="s">sc:AllowedInnerType a owl:Class ;</span>
+<span class="s">    rdfs:label &quot;Allowed Inner Type&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;The set of datatypes that may be used as inner types for parameters.</span>
+<span class="s">                    This includes common XSD datatypes for literals and rdfs:Resource for</span>
+<span class="s">                    IRI references.&quot;&quot;&quot;@en ;</span>
+<span class="s">    owl:oneOf (</span>
+<span class="s">        xsd:string</span>
+<span class="s">        xsd:boolean</span>
+<span class="s">        xsd:integer</span>
+<span class="s">        xsd:int</span>
+<span class="s">        xsd:decimal</span>
+<span class="s">        xsd:float</span>
+<span class="s">        xsd:double</span>
+<span class="s">        xsd:anyURI</span>
+<span class="s">        rdfs:Resource</span>
+<span class="s">    ) ;</span>
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+
+<span class="s"># Define allowed outer types as an enumerated class</span>
+<span class="s">sc:AllowedOuterType a owl:Class ;</span>
+<span class="s">    rdfs:label &quot;Allowed Outer Type&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;The set of container types that may be used as outer types for parameters.</span>
+<span class="s">                    This includes scalar (single value), ordered lists, and unordered bags.&quot;&quot;&quot;@en ;</span>
+<span class="s">    owl:oneOf ( sc:Scalar rdf:List ) ;</span>
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+
+<span class="s"># Class Definition with cardinality restrictions</span>
+<span class="s">sc:Parameter a owl:Class ;</span>
+<span class="s">    rdfs:label &quot;Parameter&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;A configurable placeholder in a Software CaRD policy that can be</span>
+<span class="s">                    assigned different values through a configuration file. Parameters</span>
+<span class="s">                    enable policy reuse across different contexts by allowing specific</span>
+<span class="s">                    constraints to be customized without modifying the policy itself.</span>
+
+<span class="s">                    Each parameter must specify:</span>
+<span class="s">                    - An outer type (container structure: scalar, list, or bag)</span>
+<span class="s">                    - An inner type (datatype of values)</span>
+<span class="s">                    - A configuration key (where to find the value in config)</span>
+<span class="s">                    - A description (via rdfs:comment)</span>
+<span class="s">                    - Optionally, a default value (if omitted, parameter is required)&quot;&quot;&quot;@en ;</span>
+<span class="s">    rdfs:subClassOf [</span>
+<span class="s">        a owl:Restriction ;</span>
+<span class="s">        owl:onProperty rdfs:comment ;</span>
+<span class="s">        owl:cardinality 1 ;</span>
+<span class="s">        rdfs:comment &quot;Every parameter must have exactly one description.&quot;@en</span>
+<span class="s">    ] ;</span>
+<span class="s">    rdfs:subClassOf [</span>
+<span class="s">        a owl:Restriction ;</span>
+<span class="s">        owl:onProperty sc:parameterOuterType ;</span>
+<span class="s">        owl:cardinality 1 ;</span>
+<span class="s">        rdfs:comment &quot;Every parameter must have exactly one outer type.&quot;@en</span>
+<span class="s">    ] ;</span>
+<span class="s">    rdfs:subClassOf [</span>
+<span class="s">        a owl:Restriction ;</span>
+<span class="s">        owl:onProperty sc:parameterInnerType ;</span>
+<span class="s">        owl:cardinality 1 ;</span>
+<span class="s">        rdfs:comment &quot;Every parameter must have exactly one inner type.&quot;@en</span>
+<span class="s">    ] ;</span>
+<span class="s">    rdfs:subClassOf [</span>
+<span class="s">        a owl:Restriction ;</span>
+<span class="s">        owl:onProperty sc:parameterConfigKey ;</span>
+<span class="s">        owl:cardinality 1 ;</span>
+<span class="s">        rdfs:comment &quot;Every parameter must have exactly one configuration key.&quot;@en</span>
+<span class="s">    ] ;</span>
+<span class="s">    rdfs:subClassOf [</span>
+<span class="s">        a owl:Restriction ;</span>
+<span class="s">        owl:onProperty sc:parameterDefaultValue ;</span>
+<span class="s">        owl:maxCardinality 1 ;</span>
+<span class="s">        rdfs:comment &quot;A parameter may have at most one default value. If omitted, the parameter is required.&quot;@en</span>
+<span class="s">    ] ;</span>
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+
+<span class="s"># Properties</span>
+
+<span class="s">sc:parameterOuterType a owl:ObjectProperty ;</span>
+<span class="s">    rdfs:label &quot;parameter outer type&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;Specifies the container/cardinality type of the parameter value.</span>
+<span class="s">                    Determines whether the parameter represents a single value (sc:Scalar),</span>
+<span class="s">                    or a list of values (rdf:List).&quot;&quot;&quot;@en ;</span>
+<span class="s">    rdfs:domain sc:Parameter ;</span>
+<span class="s">    rdfs:range sc:AllowedOuterType ;</span>
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+
+<span class="s">sc:parameterInnerType a owl:ObjectProperty ;</span>
+<span class="s">    rdfs:label &quot;parameter inner type&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;Specifies the datatype of the individual value(s) in the parameter.</span>
+<span class="s">                    Must be one of the supported XSD datatypes or rdfs:Resource for IRI references.&quot;&quot;&quot;@en ;</span>
+<span class="s">    rdfs:domain sc:Parameter ;</span>
+<span class="s">    rdfs:range sc:AllowedInnerType ;</span>
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+
+<span class="s">sc:parameterConfigKey a owl:DatatypeProperty ;</span>
+<span class="s">    rdfs:label &quot;parameter configuration key&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;A string that identifies the configuration key for this parameter.</span>
+<span class="s">                    Used to look up the configured value in the configuration file during</span>
+<span class="s">                    parameter resolution. Must be a non-empty string.&quot;&quot;&quot;@en ;</span>
+<span class="s">    rdfs:domain sc:Parameter ;</span>
+<span class="s">    rdfs:range xsd:string ;</span>
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+
+<span class="s">sc:parameterDefaultValue a rdf:Property ;</span>
+<span class="s">    rdfs:label &quot;parameter default value&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;The value to use when no configured value is provided. If omitted, the</span>
+<span class="s">                    parameter becomes required and must be provided in the configuration file.</span>
+<span class="s">                    When present, the default value must match the parameter&#39;s declared outer</span>
+<span class="s">                    and inner types. For scalar parameters, this is a single literal or resource.</span>
+<span class="s">                    For list parameters, this is an rdf:List.&quot;&quot;&quot;@en ;</span>
+<span class="s">    rdfs:domain sc:Parameter ;</span>
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+
+<span class="s"># Scalar Type Definition</span>
+<span class="s">sc:Scalar a rdfs:Datatype ;</span>
+<span class="s">    rdfs:label &quot;Scalar&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;Represents a single value (as opposed to a collection). Used as the</span>
+<span class="s">                    outer type for parameters that accept exactly one value.&quot;&quot;&quot;@en ;</span>
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+</pre></div>
+</div>
+<p>Formal SHACL definition:</p>
+<div class="admonition-todo admonition" id="id5">
+<p class="admonition-title">Todo</p>
+<p>There are loads of errors in this.</p>
+</div>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="k">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">rdf:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">sc:</span><span class="w"> </span><span class="nv">&lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">xsd:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2001/XMLSchema#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">sh:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/ns/shacl#&gt;</span><span class="w"> </span><span class="p">.</span>
+
+<span class="c"># ============================================================================</span>
+<span class="c"># Software CaRD Parameter Validation Shapes (SHACL)</span>
+<span class="c"># ============================================================================</span>
+<span class="err">#</span>
+<span class="c"># This file defines SHACL validation constraints for Software CaRD parameters.</span>
+<span class="c"># It specifies detailed validation rules that complement the OWL ontology,</span>
+<span class="c"># including:</span>
+<span class="c"># - String length requirements</span>
+<span class="c"># - Explicit datatype constraints on literals</span>
+<span class="c"># - Value enumeration validation</span>
+<span class="c"># - Additional structural constraints</span>
+<span class="err">#</span>
+<span class="c"># NOTE: This SHACL shapes file works together with the OWL ontology file</span>
+<span class="c"># (sc-parameter-owl.ttl) to provide complete validation. The OWL file defines</span>
+<span class="c"># the semantic model while this file provides detailed validation rules that</span>
+<span class="c"># cannot be expressed in OWL alone.</span>
+<span class="err">#</span>
+<span class="c"># Use this file with a SHACL validator to check whether parameter definitions</span>
+<span class="c"># conform to the Software CaRD specification.</span>
+<span class="c"># ============================================================================</span>
+
+<span class="nv">&lt;https://schema.software-metadata.pub/software-card/2025-01/Parameter&gt;</span>
+    <span class="kt">a</span> <span class="nn">owl</span><span class="p">:</span><span class="nt">Ontology</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">label</span> <span class="s">&quot;Software CaRD Parameter Validation Shapes&quot;</span><span class="o">@</span><span class="ge">en</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">comment</span> <span class="s">&quot;&quot;&quot;SHACL shapes for validating Software CaRD parameter definitions.&quot;&quot;&quot;@en ;</span>
+<span class="s">    owl:versionInfo &quot;0.1&quot; ;</span>
+<span class="s">    owl:imports &lt;https://schema.software-metadata.pub/software-card/2025-01/Parameter&gt; ;</span>
+<span class="s">    rdfs:seeAlso &lt;https://schema.software-metadata.pub/software-card/2025-01/Parameter&gt; .</span>
+
+<span class="s"># Constraints expressed as SHACL shapes</span>
+<span class="s">sc:ParameterShape a sh:NodeShape ;</span>
+<span class="s">    sh:targetClass sc:Parameter ;</span>
+<span class="s">    rdfs:label &quot;Parameter Shape&quot;@en ;</span>
+<span class="s">    rdfs:comment &quot;&quot;&quot;SHACL shape defining validation constraints on sc:Parameter instances.</span>
+<span class="s">                    This shape enforces structural and datatype requirements that complement</span>
+<span class="s">                    the OWL ontology definition.&quot;&quot;&quot;@en ;</span>
+
+<span class="s">    # Must have exactly one outer type from allowed set</span>
+<span class="s">    sh:property [</span>
+<span class="s">        sh:path sc:parameterOuterType ;</span>
+<span class="s">        sh:name &quot;Outer Type&quot;@en ;</span>
+<span class="s">        sh:description &quot;The container/cardinality type of the parameter.&quot;@en ;</span>
+<span class="s">        sh:minCount 1 ;</span>
+<span class="s">        sh:maxCount 1 ;</span>
+<span class="s">        sh:in ( sc:Scalar rdf:List ) ;</span>
+<span class="s">        sh:message &quot;Parameter must have exactly one outer type: sc:Scalar, or rdf:List.&quot;@en ;</span>
+<span class="s">    ] ;</span>
+
+<span class="s">    # Must have exactly one inner type from allowed set</span>
+<span class="s">    sh:property [</span>
+<span class="s">        sh:path sc:parameterInnerType ;</span>
+<span class="s">        sh:name &quot;Inner Type&quot;@en ;</span>
+<span class="s">        sh:description &quot;The datatype of the individual value(s).&quot;@en ;</span>
+<span class="s">        sh:minCount 1 ;</span>
+<span class="s">        sh:maxCount 1 ;</span>
+<span class="s">        sh:in (</span>
+<span class="s">            xsd:string</span>
+<span class="s">            xsd:boolean</span>
+<span class="s">            xsd:integer</span>
+<span class="s">            xsd:int</span>
+<span class="s">            xsd:decimal</span>
+<span class="s">            xsd:float</span>
+<span class="s">            xsd:double</span>
+<span class="s">            xsd:anyURI</span>
+<span class="s">            rdfs:Resource</span>
+<span class="s">        ) ;</span>
+<span class="s">        sh:message &quot;Parameter must have exactly one inner type from the supported list.&quot;@en ;</span>
+<span class="s">    ] ;</span>
+
+<span class="s">    # Must have exactly one non-empty config key</span>
+<span class="s">    sh:property [</span>
+<span class="s">        sh:path sc:parameterConfigKey ;</span>
+<span class="s">        sh:name &quot;Configuration Key&quot;@en ;</span>
+<span class="s">        sh:description &quot;The key used to look up this parameter&#39;s value in the configuration file.&quot;@en ;</span>
+<span class="s">        sh:minCount 1 ;</span>
+<span class="s">        sh:maxCount 1 ;</span>
+<span class="s">        sh:datatype xsd:string ;</span>
+<span class="s">        sh:minLength 1 ;</span>
+<span class="s">        sh:message &quot;Parameter must have exactly one non-empty configuration key string.&quot;@en ;</span>
+<span class="s">    ] ;</span>
+
+<span class="s">    # Must have exactly one description of sufficient length</span>
+<span class="s">    sh:property [</span>
+<span class="s">        sh:path rdfs:comment ;</span>
+<span class="s">        sh:name &quot;Description&quot;@en ;</span>
+<span class="s">        sh:description &quot;Human-readable description of the parameter&#39;s purpose and usage.&quot;@en ;</span>
+<span class="s">        sh:minCount 1 ;</span>
+<span class="s">        sh:maxCount 1 ;</span>
+<span class="s">        sh:datatype xsd:string ;</span>
+<span class="s">        sh:minLength 10 ;</span>
+<span class="s">        sh:message &quot;Parameter must have exactly one rdfs:comment description of at least 10 characters.&quot;@en ;</span>
+<span class="s">    ] ;</span>
+
+<span class="s">    # May have at most one default value (optional - if omitted, parameter is required)</span>
+<span class="s">    sh:property [</span>
+<span class="s">        sh:path sc:parameterDefaultValue ;</span>
+<span class="s">        sh:name &quot;Default Value&quot;@en ;</span>
+<span class="s">        sh:description &quot;Optional default value used when no configured value is provided.&quot;@en ;</span>
+<span class="s">        sh:maxCount 1 ;</span>
+<span class="s">        sh:message &quot;Parameter may have at most one default value. If omitted, the parameter is required.&quot;@en ;</span>
+<span class="s">    ] ;</span>
+
+<span class="s">    rdfs:isDefinedBy &lt;https://schema.software-metadata.pub/software-card/2025-01/#&gt; .</span>
+</pre></div>
+</div>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="shacl-introduction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to SHACL for Policy Writers</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../reference-implementation/overview.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Overview</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By David Pape
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,630 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Introduction to SHACL for Policy Writers &#8212; Software CaRD Policies  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'appendices/shacl-introduction';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Parameter Ontology &amp; SHACL Shapes" href="ontology.html" />
+    <link rel="prev" title="Quick Reference" href="quick-reference.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Software CaRD Policies  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Specification</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../specification/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/conventions.html">Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/creation.html">Policy Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/parameterization.html">Parameterization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/validation.html">Validation Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/configuration.html">Configuration Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../specification/considerations.html">Considerations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to SHACL for Policy Writers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ontology.html">Parameter Ontology &amp; SHACL Shapes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/validator.html">Validator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/library.html">Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example-policies/index.html">Example Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NOTES.html">NOTES</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/appendices/shacl-introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to SHACL for Policy Writers</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#targeting-strategies">Targeting Strategies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-constraint-patterns">Common Constraint Patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#severity-levels">Severity Levels</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!--
+SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR), Forschungszentrum Jülich (FZJ)
+SPDX-License-Identifier: CC-BY-4.0
+SPDX-FileContributor: David Pape
+SPDX-FileContributor: Oliver Bertuch
+-->
+<section id="introduction-to-shacl-for-policy-writers">
+<h1>Introduction to SHACL for Policy Writers<a class="headerlink" href="#introduction-to-shacl-for-policy-writers" title="Link to this heading">#</a></h1>
+<p>The Shapes Constraint Language (SHACL) can be used to formulate constraints on (meta)data.
+Constraints are expressed in terms of “shapes”.
+Each SHACL shape contains the following parts:</p>
+<ol class="arabic simple">
+<li><p><strong><a class="reference external" href="https://www.w3.org/TR/shacl/#targets">Target Declaration</a></strong>: Specifies which nodes in the data graph this shape applies to.</p></li>
+<li><p><strong>Constraints</strong>: Define which properties must exist, which values are allowed, what restrictions apply to cardinality (i.e. counts of properties), etc.</p></li>
+<li><p><strong>Metadata</strong>: Human-readable names and descriptions of the shape that can be used in validation messages.</p></li>
+</ol>
+<p><strong>Example: Simple License Policy</strong></p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">licenseRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetClass</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">SoftwareSourceCode</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">name</span> <span class="s">&quot;Apache-2.0 license&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">description</span> <span class="s">&quot;Apache-2.0 license must be used&quot;</span> <span class="p">;</span>
+
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">datatype</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">string</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;https://spdx.org/licenses/Apache-2.0&quot;</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p>This policy:</p>
+<ul class="simple">
+<li><p>targets all nodes of type <code class="docutils literal notranslate"><span class="pre">schema:SoftwareSourceCode</span></code>, i.e. the software(s) being validated</p></li>
+<li><p>requires that the property at the path <code class="docutils literal notranslate"><span class="pre">schema:license</span></code> has the value <code class="docutils literal notranslate"><span class="pre">&quot;https://spdx.org/licenses/Apache-2.0&quot;</span></code></p></li>
+<li><p>provides human-readable name (<code class="docutils literal notranslate"><span class="pre">sh:name</span></code>) and description (<code class="docutils literal notranslate"><span class="pre">sh:description</span></code>) for error messages</p></li>
+</ul>
+<section id="targeting-strategies">
+<h2>Targeting Strategies<a class="headerlink" href="#targeting-strategies" title="Link to this heading">#</a></h2>
+<p>SHACL provides multiple ways to specify which nodes a shape validates.
+The choice of targeting strategy depends on what aspect of the metadata you want to validate.</p>
+<p><strong>1. Target by Class (<code class="docutils literal notranslate"><span class="pre">sh:targetClass</span></code>)</strong></p>
+<p>Use this when validating properties of entities of a specific type.</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">softwareRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetClass</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">SoftwareSourceCode</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">description</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">minLength</span> <span class="mi">10</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p>This validates all instances of <code class="docutils literal notranslate"><span class="pre">schema:SoftwareSourceCode</span></code>.</p>
+<p><strong>2. Target by Relationship (<code class="docutils literal notranslate"><span class="pre">sh:targetObjectsOf</span></code>)</strong></p>
+<p>Use this when validating entities that are referenced by a specific property.</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">authorRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetObjectsOf</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">author</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">class</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">Person</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">givenName</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">minCount</span> <span class="mi">1</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p>This validates all entities that appear as values of the <code class="docutils literal notranslate"><span class="pre">schema:author</span></code> property (i.e., all authors).</p>
+<p><strong>3. Target by Node (<code class="docutils literal notranslate"><span class="pre">sh:targetNode</span></code>)</strong></p>
+<p>Use this when validating a specific, known entity by its IRI.</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">specificSoftwareRequirements</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">NodeShape</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">targetNode</span> <span class="nv">&lt;https://example.org/my-software&gt;</span> <span class="p">;</span>
+
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">version</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">minCount</span> <span class="mi">1</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+</section>
+<section id="common-constraint-patterns">
+<h2>Common Constraint Patterns<a class="headerlink" href="#common-constraint-patterns" title="Link to this heading">#</a></h2>
+<p><strong>1. Cardinality Constraints</strong></p>
+<p>Control how many values a property must or may have:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">author</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">minCount</span> <span class="mi">1</span> <span class="p">;</span>        <span class="c"># At least one author required</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">maxCount</span> <span class="mi">10</span> <span class="p">;</span>       <span class="c"># At most 10 authors allowed</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>2. Value Type Constraints</strong></p>
+<p>Specify what type of value is allowed:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">datatype</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">string</span> <span class="p">;</span>     <span class="c"># Must be a string literal</span>
+<span class="p">]</span> <span class="p">.</span>
+
+<span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">author</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">class</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">Person</span> <span class="p">;</span>     <span class="c"># Must be an instance of schema:Person</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">nodeKind</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">IRI</span> <span class="p">;</span>         <span class="c"># Must be identified by an IRI (not a blank node)</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>3. Value Range Constraints</strong></p>
+<p>Restrict values to specific options or ranges:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">in</span> <span class="p">(</span>
+        <span class="s">&quot;https://spdx.org/licenses/Apache-2.0&quot;</span>
+        <span class="s">&quot;https://spdx.org/licenses/MIT&quot;</span>
+        <span class="s">&quot;https://spdx.org/licenses/GPL-3.0-or-later&quot;</span>
+    <span class="p">)</span> <span class="p">;</span>
+<span class="p">]</span> <span class="p">.</span>
+
+<span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">datePublished</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">minInclusive</span> <span class="s">&quot;2020-01-01&quot;</span><span class="p">^^</span><span class="nn">xsd</span><span class="p">:</span><span class="nt">date</span> <span class="p">;</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>String Constraints</strong></p>
+<p>Validate string length or patterns:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">description</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">minLength</span> <span class="mi">50</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">maxLength</span> <span class="mi">5000</span> <span class="p">;</span>
+<span class="p">]</span> <span class="p">.</span>
+
+<span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">email</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">pattern</span> <span class="s">&quot;^[^@]+@[^@]+\\.[^@]+$&quot;</span> <span class="p">;</span>  <span class="c"># Simple email pattern</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>REGEXs for email addresses are notoriously hard.
+Note here that this is just an example and that this pattern might not work for every email address out there.</p>
+</div>
+<p><strong>Path Navigation</strong></p>
+<p>Navigate through multiple properties to check nested values:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="p">(</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">author</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">affiliation</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">legalName</span> <span class="p">)</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;Helmholtz-Zentrum Dresden-Rossendorf (HZDR)&quot;</span> <span class="p">;</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p>This checks that at least one author has an affiliation with the specified legal name.</p>
+<p><strong>Qualified Value Shapes</strong></p>
+<p>Count how many values of a property match a specific sub-shape:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">author</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">qualifiedValueShape</span> <span class="p">[</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="p">(</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">affiliation</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">legalName</span> <span class="p">)</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;Helmholtz-Zentrum Dresden-Rossendorf (HZDR)&quot;</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">qualifiedMinCount</span> <span class="mi">1</span> <span class="p">;</span>  <span class="c"># At least one author must be from HZDR</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>Logical Constraints</strong></p>
+<p>Use boolean logic to express complex requirements:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="c"># Negative constraint: HIFIS Bot should not be an author</span>
+<span class="nn">sh</span><span class="p">:</span><span class="nt">not</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">or</span> <span class="p">(</span>
+        <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">givenName</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;HIFIS Bot&quot;</span> <span class="p">]</span> <span class="p">]</span>
+        <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">email</span> <span class="p">;</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">hasValue</span> <span class="s">&quot;gitlab-admin@hzdr.de&quot;</span> <span class="p">]</span> <span class="p">]</span>
+    <span class="p">)</span> <span class="p">;</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+</section>
+<section id="severity-levels">
+<h2>Severity Levels<a class="headerlink" href="#severity-levels" title="Link to this heading">#</a></h2>
+<p>SHACL supports different severity levels for validation results:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">in</span> <span class="p">(</span> <span class="s">&quot;https://spdx.org/licenses/Apache-2.0&quot;</span> <span class="s">&quot;https://spdx.org/licenses/MIT&quot;</span> <span class="p">)</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">severity</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">Warning</span> <span class="p">;</span>  <span class="c"># This is a recommendation, not a strict requirement</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p>List of severity levels:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:Violation</span></code> (default) - A hard requirement that must be met</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:Warning</span></code> - A recommendation that should be followed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:Info</span></code> - Informational message</p></li>
+<li><p>Custom severity levels - The meaning is defined by the application</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="quick-reference.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Quick Reference</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ontology.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Parameter Ontology &amp; SHACL Shapes</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#targeting-strategies">Targeting Strategies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#common-constraint-patterns">Common Constraint Patterns</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#severity-levels">Severity Levels</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By David Pape
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

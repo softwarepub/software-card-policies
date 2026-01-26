@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2024 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-FileContributor: David Pape
+
+@prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <https://schema.software-metadata.pub/software-card/2025-01/#> .
+@prefix scex: <https://schema.software-metadata.pub/software-card/2025-01/examples/#> .
+@prefix scimpl: <https://schema.software-metadata.pub/software-card/2025-01/implementation/#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scex:authorRequirements a sh:NodeShape ;
+    sh:targetObjectsOf schema:author ;
+
+    sh:property [
+        sh:name "Affiliation names" ;
+        sh:description "Every author's affiliation must have a name." ;
+
+        sh:path ( schema:affiliation schema:legalName ) ;
+        sh:datatype xsd:string ;
+        sh:minLength 1 ;
+    ] ;
+
+    .

@@ -1,0 +1,81 @@
+# SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-FileContributor: David Pape
+
+@prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <https://schema.software-metadata.pub/software-card/2025-01/#> .
+@prefix scex: <https://schema.software-metadata.pub/software-card/2025-01/examples/#> .
+@prefix scimpl: <https://schema.software-metadata.pub/software-card/2025-01/implementation/#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+scex:authorRequirements a sh:NodeShape ;
+    # target only authors, not all persons
+    sh:targetObjectsOf schema:author ;
+
+    sh:property [
+        sh:name "Jane only" ;
+        sh:description "Every author must be named Jane." ;
+
+        sh:path schema:givenName ;
+        sh:datatype xsd:string ;
+        sh:hasValue "Jane" ;
+    ] ;
+
+    # it's a bit strange to have a negative description inside the `sh:not` shape
+    sh:not [
+        sh:name "No HIFIS Bot" ;
+        sh:description "HIFIS Bot may not be named as an author." ;
+
+        sh:or (
+            [ a sh:PropertyShape ; sh:path schema:givenName ; sh:hasValue "HIFIS Bot" ]
+            [ a sh:PropertyShape ; sh:path schema:email ; sh:hasValue "gitlab-admin@hzdr.de" ]
+            [ a sh:PropertyShape ; sh:path schema:email ; sh:hasValue "gitlab-admin+bot@hzdr.de" ]
+        ) ;
+    ] ;
+
+    # How do I attach a description to a node shape?
+    # E.g.: "Only persons, not organizations, may be authors."
+    sh:class schema:Person ;
+
+    # Not strictly necessary as this is checked by `sc:orcid` as well.
+    sh:nodeKind sh:IRI ;
+
+    # What to do with the `true` parameter given here?
+    # Maybe we could have an `rdf:Alt` (like an enum) that specifies the kind of validation, e.g.:
+    # - `sc:orcid sc:orcidUrl` for https://orcid.org/0000-0002-1825-0097
+    # - `sc:orcid sc:orcidBare` for 0000-0002-1825-0097 (though this wouldn't be an IRI)
+    sc:orcid true ;
+
+    .
+
+# Since we want to count the number of authors within a software, we must target the software.
+# Targeting `sh:targetObjectsOf schema:author` would only allow us to count properties of each author.
+scex:authorsRequirements a sh:NodeShape ;
+    sh:targetClass schema:SoftwareSourceCode ;
+
+    sh:property [
+        sh:name "Only one author" ;
+        sh:description "Only one person may be named as an author. Others must be contributors." ;
+
+        sh:path schema:author ;
+        sh:maxCount 1 ;
+    ] ;
+
+    sh:property [
+        sh:name "HZDR involved" ;
+        sh:description "At least one author must be affiliated with HZDR." ;
+
+        sh:path schema:author ;
+        sh:qualifiedValueShape [
+            sh:path ( schema:affiliation schema:legalName )   ;
+            sh:hasValue "Helmholtz-Zentrum Dresden-Rossendorf (HZDR)" ;
+        ] ;
+        sh:qualifiedMinCount 1 ;
+    ] ;
+
+    .

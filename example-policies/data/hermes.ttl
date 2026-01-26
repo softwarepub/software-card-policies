@@ -1,0 +1,90 @@
+# SPDX-FileCopyrightText: 2024 Helmholtz-Zentrum Dresden - Rossendorf (HZDR)
+# SPDX-License-Identifier: CC-BY-4.0
+# SPDX-FileContributor: David Pape
+
+# Example metadata of a software publication.
+#
+# This example is based on hermes. However, slight changes were made to illustrate or test certain functionality or use
+# cases. The real metadata for hermes can be found at https://doi.org/10.5281/zenodo.13221383.
+
+@prefix codemeta: <https://doi.org/10.5063/schema/codemeta-2.0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sc: <https://schema.software-metadata.pub/software-card/2025-01/#> .
+@prefix scex: <https://schema.software-metadata.pub/software-card/2025-01/examples/#> .
+@prefix scimpl: <https://schema.software-metadata.pub/software-card/2025-01/implementation/#> .
+@prefix schema: <https://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://orcid.org/0000-0001-6372-3853> a schema:Person ;
+    schema:givenName "Michael" ;
+    schema:familyName "Meinel" ;
+    schema:email "michael.meinel@dlr.de" ;
+    schema:affiliation [a schema:Organization ; schema:legalName "German Aerospace Center (DLR)"] .
+
+<https://orcid.org/0000-0003-4925-7248> a schema:Person ;
+    schema:givenName "Stephan" ;
+    schema:familyName "Druskat" ;
+    schema:email "stephan.druskat@dlr.de" ;
+    schema:affiliation [a schema:Organization ; schema:legalName "German Aerospace Center (DLR)"] .
+
+<https://orcid.org/0000-0003-1761-2591> a schema:Person ;
+    schema:givenName "Jeffrey" ;
+    schema:familyName "Kelling" ;
+    schema:email "j.kelling@hzdr.de" ;
+    schema:affiliation [a schema:Organization ; schema:legalName "Helmholtz-Zentrum Dresden-Rossendorf (HZDR)"] .
+
+<https://orcid.org/0000-0002-2702-3419> a schema:Person ;
+    schema:givenName "Oliver" ;
+    schema:familyName "Bertuch" ;
+    schema:email "o.bertuch@fzj.de" ;
+    schema:affiliation [a schema:Organization ; schema:legalName "Forschungszentrum Jülich GmbH (FZJ)"] .
+
+<https://orcid.org/0000-0001-8174-7795> a schema:Person ;
+    schema:givenName "Oliver" ;
+    schema:familyName "Knodel" ;
+    schema:email "o.knodel@hzdr.de" ;
+    schema:affiliation [a schema:Organization ; schema:legalName "Helmholtz-Zentrum Dresden-Rossendorf (HZDR)"] .
+
+<https://orcid.org/0000-0002-3145-9880> a schema:Person ;
+    schema:givenName "David" ;
+    schema:familyName "Pape" ;
+    schema:email "d.pape@hzdr.de" ;
+    schema:affiliation [a schema:Organization ; schema:legalName "Helmholtz-Zentrum Dresden-Rossendorf (HZDR)"] .
+
+_:hifisBot a schema:Person ;
+    schema:givenName "HIFIS Bot" ;
+    schema:email "gitlab-admin+bot@hzdr.de" ;
+    schema:affiliation [a schema:Organization ; schema:legalName "Helmholtz Federated IT Services (HIFIS)"] .
+
+_:hermesTeam a schema:Organization ;
+    schema:name "HERMES Team" .
+
+_:hermes a schema:SoftwareSourceCode ;
+    schema:codeRepository "https://github.com/hermes-hmc/hermes"^^schema:URL ;
+    schema:description "Proof-of-concept implementation of the HERMES workflow." ;
+    schema:license "https://spdx.org/licenses/Apache-2.0" ;
+    schema:version "proof-of-concept" ;
+
+    schema:author <https://orcid.org/0000-0001-6372-3853> ;
+    schema:author <https://orcid.org/0000-0003-4925-7248> ;
+    schema:author <https://orcid.org/0000-0003-1761-2591> ;
+    schema:author <https://orcid.org/0000-0002-2702-3419> ;
+    schema:author <https://orcid.org/0000-0001-8174-7795> ;
+    schema:author <https://orcid.org/0000-0002-3145-9880> ;
+    schema:author _:hifisBot ;
+    schema:author _:hermesTeam ;
+
+    codemeta:readme "https://raw.githubusercontent.com/softwarepub/hermes/proof-of-concept/README.md"^^schema:URL ;
+    schema:hasPart [
+        a schema:CreativeWork ;
+        schema:name "README" ;
+        schema:associatedMedia [
+            a schema:TextObject ;
+            schema:encodingFormat "text/markdown" ;
+            schema:url "https://raw.githubusercontent.com/softwarepub/hermes/proof-of-concept/README.md"^^schema:URL ;
+        ] ;
+    ]
+    .

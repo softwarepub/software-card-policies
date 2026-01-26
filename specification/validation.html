@@ -1,0 +1,721 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Validation Process &#8212; Software CaRD Policies  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'specification/validation';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuration Format" href="configuration.html" />
+    <link rel="prev" title="Parameterization" href="parameterization.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Software CaRD Policies  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Specification</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conventions.html">Conventions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="creation.html">Policy Creation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameterization.html">Parameterization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Validation Process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="considerations.html">Considerations</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Appendices</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../appendices/quick-reference.html">Quick Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/shacl-introduction.html">Introduction to SHACL for Policy Writers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../appendices/ontology.html">Parameter Ontology &amp; SHACL Shapes</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Reference Implementation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/validator.html">Validator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference-implementation/library.html">Library</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../example-policies/index.html">Example Policies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../NOTES.html">NOTES</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/specification/validation.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Validation Process</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-loading">Policy Loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-resolution">Parameter Resolution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-validation">Type Validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#report-generation">Report Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-parameter-overrides">Reporting Parameter Overrides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#report-presentation">Report Presentation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <!--
+SPDX-FileCopyrightText: 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR), Forschungszentrum Jülich (FZJ)
+SPDX-License-Identifier: CC-BY-4.0
+SPDX-FileContributor: David Pape
+SPDX-FileContributor: Oliver Bertuch
+-->
+<section id="validation-process">
+<h1>Validation Process<a class="headerlink" href="#validation-process" title="Link to this heading">#</a></h1>
+<p>The validation process MUST involve the following steps:</p>
+<ol class="arabic simple">
+<li><p><em>Policy Loading</em> - Load one or more policy files specified in the configuration</p></li>
+<li><p><em>Parameter Resolution</em> - Replace parameter placeholders with configured values</p></li>
+<li><p><em>Shapes Graph Construction</em> - Combine all loaded and resolved policies into a single shapes graph</p></li>
+<li><p><em>Data Graph Loading</em> - Load the software metadata to be validated</p></li>
+<li><p><em>SHACL Validation</em> - Execute SHACL validation of the data graph against the shapes graph</p></li>
+<li><p><em>Report Generation</em> - Produce a validation report conforming to SHACL standards</p></li>
+</ol>
+<section id="policy-loading">
+<h2>Policy Loading<a class="headerlink" href="#policy-loading" title="Link to this heading">#</a></h2>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>Extend this subsection.</p>
+</div>
+<p>When multiple policies are specified in the configuration, they are all loaded and merged into a single shapes graph.
+Each policy file may contribute one or more shapes, and all shapes are evaluated during validation.
+This allows modular composition of policies.</p>
+</section>
+<section id="parameter-resolution">
+<h2>Parameter Resolution<a class="headerlink" href="#parameter-resolution" title="Link to this heading">#</a></h2>
+<p>If a policy contains parameters, implementations MUST resolve them before validation:</p>
+<ol class="arabic simple">
+<li><p><em>Identify Parameters</em> - Scan the policy for all instances of <code class="docutils literal notranslate"><span class="pre">sc:Parameter</span></code></p></li>
+<li><p><em>Lookup Configuration</em> - For each parameter, use its <code class="docutils literal notranslate"><span class="pre">sc:parameterConfigKey</span></code> to look up a  value in the configuration</p></li>
+<li><p><em>Apply Value or Default</em> - If a configured value is found, use it; otherwise, use the <code class="docutils literal notranslate"><span class="pre">sc:parameterDefaultValue</span></code>. If no value was found and no default was given, produce an error.</p></li>
+<li><p><em>Type Validation</em> - Verify that the provided value matches the parameter’s <code class="docutils literal notranslate"><span class="pre">sc:parameterOuterType</span></code> and <code class="docutils literal notranslate"><span class="pre">sc:parameterInnerType</span></code>. If not, produce an error.</p></li>
+<li><p><em>Graph Substitution</em>* - Replace all references to the parameter IRI with the resolved value(s) in the shapes graph</p></li>
+</ol>
+<p><strong>Resolution Example:</strong></p>
+<div class="admonition-todo admonition" id="id2">
+<p class="admonition-title">Todo</p>
+<p>Here we tell SHACL that we want a string.
+But then, the parameter is of type <code class="docutils literal notranslate"><span class="pre">anyURI</span></code>!</p>
+</div>
+<p>Assume the following policy snippet:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">datatype</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">string</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">in</span> <span class="nn">scex</span><span class="p">:</span><span class="nt">suggestedLicenses</span> <span class="p">;</span>  <span class="c"># Parameter reference</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p>Given parameter definition:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">scex</span><span class="p">:</span><span class="nt">suggestedLicenses</span> <span class="kt">a</span> <span class="nn">sc</span><span class="p">:</span><span class="nt">Parameter</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterOuterType</span> <span class="nn">rdf</span><span class="p">:</span><span class="nt">List</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterInnerType</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">anyURI</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterConfigKey</span> <span class="s">&quot;suggested_licenses&quot;</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterDefaultValue</span> <span class="p">(</span> <span class="s">&quot;https://spdx.org/licenses/Apache-2.0&quot;</span> <span class="p">)</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p>And a configuration in TOML (implementation specific):</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.licenses.parameters]</span>
+<span class="n">suggested_licenses</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;https://spdx.org/licenses/GPL-3.0-or-later&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;https://spdx.org/licenses/MIT&quot;</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+<p>The resolved shapes graph will have:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="nn">sh</span><span class="p">:</span><span class="nt">property</span> <span class="p">[</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">path</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">datatype</span> <span class="nn">xsd</span><span class="p">:</span><span class="nt">string</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">in</span> <span class="p">(</span>
+        <span class="s">&quot;https://spdx.org/licenses/GPL-3.0-or-later&quot;</span>
+        <span class="s">&quot;https://spdx.org/licenses/MIT&quot;</span>
+    <span class="p">)</span> <span class="p">;</span>
+<span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<section id="type-validation">
+<h3>Type Validation<a class="headerlink" href="#type-validation" title="Link to this heading">#</a></h3>
+<p>Implementations MUST validate that configured parameter values match the declared inner and outer types before performing parameter resolution. This includes:</p>
+<ol class="arabic simple">
+<li><p><strong>Outer Type Validation:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sc:Scalar</span></code>: parameters MUST receive a single value (not an array/list)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">rdf:List</span></code>: parameters MUST receive an array/list of values</p></li>
+</ul>
+</li>
+<li><p><strong>Inner Type Validation:</strong></p>
+<ul class="simple">
+<li><p>Values MUST be compatible with the declared XSD datatype</p></li>
+<li><p>Type coercion SHOULD follow standard XSD conversion rules where appropriate</p></li>
+<li><p>Type handling MUST comply with the specification in [<code class="docutils literal notranslate"><span class="pre">sc:parameterInnerType</span></code>].</p></li>
+</ul>
+</li>
+</ol>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>What are the “standard XSD conversion rules”?
+Where are they defined?</p>
+</div>
+<ol class="arabic simple">
+<li><p><strong>Configuration-to-RDF Type Mapping:</strong></p></li>
+</ol>
+<p>Implementations MUST map configuration file types to RDF datatypes (<code class="docutils literal notranslate"><span class="pre">sc:parameterInnerType</span></code>) according to the following rules:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Configuration Format</p></th>
+<th class="head"><p>Config Type</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">sc:parameterInnerType</span></code></p></th>
+<th class="head"><p>Validation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>TOML</p></td>
+<td><p>String</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">xsd:string</span></code>, <code class="docutils literal notranslate"><span class="pre">xsd:anyURI</span></code></p></td>
+<td><p>Accept as-is</p></td>
+</tr>
+<tr class="row-odd"><td><p>TOML</p></td>
+<td><p>Integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">xsd:int</span></code>, <code class="docutils literal notranslate"><span class="pre">xsd:long</span></code></p></td>
+<td><p>Accept as-is</p></td>
+</tr>
+<tr class="row-even"><td><p>TOML</p></td>
+<td><p>Float</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">xsd:float</span></code>, <code class="docutils literal notranslate"><span class="pre">xsd:double</span></code></p></td>
+<td><p>Accept as-is</p></td>
+</tr>
+<tr class="row-odd"><td><p>TOML</p></td>
+<td><p>Integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">xsd:float</span></code>, <code class="docutils literal notranslate"><span class="pre">xsd:double</span></code></p></td>
+<td><p>Accept with conversion</p></td>
+</tr>
+<tr class="row-even"><td><p>TOML</p></td>
+<td><p>Boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">xsd:boolean</span></code></p></td>
+<td><p>Accept as-is</p></td>
+</tr>
+<tr class="row-odd"><td><p>TOML</p></td>
+<td><p>String (URI-like)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">rdfs:Resource</span></code></p></td>
+<td><p>Accept if valid IRI</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Implementations using JSON or YAML as their configuration file formats MUST apply equivalent logic.
+More specific datatypes MAY be used if allowed by the used configuration format.</p>
+<p><strong>Type Validation Errors:</strong></p>
+<p>Implementations MUST reject configurations and produce clear error messages when:</p>
+<ul class="simple">
+<li><p>A scalar parameter receives a list/array</p></li>
+<li><p>A list parameter receives a single value (non-array)</p></li>
+<li><p>A value cannot be converted to the declared inner type (e.g., string <code class="docutils literal notranslate"><span class="pre">&quot;hello&quot;</span></code> for <code class="docutils literal notranslate"><span class="pre">xsd:int</span></code>)</p></li>
+<li><p>A resource parameter receives a value that is not a valid IRI</p></li>
+</ul>
+<p><strong>Example Type Validation:</strong></p>
+<p>Valid configuration:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.description.parameters]</span>
+<span class="n">min_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="w">  </span><span class="c1"># Integer for xsd:int parameter ✓</span>
+</pre></div>
+</div>
+<p>Invalid configurations:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[policies.description.parameters]</span>
+<span class="n">min_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;100&quot;</span><span class="w">  </span><span class="c1"># String for xsd:int parameter ✗</span>
+<span class="n">min_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">]</span><span class="w">  </span><span class="c1"># List for scalar parameter ✗</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>While this specification defines the type system, implementations MUST enforce type safety.
+Implementations SHOULD provide detailed error messages indicating:</p>
+<ul class="simple">
+<li><p>Which parameter failed validation</p></li>
+<li><p>What type was expected (outer and inner)</p></li>
+<li><p>What type/value was actually received</p></li>
+<li><p>The location in the configuration file where the error occurred</p></li>
+</ul>
+<p>Both “Integer” and “Float” config types are under the limitations of the configuration file format specification and its implementations.
+In most cases, these libraries implicitely provide support for 64 bit internal types, but the implementation MUST take potential compatibility issues into consideration.</p>
+</div>
+</section>
+</section>
+<section id="report-generation">
+<h2>Report Generation<a class="headerlink" href="#report-generation" title="Link to this heading">#</a></h2>
+<p>Validation reports MUST be valid SHACL validation reports as defined in the SHACL specification.
+A validation report is an RDF graph with a root node of type <code class="docutils literal notranslate"><span class="pre">sh:ValidationReport</span></code>.</p>
+<p><strong>Report Structure:</strong></p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">ValidationReport</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">conforms</span> <span class="l">false</span> <span class="p">;</span>  <span class="c"># true if no violations, false if any violations</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">result</span> <span class="p">[</span>
+        <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">ValidationResult</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">resultSeverity</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">Violation</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">focusNode</span> <span class="nn">_</span><span class="p">:</span><span class="nt">b1</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">resultPath</span> <span class="nn">schema</span><span class="p">:</span><span class="nt">license</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">value</span> <span class="s">&quot;https://spdx.org/licenses/Unknown-License&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">resultMessage</span> <span class="s">&quot;A license from this list must be chosen.&quot;</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">sourceConstraintComponent</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">InConstraintComponent</span> <span class="p">;</span>
+        <span class="nn">sh</span><span class="p">:</span><span class="nt">sourceShape</span> <span class="nn">_</span><span class="p">:</span><span class="nt">b2</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<p><strong>Key Report Properties:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:conforms</span></code> - Boolean indicating whether validation passed</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:result</span></code> - Zero or more validation results (one for each constraint violation)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:resultSeverity</span></code> - The severity level (Violation, Warning, Info, custom)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:focusNode</span></code> - The node that failed validation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:resultPath</span></code> - The property path where the issue was found</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:value</span></code> - The actual value that caused the violation (if applicable)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:resultMessage</span></code> - Human-readable description of the issue</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:sourceConstraintComponent</span></code> - Which SHACL constraint was violated</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sh:sourceShape</span></code> - Which shape contained the violated constraint</p></li>
+</ul>
+<section id="reporting-parameter-overrides">
+<h3>Reporting Parameter Overrides<a class="headerlink" href="#reporting-parameter-overrides" title="Link to this heading">#</a></h3>
+<p>When a parameter’s default value is overridden by configuration, this SHOULD be recorded in the validation report for transparency.
+The Software CaRD framework extends the standard SHACL report with:</p>
+<div class="highlight-turtle notranslate"><div class="highlight"><pre><span></span><span class="p">[]</span> <span class="kt">a</span> <span class="nn">sh</span><span class="p">:</span><span class="nt">ValidationReport</span> <span class="p">;</span>
+    <span class="nn">sh</span><span class="p">:</span><span class="nt">conforms</span> <span class="l">true</span> <span class="p">;</span>
+    <span class="nn">sc</span><span class="p">:</span><span class="nt">parameterOverride</span> <span class="p">[</span>
+        <span class="nn">sc</span><span class="p">:</span><span class="nt">overrideParameter</span> <span class="nn">scex</span><span class="p">:</span><span class="nt">suggestedLicenses</span> <span class="p">;</span>
+        <span class="nn">sc</span><span class="p">:</span><span class="nt">overrideConfiguredValue</span> <span class="p">(</span> <span class="s">&quot;https://spdx.org/licenses/GPL-3.0-or-later&quot;</span> <span class="p">)</span> <span class="p">;</span>
+        <span class="nn">sc</span><span class="p">:</span><span class="nt">overrideDefaultValue</span> <span class="p">(</span> <span class="s">&quot;https://spdx.org/licenses/Apache-2.0&quot;</span> <span class="p">)</span> <span class="p">;</span>
+    <span class="p">]</span> <span class="p">.</span>
+</pre></div>
+</div>
+<div class="admonition-todo admonition" id="id4">
+<p class="admonition-title">Todo</p>
+<p>Make sure that this is the best way to solve this.</p>
+<p>Also check again here:
+<a class="reference external" href="https://www.w3.org/TR/shacl/#results-validation-report">ValidationReport</a>,
+<a class="reference external" href="https://www.w3.org/TR/shacl/#results-validation-result">ValidationResult</a>.
+It’s important that a validation report may only have <code class="docutils literal notranslate"><span class="pre">conforms:</span> <span class="pre">true</span></code> if there are no validation results.
+This means we can not put information on overridden defaults into the validation reports without making it <code class="docutils literal notranslate"><span class="pre">conforms:</span> <span class="pre">false</span></code>.</p>
+<p>“The result of a validation process is an RDF graph with exactly one SHACL instance of sh:ValidationReport.
+The RDF graph MAY contain additional information such as provenance metadata.”</p>
+<p>This suggests that it we should put the override information outside of the validation.
+Or is inside also ok?
+Just not inside the validation results.</p>
+<p>Personally, I think putting this information into the validation results and haveing <code class="docutils literal notranslate"><span class="pre">conforms:</span> <span class="pre">false</span></code> would be fine, as long as the software clearly communicates to the user what this means and that it might not be a bad thing.
+Warnings also cause <code class="docutils literal notranslate"><span class="pre">conforms:</span> <span class="pre">false</span></code> anyway.</p>
+</div>
+</section>
+<section id="report-presentation">
+<h3>Report Presentation<a class="headerlink" href="#report-presentation" title="Link to this heading">#</a></h3>
+<p>While the canonical report format is RDF, implementations MAY present validation results to users in more accessible formats:</p>
+<ul class="simple">
+<li><p><strong>Plain Text</strong> - Simple list of issues with line-by-line descriptions</p></li>
+<li><p><strong>Markdown</strong> - Formatted text with headers, lists, and emphasis</p></li>
+<li><p><strong>HTML</strong> - Rich web presentation with styling and interactivity</p></li>
+<li><p><strong>JSON</strong> - Structured format for programmatic processing</p></li>
+<li><p><strong>CSV</strong> - Tabular format for spreadsheet import</p></li>
+</ul>
+<p>The presentation format SHOULD preserve key information:</p>
+<ul class="simple">
+<li><p>Whether validation passed or failed overall</p></li>
+<li><p>For each issue: severity, location (focus node and path), description, actual vs. expected values</p></li>
+</ul>
+<p>It MAY be enrichted with additional information such as:</p>
+<ul class="simple">
+<li><p>Summary statistics (e.g. number of violations by severity)</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="parameterization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Parameterization</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="configuration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Configuration Format</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#policy-loading">Policy Loading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#parameter-resolution">Parameter Resolution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#type-validation">Type Validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#report-generation">Report Generation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reporting-parameter-overrides">Reporting Parameter Overrides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#report-presentation">Report Presentation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By David Pape
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025 Helmholtz-Zentrum Dresden - Rossendorf (HZDR).
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
