@@ -291,4 +291,4 @@ def make_shacl_graph(config: Config) -> Graph:
         policy_graph = read_rdf_resource(policy.source)
         shacl_graph = parameterize_graph(policy_graph, policy.parameters)
         shacl_graphs.append(shacl_graph)
-    return reduce(operator.add, shacl_graphs)
+    return reduce(operator.add, shacl_graphs, Graph())
